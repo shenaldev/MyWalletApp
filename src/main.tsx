@@ -1,13 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 // IMPORT STYLES
 import "./index.css";
 import "./App.css";
+// IMPORT PROVIDERS
 import AuthProvider from "./components/providers/AuthProvider";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import DashboardRoot from "./components/roots/DashboardRoot";
-import AppPage from "./pages/AppPage";
+//IMPORT COMPONENTS
 import AuthRoot from "./components/roots/AuthRoot";
+import DashboardRoot from "./components/roots/DashboardRoot";
+//IMPORT PAGES
+import {
+  AppPage,
+  ForgotPasswordPage,
+  LoginPage,
+  RegisterPage,
+} from "./pages/Pages";
 
 //ROUTER
 const router = createBrowserRouter([
@@ -17,9 +25,13 @@ const router = createBrowserRouter([
     children: [{ index: true, element: <AppPage /> }],
   },
   {
-    path: "/auth/login",
+    path: "/auth",
     element: <AuthRoot />,
-    children: [{ index: true, element: <h1>Login Page</h1> }],
+    children: [
+      { path: "login", element: <LoginPage /> },
+      { path: "register", element: <RegisterPage /> },
+      { path: "forgot-password", element: <ForgotPasswordPage /> },
+    ],
   },
 ]);
 
