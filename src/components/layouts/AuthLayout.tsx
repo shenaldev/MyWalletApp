@@ -12,7 +12,9 @@ function AuthLayout({
   bodyClass = "",
 }: PropTypes) {
   return (
-    <div className={`h-[100dvh] w-full bg-slate-100 ${wrapperClass}`}>
+    <div
+      className={`h-full min-h-[100dvh] w-full bg-slate-100 ${wrapperClass}`}
+    >
       <div className="flex justify-center pt-8">
         <h1>Logo Here</h1>
       </div>
