@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 // IMPORT STYLES
-import "./index.css";
 import "./App.css";
 // IMPORT PROVIDERS
 import AuthProvider from "./components/providers/AuthProvider";
