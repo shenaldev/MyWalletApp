@@ -14,7 +14,7 @@ import SocialButtons from "@/components/elements/SocialButtons";
 
 function LoginPage() {
   return (
-    <div className="container mt-8 flex justify-center">
+    <div className="container mt-8 flex justify-center pb-12">
       <Card className="min-w-[320px] md:w-[350px]">
         <CardHeader>
           <CardTitle className="text-center">Login</CardTitle>
