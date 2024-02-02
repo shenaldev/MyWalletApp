@@ -17,6 +17,12 @@ const AuthContext = createContext<AuthContextProps>({
 export default function AuthProvider({ children }: PropsWithChildren) {
   const [user, setUser] = useState<User | null>(null);
 
+  //CHECK LOCAL STORAGE FOR USER
+  if (!user) {
+    const localUser = localStorage.getItem("user");
+    if (localUser) setUser(JSON.parse(localUser));
+  }
+
   const login = (user: User) => {
     setUser(user);
     localStorage.setItem("user", JSON.stringify(user));
