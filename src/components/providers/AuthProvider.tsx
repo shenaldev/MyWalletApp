@@ -19,10 +19,12 @@ export default function AuthProvider({ children }: PropsWithChildren) {
 
   const login = (user: User) => {
     setUser(user);
+    localStorage.setItem("user", JSON.stringify(user));
   };
 
   const logout = () => {
     setUser(null);
+    localStorage.removeItem("user");
   };
 
   const value = {

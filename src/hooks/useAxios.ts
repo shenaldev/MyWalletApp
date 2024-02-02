@@ -17,6 +17,7 @@ export default function useAxios() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<any>(null);
   const [statusCode, setStatusCode] = useState<number | null>(null);
+  const [controller, setController] = useState<AbortController | null>(null);
 
   const fetch = async ({
     method,
@@ -26,7 +27,14 @@ export default function useAxios() {
   }: axiosProps) => {
     const url = `${isBase ? baseUrl : apiUrl}${apiVersion}${urlPath}`;
     setIsLoading(true);
+    setData(null);
+    setError(null);
+    setStatusCode(null);
+
     try {
+      const ctrl = new AbortController();
+      setController(ctrl);
+
       const response = await axios({
         method,
         url,
@@ -36,19 +44,32 @@ export default function useAxios() {
           Accept: "application/json",
           "Content-Type": "multipart/form-data",
         },
+        signal: controller?.signal,
       });
       setData(response.data);
-    } catch (errors: any) {
-      setError(errors);
-      if (errors.code == "ERR_NETWORK") {
+      return response.data;
+    } catch (err: any) {
+      if (err.name === "CanceledError")
+        return console.log("Request was aborted");
+      if (err.response) {
+        setError(err.response.data);
+        setStatusCode(err.response.status);
+        return err;
+      } else if (err.request) {
+        setError("Network Error");
         setStatusCode(500);
       } else {
-        setStatusCode(errors?.response?.status);
+        setError(err.message);
+        setStatusCode(500);
       }
     } finally {
       setIsLoading(false);
     }
   };
 
-  return { isLoading, data, error, statusCode, fetch };
+  const cancel = () => {
+    controller?.abort();
+  };
+
+  return { isLoading, data, error, statusCode, fetch, cancel };
 }

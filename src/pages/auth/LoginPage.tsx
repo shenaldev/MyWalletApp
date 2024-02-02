@@ -8,9 +8,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import SocialButtons from "@/components/elements/SocialButtons";
 //IMPORT UITLS
 import getRoute from "@/lib/RouteLinks";
-import SocialButtons from "@/components/elements/SocialButtons";
 
 function LoginPage() {
   return (
