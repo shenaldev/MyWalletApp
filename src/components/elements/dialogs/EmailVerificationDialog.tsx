@@ -17,13 +17,16 @@ import { InfoIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import InputField from "@/components/forms/elements/InputField";
 import ServerErrorAlert from "../ServerErrorAlert";
+import Spinner from "@/components/ui/spinner";
 //IMPORT UTILS
 import ApiUrls from "@/lib/ApiUrls";
 import useAxios from "@/hooks/useAxios";
 
-const schema = zod.object({
-  code: zod.string().min(1, "Code is required"),
-});
+const schema = zod
+  .object({
+    code: zod.string().min(1, "Code is required"),
+  })
+  .required();
 
 type PropTypes = {
   open: boolean;
@@ -149,8 +152,18 @@ function EmailVerificationDialog({
               )}
             />
             <DialogFooter>
-              <Button variant="default" type="submit">
-                Verify
+              <Button
+                variant="default"
+                type="submit"
+                disabled={verifyRequest.isLoading}
+              >
+                {verifyRequest.isLoading ? (
+                  <>
+                    <Spinner color="white" isButton={true} /> Verifying
+                  </>
+                ) : (
+                  "Verify"
+                )}
               </Button>
               <Button
                 type="button"
