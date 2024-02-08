@@ -6,10 +6,10 @@ import { Mail } from "lucide-react";
 import { Button } from "../ui/button";
 import { Form, FormField } from "../ui/form";
 import InputField from "./elements/InputField";
+import ServerErrorAlert from "../elements/ServerErrorAlert";
 //IMPORT HOOKS LIBS
 import useAxios from "@/hooks/useAxios";
 import ApiUrls from "@/lib/ApiUrls";
-import ServerErrorAlert from "../elements/ServerErrorAlert";
 
 const loginSchema = zod.object({
   email: zod.string().email(),
@@ -33,9 +33,7 @@ function LoginForm() {
 
   return (
     <>
-      {statusCode != null && (
-        <ServerErrorAlert errors={[error.response.data.message]} />
-      )}
+      {statusCode != null && <ServerErrorAlert errors={error} />}
       <Form {...loginForm}>
         <form onSubmit={loginForm.handleSubmit(onSubmitHandler)}>
           <FormField

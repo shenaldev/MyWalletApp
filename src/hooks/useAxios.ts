@@ -51,17 +51,10 @@ export default function useAxios() {
     } catch (err: any) {
       if (err.name === "CanceledError")
         return console.log("Request was aborted");
-      if (err.response) {
-        setError(err.response.data);
-        setStatusCode(err.response.status);
-        return err;
-      } else if (err.request) {
-        setError("Network Error");
-        setStatusCode(500);
-      } else {
-        setError(err.message);
-        setStatusCode(500);
-      }
+      const errorList = errorHandler(err);
+      setError(errorList);
+      setStatusCode(err?.response?.status || 500);
+      return err;
     } finally {
       setIsLoading(false);
     }
@@ -72,4 +65,21 @@ export default function useAxios() {
   };
 
   return { isLoading, data, error, statusCode, fetch, cancel };
+}
+
+function errorHandler(err: any) {
+  if (err.code == "ERR_NETWORK") {
+    return ["Something went wrong, please try again later."];
+  } else if (err?.response?.status == 422) {
+    const errorArray: string[] = [];
+    Object.keys(err.response.data.errors).forEach((key) => {
+      const error = err.response.data.errors[key][0];
+      errorArray.push(error);
+    });
+    return errorArray;
+  } else if (err?.response?.status == 401) {
+    return [err?.response?.data?.message];
+  } else {
+    return ["Something went wrong, please try again later."];
+  }
 }
