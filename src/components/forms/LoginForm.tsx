@@ -1,5 +1,6 @@
 import * as zod from "zod";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 //IMPORT COMPONENTS
 import { Mail } from "lucide-react";
@@ -10,6 +11,7 @@ import ServerErrorAlert from "../elements/ServerErrorAlert";
 //IMPORT HOOKS LIBS
 import useAxios from "@/hooks/useAxios";
 import ApiUrls from "@/lib/ApiUrls";
+import { useAuth } from "../providers/AuthProvider";
 
 const loginSchema = zod.object({
   email: zod.string().email(),
@@ -18,6 +20,8 @@ const loginSchema = zod.object({
 
 function LoginForm() {
   const { isLoading, statusCode, error, fetch } = useAxios();
+  const auth = useAuth();
+  const navigate = useNavigate();
 
   const loginForm = useForm<zod.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -28,7 +32,14 @@ function LoginForm() {
   });
 
   function onSubmitHandler(data: zod.infer<typeof loginSchema>) {
-    fetch({ method: "POST", urlPath: ApiUrls.auth.login, data: data });
+    fetch({ method: "POST", urlPath: ApiUrls.auth.login, data: data }).then(
+      (res) => {
+        if (res?.user != null) {
+          auth.login(res?.user);
+          navigate("/");
+        }
+      },
+    );
   }
 
   return (

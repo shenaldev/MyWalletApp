@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+import { toast } from "sonner";
+import { useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 //IMPORT COMPONENTS
 import LoginForm from "@/components/forms/LoginForm";
 import {
@@ -13,6 +15,19 @@ import SocialButtons from "@/components/elements/SocialButtons";
 import getRoute from "@/lib/RouteLinks";
 
 function LoginPage() {
+  const [searchParams] = useSearchParams({ error: "" });
+  const error = searchParams.get("error");
+
+  useEffect(() => {
+    if (error == "unauthorized") {
+      console.log("da");
+      toast.error("Access Token Expired, Please Login Again");
+    }
+    return () => {
+      toast.dismiss();
+    };
+  }, [error]);
+
   return (
     <div className="container mt-8 flex justify-center pb-12">
       <Card className="min-w-[320px] md:w-[350px]">
