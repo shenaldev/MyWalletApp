@@ -17,3 +17,5 @@
 Login
 Register
 Password Reset
+
+#### PRIMARY BLUE COLOR #4b57d2
