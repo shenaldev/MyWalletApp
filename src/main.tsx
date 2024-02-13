@@ -13,6 +13,7 @@ import {
   AppPage,
   ForgotPasswordPage,
   LoginPage,
+  ProfilePage,
   RegisterPage,
 } from "./pages/Pages";
 
@@ -21,7 +22,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <DashboardRoot />,
-    children: [{ index: true, element: <AppPage /> }],
+    children: [
+      { index: true, element: <AppPage /> },
+      { path: "profile", element: <ProfilePage /> },
+    ],
   },
   {
     path: "/auth",
