@@ -4,12 +4,7 @@ import MonthYearProvider from "@/components/providers/MonthYearProvider";
 function AppPage() {
   return (
     <MonthYearProvider>
-      <DashboardLayout>
-        <h1>App Page</h1>
-        <div>
-          <p>Content goes here...</p>
-        </div>
-      </DashboardLayout>
+      <DashboardLayout></DashboardLayout>
     </MonthYearProvider>
   );
 }
