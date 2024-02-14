@@ -3,11 +3,9 @@ import NavMenu from "./NavMenu";
 
 function SideBar() {
   return (
-    <div className="box-border flex h-[100vh] w-[280px] flex-col gap-4 border-r border-r-slate-200 bg-primary p-4">
+    <div className="box-border flex h-[100vh] w-[280px] flex-col gap-4 border-r border-r-slate-200 bg-primary p-4 dark:bg-slate-950">
       <div className="pt-4">
-        <h1 className="text-2xl font-semibold text-white dark:text-black">
-          My Wallet App
-        </h1>
+        <h1 className="text-2xl font-semibold text-white">My Wallet App</h1>
         <Separator className="my-2" />
       </div>
       <div className="grow">

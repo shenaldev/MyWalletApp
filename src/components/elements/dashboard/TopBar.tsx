@@ -12,7 +12,7 @@ function TopBar() {
   const monthName = date.toLocaleString("default", { month: "long" });
 
   return (
-    <div className="h-20 w-full bg-violet-100">
+    <div className="h-20 w-full bg-violet-100 dark:bg-slate-900 dark:text-white">
       <div className="flex h-full items-center justify-between px-4">
         <div className="min-w-28">
           <SelectYear />
