@@ -17,7 +17,7 @@ function TopBar() {
         <div className="min-w-28">
           <SelectYear />
         </div>
-        <h3 className="text-center font-semibold">
+        <h3 className="hidden text-center font-semibold md:block">
           {monthName} Month's Transactions
         </h3>
         <div className="flex items-center gap-4">
