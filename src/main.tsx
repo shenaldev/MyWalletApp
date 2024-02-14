@@ -16,6 +16,7 @@ import {
   ProfilePage,
   RegisterPage,
 } from "./pages/Pages";
+import { ThemeProvider } from "./components/providers/ThemeProvider";
 
 //ROUTER
 const router = createBrowserRouter([
@@ -41,7 +42,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <AuthProvider>
-      <RouterProvider router={router} />
+      <ThemeProvider defaultTheme="light" storageKey="theme">
+        <RouterProvider router={router} />
+      </ThemeProvider>
     </AuthProvider>
   </React.StrictMode>,
 );
