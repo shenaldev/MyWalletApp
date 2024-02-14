@@ -13,7 +13,7 @@ function DashboardLayout({ children }: DashboardLayoutProps) {
       <div className="w-full bg-dashboardBackground">
         <TopBar />
         <Separator className="bg-gray-300" />
-        <div>{children}</div>
+        <div className="px-4 py-4">{children}</div>
       </div>
     </div>
   );
