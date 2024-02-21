@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import axios from "axios";
 
 const apiUrl = import.meta.env.VITE_API_URL;
@@ -17,7 +17,7 @@ export default function useAxios() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<any>(null);
   const [statusCode, setStatusCode] = useState<number | null>(null);
-  const [controller, setController] = useState<AbortController | null>(null);
+  const controller = useRef<AbortController | null>(null);
 
   const fetch = async ({
     method,
@@ -32,8 +32,7 @@ export default function useAxios() {
     setStatusCode(null);
 
     try {
-      const ctrl = new AbortController();
-      setController(ctrl);
+      controller.current = new AbortController();
 
       const response = await axios({
         method,
@@ -44,7 +43,7 @@ export default function useAxios() {
           Accept: "application/json",
           "Content-Type": "multipart/form-data",
         },
-        signal: controller?.signal,
+        signal: controller.current.signal,
       });
       setData(response.data);
       return response.data;
@@ -61,7 +60,7 @@ export default function useAxios() {
   };
 
   const cancel = () => {
-    controller?.abort();
+    controller.current?.abort();
   };
 
   return { isLoading, data, error, statusCode, fetch, cancel };
