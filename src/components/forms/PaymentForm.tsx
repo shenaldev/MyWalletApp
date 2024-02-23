@@ -17,6 +17,8 @@ import InputTextArea from "@/components/forms/elements/InputTextArea";
 import currencies from "@/data/Currencies";
 //IMPORT ICONS
 import { SendHorizonalIcon } from "lucide-react";
+//IMPORT TYPES
+import { InputSelectOption } from "@/types/types";
 
 //ZOD VALIDATION SCHEMA
 const schema = zod.object({
@@ -29,7 +31,12 @@ const schema = zod.object({
   note: zod.string().optional(),
 });
 
-function PaymentForm() {
+type PropTypes = {
+  categories?: InputSelectOption[];
+  paymentMethods?: InputSelectOption[];
+};
+
+function PaymentForm({ categories, paymentMethods }: PropTypes) {
   const [showNote, setShowNote] = useState(false);
   const todayDate = new Date();
 
@@ -41,8 +48,8 @@ function PaymentForm() {
       amount: 0,
       date: todayDate,
       currency: "lkr",
-      category_id: "",
-      payment_method_id: "",
+      category_id: "6",
+      payment_method_id: "1",
       note: "",
     },
   });
@@ -93,9 +100,10 @@ function PaymentForm() {
             render={({ field }) => (
               <InputSelect
                 field={field}
-                items={currencies}
+                items={categories ? categories : []}
                 className=""
                 label="Category"
+                placeholder="Select Category"
               />
             )}
           />
@@ -105,8 +113,9 @@ function PaymentForm() {
             render={({ field }) => (
               <InputSelect
                 field={field}
-                items={currencies}
+                items={paymentMethods ? paymentMethods : []}
                 label="Payment Method"
+                placeholder="Select Payment Method"
               />
             )}
           />

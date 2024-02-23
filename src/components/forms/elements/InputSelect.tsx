@@ -19,16 +19,23 @@ type InputSelectProps = {
   items: { name: string; value: string }[];
   label?: string;
   className?: string;
+  placeholder?: string;
 };
 
-function InputSelect({ field, items, label, className }: InputSelectProps) {
+function InputSelect({
+  field,
+  items,
+  label,
+  className,
+  placeholder,
+}: InputSelectProps) {
   return (
     <FormItem className={`${className != undefined ? className : ""}`}>
       {label && <FormLabel>{label}</FormLabel>}
       <Select onValueChange={field.onChange} defaultValue={field.value}>
         <FormControl>
           <SelectTrigger>
-            <SelectValue placeholder="Currency" />
+            <SelectValue placeholder={placeholder} />
           </SelectTrigger>
         </FormControl>
         <SelectContent>
