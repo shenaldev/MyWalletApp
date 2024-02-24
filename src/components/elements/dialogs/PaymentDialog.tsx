@@ -24,6 +24,7 @@ function PaymentDialog({ open, onClose }: PropTypes) {
       );
       return options;
     },
+    refetchOnWindowFocus: false,
   });
 
   const { data: paymentMethods } = usePaymentMethod({
@@ -37,6 +38,7 @@ function PaymentDialog({ open, onClose }: PropTypes) {
       );
       return options;
     },
+    refetchOnWindowFocus: false,
   });
 
   return (
