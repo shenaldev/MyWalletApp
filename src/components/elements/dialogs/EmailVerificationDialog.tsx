@@ -1,9 +1,10 @@
 import * as zod from "zod";
 import { toast } from "sonner";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 //IMPORT COMPONENTS
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Form, FormField } from "@/components/ui/form";
 import {
   Dialog,
@@ -20,7 +21,8 @@ import ServerErrorAlert from "../ServerErrorAlert";
 import Spinner from "@/components/ui/spinner";
 //IMPORT UTILS
 import ApiUrls from "@/lib/ApiUrls";
-import useAxios from "@/hooks/useAxios";
+import { axiosCall } from "@/lib/axiosCall";
+import useTimer from "@/hooks/useTimmer";
 
 const schema = zod
   .object({
@@ -41,22 +43,9 @@ function EmailVerificationDialog({
   setOpen,
   onVerify,
 }: PropTypes) {
-  const [timmer, setTimmer] = useState(60);
-  const { fetch, error, cancel } = useAxios();
-  const verifyRequest = useAxios();
+  if ((!open && email == "") || undefined || null) return;
 
-  //TIMMER FOR RESEND EMAIL
-  useEffect(() => {
-    if (timmer == 0) return;
-    if (!timmer) return;
-    if (email == "") return;
-
-    const interval = setInterval(() => {
-      setTimmer((prev: number) => prev - 1);
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [timmer, email]);
+  const { timmer, setTimmer } = useTimer();
 
   //CREATE FORM INSTANCE
   const form = useForm<zod.infer<typeof schema>>({
@@ -66,27 +55,30 @@ function EmailVerificationDialog({
     },
   });
 
-  //SEND EMAIL VERIFICATION CODE
-  async function sendEmailVerificationCode() {
-    await fetch({
-      method: "POST",
-      urlPath: ApiUrls.auth.sendVerificationEmail,
-      data: { email },
-    });
-  }
+  /**
+   * Send Email Verification Code Request To the Server
+   * with the email address
+   */
+  const sendVerificationCode = useQuery({
+    queryKey: ["sendEmailVerificationCode", email],
+    queryFn: async () => {
+      const response = await axiosCall({
+        method: "POST",
+        urlPath: ApiUrls.auth.sendVerificationEmail,
+        data: { email },
+      });
+      return response;
+    },
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
 
+  /**
+   * Show Toast Notification If Error
+   * On Send Verification Code
+   */
   useEffect(() => {
-    if (open && email != "") {
-      sendEmailVerificationCode();
-    }
-    return () => {
-      cancel();
-    };
-  }, [open]);
-
-  //HANDLE EMAIL SEND ERROR
-  useEffect(() => {
-    if (error != null) {
+    if (sendVerificationCode.isError) {
       toast.error("Failed to send verification email. Please try again!", {
         icon: <InfoIcon className="h-4 w-4" />,
       });
@@ -96,22 +88,31 @@ function EmailVerificationDialog({
     return () => {
       toast.dismiss();
     };
-  }, [error]);
+  }, [sendVerificationCode.isError]);
 
-  //ON FORM SUBMIT AND VERIFY CODE
-  async function onSubmitHandler(data: zod.infer<typeof schema>) {
-    await verifyRequest
-      .fetch({
+  /**
+   * Send Email Verification Code Request To the Server
+   * with the email address and input verification code
+   */
+  const validateCode = useMutation({
+    mutationFn: async (code: any) => {
+      return await axiosCall({
         method: "POST",
         urlPath: ApiUrls.auth.verifyEmailCode,
-        data: { email, code: data.code },
-      })
-      .then((resp) => {
-        if (resp.valid) {
-          onVerify();
-          setOpen(false);
-        }
+        data: { email, code: code },
       });
+    },
+    onSuccess: (data) => {
+      if (data.valid) {
+        toast.success("Email Verified Successfully!");
+        onVerify();
+        setOpen(false);
+      }
+    },
+  });
+
+  async function onSubmitHandler(data: zod.infer<typeof schema>) {
+    validateCode.mutateAsync(data.code);
   }
 
   return (
@@ -131,14 +132,8 @@ function EmailVerificationDialog({
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmitHandler)}>
-            {verifyRequest.statusCode != null && (
-              <ServerErrorAlert
-                errors={
-                  verifyRequest.statusCode == 400
-                    ? ["Invalid Code"]
-                    : ["Server Error"]
-                }
-              />
+            {validateCode.status === "error" && (
+              <ServerErrorAlert errors={validateCode.error} />
             )}
             <FormField
               control={form.control}
@@ -155,9 +150,9 @@ function EmailVerificationDialog({
               <Button
                 variant="default"
                 type="submit"
-                disabled={verifyRequest.isLoading}
+                disabled={validateCode.isPending}
               >
-                {verifyRequest.isLoading ? (
+                {validateCode.isPending ? (
                   <>
                     <Spinner color="white" isButton={true} /> Verifying
                   </>
@@ -171,7 +166,7 @@ function EmailVerificationDialog({
                 disabled={timmer != 0}
                 onClick={() => {
                   setTimmer(60);
-                  sendEmailVerificationCode();
+                  sendVerificationCode.refetch();
                 }}
               >
                 Resend Email {timmer ? `in ${timmer}s` : ""}

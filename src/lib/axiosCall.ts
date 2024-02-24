@@ -34,18 +34,18 @@ export const axiosCall = async ({
     })
     .catch((err) => {
       if (err.code == "ERR_NETWORK") {
-        return ["Something went wrong, please try again later."];
+        throw ["Something went wrong, please try again later."];
       } else if (err?.response?.status == 422) {
         const errorArray: string[] = [];
         Object.keys(err.response.data.errors).forEach((key) => {
           const error = err.response.data.errors[key][0];
           errorArray.push(error);
         });
-        return errorArray;
+        throw errorArray;
       } else if (err?.response?.status == 401) {
-        return [err?.response?.data?.message];
+        throw [err?.response?.data?.message];
       } else {
-        return ["Something went wrong, please try again later."];
+        throw ["Something went wrong, please try again later."];
       }
     });
 

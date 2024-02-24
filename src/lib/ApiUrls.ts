@@ -7,8 +7,8 @@ const ApiUrls = {
     logout: "/logout",
     register: "/register",
     clearCookies: "/clear-cookies",
-    sendVerificationEmail: "/email/send-verification",
-    verifyEmailCode: "/email/verify",
+    sendVerificationEmail: "/email-verification",
+    verifyEmailCode: "/email-verify",
   },
   user: {
     categories: "/user/categories",

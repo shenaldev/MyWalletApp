@@ -1,6 +1,7 @@
 import * as zod from "zod";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 //IMPORT COMPONENTS
 import { Mail } from "lucide-react";
@@ -9,19 +10,43 @@ import { Form, FormField } from "../ui/form";
 import InputField from "./elements/InputField";
 import ServerErrorAlert from "../elements/ServerErrorAlert";
 //IMPORT HOOKS LIBS
-import useAxios from "@/hooks/useAxios";
 import ApiUrls from "@/lib/ApiUrls";
 import { useAuth } from "../providers/AuthProvider";
+import { axiosCall } from "@/lib/axiosCall";
 
 const loginSchema = zod.object({
   email: zod.string().email(),
   password: zod.string().min(1, "Password is required"),
 });
 
+type loginDataType = {
+  email: string;
+  password: string;
+};
+
+//LOGIN FORM COMPONENT
 function LoginForm() {
-  const { isLoading, statusCode, error, fetch } = useAxios();
   const auth = useAuth();
   const navigate = useNavigate();
+
+  const { isPending, error, status, mutateAsync } = useMutation({
+    mutationFn: async (data: loginDataType) => {
+      return axiosCall({
+        method: "POST",
+        urlPath: ApiUrls.auth.login,
+        data: data,
+      });
+    },
+    onError: (error) => {
+      console.log("err", error);
+    },
+    onSuccess: (data) => {
+      if (data?.user != null) {
+        auth.login(data?.user);
+        navigate("/");
+      }
+    },
+  });
 
   const loginForm = useForm<zod.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
@@ -31,20 +56,13 @@ function LoginForm() {
     },
   });
 
-  function onSubmitHandler(data: zod.infer<typeof loginSchema>) {
-    fetch({ method: "POST", urlPath: ApiUrls.auth.login, data: data }).then(
-      (res) => {
-        if (res?.user != null) {
-          auth.login(res?.user);
-          navigate("/");
-        }
-      },
-    );
+  async function onSubmitHandler(data: zod.infer<typeof loginSchema>) {
+    mutateAsync(data);
   }
 
   return (
     <>
-      {statusCode != null && <ServerErrorAlert errors={error} />}
+      {status === "error" && <ServerErrorAlert errors={error} />}
       <Form {...loginForm}>
         <form onSubmit={loginForm.handleSubmit(onSubmitHandler)}>
           <FormField
@@ -71,10 +89,10 @@ function LoginForm() {
               type="submit"
               className="w-full"
               variant="secondary"
-              disabled={isLoading}
+              disabled={isPending}
             >
               <Mail className="mr-2 h-4 w-4" />
-              {isLoading ? "Authenticating..." : "Login with Email"}
+              {isPending ? "Authenticating..." : "Login with Email"}
             </Button>
           </div>
         </form>
