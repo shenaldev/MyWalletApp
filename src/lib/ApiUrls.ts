@@ -9,6 +9,7 @@ const ApiUrls = {
     clearCookies: "/clear-cookies",
     sendVerificationEmail: "/email-verification",
     verifyEmailCode: "/email-verify",
+    checkToken: "/check-token",
   },
   user: {
     categories: "/user/categories",

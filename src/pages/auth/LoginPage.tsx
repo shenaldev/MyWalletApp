@@ -2,6 +2,7 @@ import { toast } from "sonner";
 import { useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 //IMPORT COMPONENTS
+import { AlertCircle } from "lucide-react";
 import LoginForm from "@/components/forms/LoginForm";
 import {
   Card,
@@ -11,6 +12,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import SocialButtons from "@/components/elements/SocialButtons";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 //IMPORT UITLS
 import getRoute from "@/lib/RouteLinks";
 
@@ -20,13 +22,9 @@ function LoginPage() {
 
   useEffect(() => {
     if (error == "unauthorized") {
-      console.log("da");
-      toast.error("Access Token Expired, Please Login Again");
+      toast.error("Your session has expired. Please log in again.");
     }
-    return () => {
-      toast.dismiss();
-    };
-  }, [error]);
+  }, [error, searchParams]);
 
   return (
     <div className="container mt-8 flex justify-center pb-12">
@@ -35,6 +33,15 @@ function LoginPage() {
           <CardTitle className="text-center">Login</CardTitle>
         </CardHeader>
         <CardContent>
+          {/* IF Unauth Error Display Alert */}
+          {error == "unauthorized" && (
+            <Alert variant="destructive" className="mb-4 py-2">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription className="text-sm">
+                Your session has expired. Please log in again.
+              </AlertDescription>
+            </Alert>
+          )}
           <LoginForm />
           {/* Social Media Login Buttons */}
           <SocialButtons />

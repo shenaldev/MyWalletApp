@@ -43,7 +43,7 @@ export const axiosCall = async ({
         });
         throw errorArray;
       } else if (err?.response?.status == 401) {
-        throw [err?.response?.data?.message];
+        throw err?.response;
       } else {
         throw ["Something went wrong, please try again later."];
       }
