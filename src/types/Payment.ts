@@ -1,9 +1,21 @@
+import type { Category } from "./Categories";
+
 export type Payment = {
+  id: number;
   name: string;
-  price: number;
+  amount: string;
   date: string;
+  currency: string;
+  category_id: number;
+  payment_method_id: number;
+  user_id: number;
+  created_at: string;
+  updated_at: string;
 };
 
-export type PaymentsObject = {
-  [key: string]: Payment[];
-};
+interface PaymentCategory extends Category {
+  payments: Payment[] | [];
+  total: number;
+}
+
+export type PaymentResponse = PaymentCategory[];

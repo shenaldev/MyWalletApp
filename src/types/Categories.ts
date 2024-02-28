@@ -3,7 +3,7 @@ export type Category = {
   name: string;
   slug: string;
   icon: string | null;
-  primary: boolean;
+  primary: 1 | 0;
   user_id: number | null;
   created_at: string | null;
   updated_at: string | null;

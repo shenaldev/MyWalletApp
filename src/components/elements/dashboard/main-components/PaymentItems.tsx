@@ -1,27 +1,33 @@
-import { PaymentsObject } from "@/types/Payment";
+import { PaymentResponse } from "@/types/types";
+import CategoryCard from "./CategoryCard";
+import PaymentItem from "./PaymentItem";
 
 type PaymentItemsProps = {
-  data: PaymentsObject[];
+  data: PaymentResponse | undefined;
+  isLoading: boolean;
 };
 
-function PaymentItems({ data }: PaymentItemsProps) {
-  return data.map((item, index) => (
-    <div key={index} className="flex flex-col gap-4">
-      {Object.keys(item).map((key, index) => (
-        <div key={index} className="flex flex-col gap-2">
-          <h3 className="text-lg font-semibold">{key}</h3>
-          <div className="flex flex-col gap-2">
-            {item[key].map((subItem, index) => (
-              <div key={index} className="flex justify-between">
-                <p>{subItem.name}</p>
-                <p>{subItem.price}</p>
-              </div>
+function PaymentItems({ data, isLoading }: PaymentItemsProps) {
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <div className="space-y-2 divide-y">
+      {data?.map((item, index) => (
+        <CategoryCard
+          key={index}
+          details={{ name: item.name, icon: item.icon, total: item.total }}
+        >
+          <ul className="space-y-2 divide-y font-medium">
+            {item.payments?.map((payment, index) => (
+              <PaymentItem key={index} payment={payment} />
             ))}
-          </div>
-        </div>
+          </ul>
+        </CategoryCard>
       ))}
     </div>
-  ));
+  );
 }
 
 export default PaymentItems;
