@@ -6,5 +6,8 @@ export function numberFormat(number: number | string) {
     numb = number;
   }
   numb.toFixed(2);
-  return numb.toLocaleString("en-US");
+  return numb.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 }

@@ -12,6 +12,7 @@ import { useMonthYear } from "@/components/providers/MonthYearProvider";
 //IMPORT UTILS
 import ApiUrls from "@/lib/ApiUrls";
 import { axiosCall } from "@/lib/axiosCall";
+import TotalCard from "@/components/elements/dashboard/main-components/TotalCard";
 
 function AppPage() {
   const [openAdd, setOpenAdd] = useState(false);
@@ -32,7 +33,8 @@ function AppPage() {
     <DashboardLayout>
       <div className="flex justify-between gap-4">
         <FinanceCard title="Payments" onAction={() => setOpenAdd(true)}>
-          <PaymentItems data={data} isLoading={isLoading} />
+          <PaymentItems data={data?.payments} isLoading={isLoading} />
+          <TotalCard total={data?.total || 0} />
         </FinanceCard>
         <FinanceCard title="Incomes" />
       </div>

@@ -18,4 +18,9 @@ interface PaymentCategory extends Category {
   total: number;
 }
 
-export type PaymentResponse = PaymentCategory[];
+export type PaymentReponseCategory = PaymentCategory[];
+
+export type PaymentResponse = {
+  payments: PaymentCategory[];
+  total: number | string;
+};
