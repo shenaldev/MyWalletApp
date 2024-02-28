@@ -13,13 +13,17 @@ function PaymentItems({ data, isLoading }: PaymentItemsProps) {
   }
 
   return (
-    <div className="space-y-2 divide-y">
+    <div className="space-y-4">
       {data?.map((item, index) => (
         <CategoryCard
           key={index}
-          details={{ name: item.name, icon: item.icon, total: item.total }}
+          details={{
+            name: item.name,
+            icon: item.icon,
+            total: item.total,
+          }}
         >
-          <ul className="space-y-2 divide-y font-medium">
+          <ul className="flex flex-col font-medium">
             {item.payments?.map((payment, index) => (
               <PaymentItem key={index} payment={payment} />
             ))}
