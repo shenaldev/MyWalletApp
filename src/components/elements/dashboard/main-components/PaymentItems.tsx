@@ -2,15 +2,24 @@ import { PaymentResponse } from "@/types/types";
 //IMPORT COMPONENTS
 import PaymentItem from "./PaymentItem";
 import CategoryCard from "./CategoryCard";
+import CategoryCardSkeleton from "@/components/ui/skeletons/CategoryCardSkeletion";
 
 type PaymentItemsProps = {
   data: PaymentResponse | undefined;
   isLoading: boolean;
 };
 
+const skes = [1, 2, 3, 4, 5];
+
 function PaymentItems({ data, isLoading }: PaymentItemsProps) {
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="space-y-3">
+        {skes.map((index) => (
+          <CategoryCardSkeleton key={index} />
+        ))}
+      </div>
+    );
   }
 
   return (
