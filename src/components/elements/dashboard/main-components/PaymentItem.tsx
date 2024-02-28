@@ -1,6 +1,8 @@
-import { Separator } from "@/components/ui/separator";
-import type { Payment } from "@/types/types";
 import dayjs from "dayjs";
+// Types
+import type { Payment } from "@/types/types";
+//IMPORT COMPONENTS
+import { Separator } from "@/components/ui/separator";
 
 function PaymentItem({ payment }: { payment: Payment }) {
   const date = dayjs(payment?.date).format("MM-DD");

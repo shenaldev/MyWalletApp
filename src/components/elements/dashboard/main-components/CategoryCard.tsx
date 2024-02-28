@@ -1,12 +1,14 @@
-import { ScrollArea, ScrollViewPort } from "@/components/ui/scroll-area";
-import { numberFormat } from "@/lib/Numbers";
-import { cn } from "@/lib/utils";
+import { ReactNode, useState } from "react";
+//IMPORT COMPONENTS
 import {
   FolderClosedIcon,
   LucideChevronDown,
   LucideChevronUp,
 } from "lucide-react";
-import { ReactNode, useState } from "react";
+import { ScrollArea, ScrollViewPort } from "@/components/ui/scroll-area";
+//IMPORT UTILS
+import { cn } from "@/lib/utils";
+import { numberFormat } from "@/lib/Numbers";
 
 type CategoryDetails = {
   icon: string | null;

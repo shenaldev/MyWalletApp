@@ -1,6 +1,7 @@
 import { PaymentResponse } from "@/types/types";
-import CategoryCard from "./CategoryCard";
+//IMPORT COMPONENTS
 import PaymentItem from "./PaymentItem";
+import CategoryCard from "./CategoryCard";
 
 type PaymentItemsProps = {
   data: PaymentResponse | undefined;

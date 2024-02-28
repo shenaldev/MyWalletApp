@@ -1,15 +1,17 @@
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 //IMPORT TYPES
 import { PaymentResponse } from "@/types/types";
 //IMPORT COMPONENTS
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import PaymentDialog from "@/components/elements/dialogs/PaymentDialog";
-import { useMonthYear } from "@/components/providers/MonthYearProvider";
 import FinanceCard from "@/components/elements/dashboard/main-components/FinanceCard";
 import PaymentItems from "@/components/elements/dashboard/main-components/PaymentItems";
-import { useQuery } from "@tanstack/react-query";
-import { axiosCall } from "@/lib/axiosCall";
+//IMPORT PROVIDERS
+import { useMonthYear } from "@/components/providers/MonthYearProvider";
+//IMPORT UTILS
 import ApiUrls from "@/lib/ApiUrls";
+import { axiosCall } from "@/lib/axiosCall";
 
 function AppPage() {
   const [openAdd, setOpenAdd] = useState(false);
