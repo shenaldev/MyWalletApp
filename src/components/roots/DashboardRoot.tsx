@@ -41,10 +41,8 @@ function DashboardRoot() {
 
   if (isError) {
     if (error?.status === 401) {
-      if (error.data.token == false) {
-        logout();
-        navigate("/auth/login?error=unauthorized", { replace: true });
-      }
+      logout();
+      navigate("/auth/login?error=unauthorized", { replace: true });
     }
   }
 
