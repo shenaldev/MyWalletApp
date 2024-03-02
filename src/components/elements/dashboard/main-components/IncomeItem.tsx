@@ -1,7 +1,9 @@
+import dayjs from "dayjs";
+//IMPORT COMPONENTS
 import { Separator } from "@/components/ui/separator";
+//IMPORT UTILS
 import { numberFormat } from "@/lib/Numbers";
 import { Income } from "@/types/types";
-import dayjs from "dayjs";
 
 function IncomeItem({ income }: { income: Income }) {
   const date = dayjs(income?.date).format("MM-DD");

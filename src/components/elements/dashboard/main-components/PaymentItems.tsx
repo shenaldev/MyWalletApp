@@ -9,15 +9,11 @@ type PaymentItemsProps = {
   isLoading: boolean;
 };
 
-const skes = [1, 2, 3, 4, 5];
-
 function PaymentItems({ data, isLoading }: PaymentItemsProps) {
   if (isLoading) {
     return (
       <div className="space-y-3">
-        {skes.map((index) => (
-          <CategoryCardSkeleton key={index} />
-        ))}
+        <CategoryCardSkeleton items={5} />
       </div>
     );
   }

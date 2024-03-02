@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Income } from "@/types/types";
 //IMPORT COMPONENTS
 import IncomeItem from "./IncomeItem";
@@ -10,14 +11,25 @@ type IncomeItemsProps = {
 };
 
 function IncomeItems({ data, isLoading }: IncomeItemsProps) {
+  const isEmpty = useMemo(() => data && data?.length <= 0, [data]);
+
   if (isLoading) {
-    return <IncomeSkeletion items={1} />;
+    return (
+      <div className="space-y-3">
+        <IncomeSkeletion items={5} />
+      </div>
+    );
   }
 
   return (
-    <ul className="border">
+    <ul className={isEmpty ? "" : "border"}>
       <ScrollArea>
         <ScrollViewPort className="max-h-96">
+          {isEmpty && (
+            <li className="py-3 text-center text-sm font-medium">
+              No incomes for this month
+            </li>
+          )}
           {data?.map((income, index) => (
             <IncomeItem income={income} key={index} />
           ))}
