@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { ReactNode, useMemo } from "react";
 import { Income } from "@/types/types";
 //IMPORT COMPONENTS
 import IncomeItem from "./IncomeItem";
@@ -8,9 +8,10 @@ import { ScrollArea, ScrollViewPort } from "@/components/ui/scroll-area";
 type IncomeItemsProps = {
   data: Income[] | undefined;
   isLoading: boolean;
+  children?: ReactNode;
 };
 
-function IncomeItems({ data, isLoading }: IncomeItemsProps) {
+function IncomeItems({ data, isLoading, children }: IncomeItemsProps) {
   const isEmpty = useMemo(() => data && data?.length <= 0, [data]);
 
   if (isLoading) {
@@ -31,7 +32,9 @@ function IncomeItems({ data, isLoading }: IncomeItemsProps) {
             </li>
           )}
           {data?.map((income, index) => (
-            <IncomeItem income={income} key={index} />
+            <IncomeItem income={income} key={index}>
+              {children}
+            </IncomeItem>
           ))}
         </ScrollViewPort>
       </ScrollArea>

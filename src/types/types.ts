@@ -11,3 +11,5 @@ export type InputSelectOption = {
   name: string;
   value: string;
 };
+
+export type ActionType = "view" | "edit" | "delete";

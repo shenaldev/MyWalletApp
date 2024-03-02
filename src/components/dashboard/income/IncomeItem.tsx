@@ -1,11 +1,16 @@
 import dayjs from "dayjs";
+import { ReactNode } from "react";
+import { Income } from "@/types/types";
 //IMPORT COMPONENTS
 import { Separator } from "@/components/ui/separator";
 //IMPORT UTILS
 import { numberFormat } from "@/lib/Numbers";
-import { Income } from "@/types/types";
 
-function IncomeItem({ income }: { income: Income }) {
+type IncomeItemProps = {
+  income: Income;
+  children?: ReactNode;
+};
+function IncomeItem({ income, children }: IncomeItemProps) {
   const date = dayjs(income?.date).format("MM-DD");
 
   return (
@@ -14,6 +19,7 @@ function IncomeItem({ income }: { income: Income }) {
         <span>{date}</span>
         <span className="grow text-start">{income?.source}</span>
         <span>{numberFormat(income?.amount || 0)}</span>
+        {children}
       </li>
       <Separator />
     </>
