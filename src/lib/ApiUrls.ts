@@ -14,6 +14,7 @@ const ApiUrls = {
   user: {
     categories: "/user/categories",
     payments: "/user/payments",
+    incomes: "/user/incomes",
   },
 };
 
