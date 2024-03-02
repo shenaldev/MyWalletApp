@@ -2,9 +2,9 @@ import { useState } from "react";
 //IMPORT COMPONENTS
 import NavMenu from "./NavMenu";
 import { Separator } from "@/components/ui/separator";
-import SelectYear from "./topbar-components/SelectYear";
-import UserDropdown from "./topbar-components/UserDropdown";
-import MobileMenuIcon from "./topbar-components/MobileMenuButton";
+import SelectYear from "../topbar/SelectYear";
+import UserDropdown from "../topbar/UserDropdown";
+import MobileMenuIcon from "../topbar/MobileMenuButton";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 function MobileNavDrawer() {

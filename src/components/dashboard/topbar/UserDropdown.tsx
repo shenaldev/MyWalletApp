@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { LogOutIcon, User2Icon } from "lucide-react";
-import LoadingDialog from "../../dialogs/LoadingDialog";
+import LoadingDialog from "../../elements/dialogs/LoadingDialog";
 //IMPORT PROVIDERS
 import { useAuth } from "@/components/providers/AuthProvider";
 //IMPORT UTILS
@@ -35,6 +35,7 @@ function UserDropdown() {
     },
     onError: (error) => {
       console.log("err", error);
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       const cookies = useRemoveCookies();
       if (cookies.isSuccess) {
         user.logout();

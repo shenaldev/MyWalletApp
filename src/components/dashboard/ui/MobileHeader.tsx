@@ -1,5 +1,5 @@
 import MobileNavDrawer from "./MobileNavDrawer";
-import ThemeToggle from "./topbar-components/ThemeToggle";
+import ThemeToggle from "../topbar/ThemeToggle";
 
 function MobileHeader() {
   return (

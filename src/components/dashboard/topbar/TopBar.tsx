@@ -1,7 +1,7 @@
 import { useMonthYear } from "@/components/providers/MonthYearProvider";
-import SelectYear from "./topbar-components/SelectYear";
-import ThemeToggle from "./topbar-components/ThemeToggle";
-import UserDropdown from "./topbar-components/UserDropdown";
+import SelectYear from "./SelectYear";
+import ThemeToggle from "./ThemeToggle";
+import UserDropdown from "./UserDropdown";
 
 function TopBar() {
   const yearMonthContext = useMonthYear();

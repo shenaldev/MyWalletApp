@@ -1,7 +1,7 @@
 import { Separator } from "@/components/ui/separator";
-import TopBar from "@/components/elements/dashboard/TopBar";
-import SideBar from "@/components/elements/dashboard/SideBar";
-import MobileHeader from "@/components/elements/dashboard/MobileHeader";
+import TopBar from "@/components/dashboard/topbar/TopBar";
+import SideBar from "@/components/dashboard/ui/SideBar";
+import MobileHeader from "@/components/dashboard/ui/MobileHeader";
 //IMPORT HOOKS
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 

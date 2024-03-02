@@ -1,7 +1,7 @@
 import { PaymentReponseCategory } from "@/types/types";
 //IMPORT COMPONENTS
 import PaymentItem from "./PaymentItem";
-import CategoryCard from "./CategoryCard";
+import CategoryCard from "../ui/CategoryCard";
 import CategoryCardSkeleton from "@/components/ui/skeletons/CategoryCardSkeletion";
 
 type PaymentItemsProps = {
