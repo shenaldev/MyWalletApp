@@ -20,7 +20,11 @@ function AppPage() {
   const { selectedMonth, selectedYear } = useMonthYear();
 
   //FETCH PAYMENTS
-  const { data, isLoading } = useQuery<PaymentResponse>({
+  const {
+    data,
+    isLoading,
+    refetch: paymentRefetch,
+  } = useQuery<PaymentResponse>({
     queryKey: ["payments", selectedYear, selectedMonth],
     queryFn: async () => {
       return await axiosCall({
@@ -44,7 +48,6 @@ function AppPage() {
       enabled: true,
     });
 
-
   return (
     <DashboardLayout>
       <div className="flex justify-between gap-4">
@@ -54,10 +57,15 @@ function AppPage() {
         </FinanceCard>
         <FinanceCard title="Incomes">
           <IncomeItems data={incomes?.incomes} isLoading={isLoadingIncomes} />
+          <TotalCard total={incomes?.total || 0} />
         </FinanceCard>
       </div>
       {/* ADD PAYMENT INCOME MODALS */}
-      <PaymentDialog open={openAdd} onClose={() => setOpenAdd(false)} />
+      <PaymentDialog
+        open={openAdd}
+        onClose={() => setOpenAdd(false)}
+        refetch={paymentRefetch}
+      />
     </DashboardLayout>
   );
 }

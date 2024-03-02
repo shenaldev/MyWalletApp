@@ -1,5 +1,6 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { Toaster } from "sonner";
 //IMPORT PROVIDERS
 import { useAuth } from "../providers/AuthProvider";
 import { useQuery } from "@tanstack/react-query";
@@ -46,7 +47,12 @@ function DashboardRoot() {
     }
   }
 
-  return <Outlet />;
+  return (
+    <>
+      <Outlet />
+      <Toaster closeButton={true} richColors={true} />
+    </>
+  );
 }
 
 export default DashboardRoot;

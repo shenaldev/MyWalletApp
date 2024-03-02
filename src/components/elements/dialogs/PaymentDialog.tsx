@@ -9,13 +9,16 @@ import {
 } from "@/components/ui/dialog";
 //IMPORT HOOKS
 import { useCategory, usePaymentMethod } from "@/hooks/api-calls/ApiCalls";
+import { toast } from "sonner";
 
 type PropTypes = {
   open: boolean;
   onClose: () => void;
+  refetch: () => void;
 };
 
-function PaymentDialog({ open, onClose }: PropTypes) {
+function PaymentDialog({ open, onClose, refetch }: PropTypes) {
+  //FETCH CATEGORIES
   const { data: categories } = useCategory({
     select(data: Category[]) {
       const options: InputSelectOption[] = [];
@@ -27,6 +30,7 @@ function PaymentDialog({ open, onClose }: PropTypes) {
     refetchOnWindowFocus: false,
   });
 
+  //FETCH PAYMENT METHODS
   const { data: paymentMethods } = usePaymentMethod({
     select(data: PaymentMethod[]) {
       const options: InputSelectOption[] = [];
@@ -40,6 +44,20 @@ function PaymentDialog({ open, onClose }: PropTypes) {
     },
     refetchOnWindowFocus: false,
   });
+
+  /**
+   * Check is payment created successfully
+   * @param status boolean
+   */
+  function onPaymentCreateHandler(status: boolean) {
+    if (status) {
+      refetch();
+      onClose();
+      toast.success("Payment added successfully");
+    } else {
+      toast.error("Failed to add payment");
+    }
+  }
 
   return (
     <Dialog open={open} onOpenChange={onClose} modal={true}>
@@ -55,6 +73,7 @@ function PaymentDialog({ open, onClose }: PropTypes) {
         <PaymentForm
           categories={categories as unknown as InputSelectOption[]}
           paymentMethods={paymentMethods as unknown as InputSelectOption[]}
+          onCreate={(status) => onPaymentCreateHandler(status)}
         />
       </DialogContent>
     </Dialog>

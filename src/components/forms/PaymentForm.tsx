@@ -2,6 +2,7 @@ import * as zod from "zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 //IMPORT COMPONENTS
 import { Label } from "@/components/ui/label";
 import Spinner from "@/components/ui/spinner";
@@ -9,6 +10,7 @@ import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Form, FormField } from "@/components/ui/form";
 import FormGroup from "@/components/ui/elements/FormGroup";
+import ServerErrorAlert from "../elements/ServerErrorAlert";
 import DatePicker from "@/components/ui/elements/DatePicker";
 import InputField from "@/components/forms/elements/InputField";
 import InputSelect from "@/components/forms/elements/InputSelect";
@@ -19,6 +21,9 @@ import currencies from "@/data/Currencies";
 import { SendHorizonalIcon } from "lucide-react";
 //IMPORT TYPES
 import { InputSelectOption } from "@/types/types";
+//IMPORT UTILS
+import { axiosCall } from "@/lib/axiosCall";
+import ApiUrls from "@/lib/ApiUrls";
 
 //ZOD VALIDATION SCHEMA
 const schema = zod.object({
@@ -34,9 +39,10 @@ const schema = zod.object({
 type PropTypes = {
   categories?: InputSelectOption[];
   paymentMethods?: InputSelectOption[];
+  onCreate: (status: boolean) => void;
 };
 
-function PaymentForm({ categories, paymentMethods }: PropTypes) {
+function PaymentForm({ categories, paymentMethods, onCreate }: PropTypes) {
   const [showNote, setShowNote] = useState(false);
   const todayDate = new Date();
 
@@ -54,12 +60,33 @@ function PaymentForm({ categories, paymentMethods }: PropTypes) {
     },
   });
 
+  //CREATE NEW PAYMENT REQUEST
+  const addPayment = useMutation({
+    mutationFn: async (data: zod.infer<typeof schema>) => {
+      return await axiosCall({
+        method: "POST",
+        urlPath: ApiUrls.user.payments,
+        data,
+      });
+    },
+    onSuccess: () => {
+      form.reset();
+      onCreate(true);
+    },
+    onError: () => {
+      onCreate(false);
+    },
+  });
+
   function onSubmitHandler(data: zod.infer<typeof schema>) {
-    console.log(data);
+    addPayment.mutateAsync(data);
   }
 
   return (
     <Form {...form}>
+      {addPayment.status === "error" && (
+        <ServerErrorAlert errors={addPayment.error} />
+      )}
       <form onSubmit={form.handleSubmit(onSubmitHandler)}>
         <FormField
           control={form.control}
@@ -144,7 +171,7 @@ function PaymentForm({ categories, paymentMethods }: PropTypes) {
         />
         <div className="mt-6 flex justify-center">
           <Button variant="default" type="submit" disabled={false}>
-            {false ? (
+            {addPayment.isPending ? (
               <>
                 <Spinner color="white" isButton={true} /> Please Wait...
               </>
