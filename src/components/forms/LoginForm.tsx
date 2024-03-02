@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Mail } from "lucide-react";
 import { Button } from "../ui/button";
 import { Form, FormField } from "../ui/form";
-import InputField from "./elements/InputField";
+import { InputField } from "./elements/form-elements";
 import ServerErrorAlert from "../elements/ServerErrorAlert";
 //IMPORT HOOKS LIBS
 import ApiUrls from "@/lib/ApiUrls";

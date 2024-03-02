@@ -9,12 +9,14 @@ import Spinner from "@/components/ui/spinner";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Form, FormField } from "@/components/ui/form";
-import FormGroup from "@/components/ui/elements/FormGroup";
 import ServerErrorAlert from "../elements/ServerErrorAlert";
-import DatePicker from "@/components/ui/elements/DatePicker";
-import InputField from "@/components/forms/elements/InputField";
-import InputSelect from "@/components/forms/elements/InputSelect";
-import InputTextArea from "@/components/forms/elements/InputTextArea";
+import DatePicker from "@/components/forms/elements/DatePicker";
+import {
+  InputField,
+  InputSelect,
+  InputTextArea,
+  FormGroup,
+} from "@/components/forms/elements/form-elements";
 //IMPORT DATA
 import currencies from "@/data/Currencies";
 //IMPORT ICONS

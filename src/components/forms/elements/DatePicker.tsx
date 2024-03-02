@@ -1,10 +1,10 @@
 import { format } from "date-fns";
 import { ControllerRenderProps } from "react-hook-form";
 //IMPORT COMPONENTS
-import { Button } from "../button";
-import { Calendar } from "../calendar";
-import { FormControl, FormItem, FormLabel, FormMessage } from "../form";
-import { Popover, PopoverContent, PopoverTrigger } from "../popover";
+import { Button } from "../../ui/button";
+import { Calendar } from "../../ui/calendar";
+import { FormControl, FormItem, FormLabel, FormMessage } from "../../ui/form";
+import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
 //IMPORT ICONS
 import { CalendarIcon } from "lucide-react";
 //IMPORT UTILS
