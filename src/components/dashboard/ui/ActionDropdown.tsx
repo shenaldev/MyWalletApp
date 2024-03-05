@@ -18,7 +18,7 @@ type ActionDropdownProps = {
 function ActionDropdown({ onClick }: ActionDropdownProps) {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger asChild={true}>
         <button className="flex items-center">
           <MoreVerticalIcon className="size-4" />
         </button>

@@ -17,9 +17,6 @@ function DashboardRoot() {
     }
   }, [user, navigate]);
 
-  // RETURN EMPTY PAGE IF USER IS NULL
-  if (user == null) return "";
-
   /**
    * CHECK USER TOKEN IS VALID IF USER LOGGED IN
    * ELSE REDIRECT TO LOGIN PAGE
@@ -39,6 +36,9 @@ function DashboardRoot() {
       else return false;
     },
   });
+
+  // RETURN EMPTY PAGE IF USER IS NULL
+  if (user == null) return "";
 
   if (isError) {
     if (error?.status === 401) {
