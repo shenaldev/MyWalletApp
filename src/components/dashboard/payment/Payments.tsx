@@ -18,9 +18,8 @@ import { useMonthYear } from "@/components/providers/MonthYearProvider";
 
 function Payments() {
   const [openAdd, setOpenAdd] = useState(false);
-  const [editData, setEditData] = useState<Payment | null>(null);
   const [openDelete, setOpenDelete] = useState(false);
-  const [deleteData, setDeleteData] = useState<Payment | null>(null);
+  const [selectedPayment, setSelectedPayment] = useState<Payment | null>(null);
   const { selectedMonth, selectedYear } = useMonthYear();
 
   //FETCH PAYMENTS
@@ -37,11 +36,11 @@ function Payments() {
 
   //HANDLE PAYMENTS VIEW EDIT DELETE ACTIONS
   function actionHandler(action: string, payment: any) {
+    if (action == "view") return;
+    setSelectedPayment(payment);
     if (action == "edit") {
-      setEditData(payment);
       setOpenAdd(true);
     } else if (action == "delete") {
-      setDeleteData(payment);
       setOpenDelete(true);
     }
   }
@@ -49,7 +48,7 @@ function Payments() {
   //HANDLE PAYMENT DIALOG CLOSE
   function paymentDialogCloseHandler() {
     setOpenAdd(false);
-    setEditData(null);
+    setSelectedPayment(null);
   }
 
   //DELETE PAYMENT API CALL
@@ -57,20 +56,20 @@ function Payments() {
     mutationFn: async () => {
       return await axiosCall({
         method: "POST",
-        urlPath: `${ApiUrls.user.payments}/${deleteData?.id}`,
+        urlPath: `${ApiUrls.user.payments}/${selectedPayment?.id}`,
         data: { _method: "DELETE" },
       });
     },
     onSuccess: () => {
-      setDeleteData(null);
       refetch();
-      toast.dismiss();
       toast.success("Payment Deleted Successfully");
     },
     onError: () => {
-      setDeleteData(null);
-      toast.dismiss();
       toast.error("Failed to delete payment");
+    },
+    onSettled: () => {
+      toast.dismiss();
+      setSelectedPayment(null);
     },
   });
 
@@ -78,6 +77,12 @@ function Payments() {
   function deletePaymentHandler() {
     deletePayment.mutateAsync();
     toast.loading("Deleting Payment");
+  }
+
+  //HANDLE DELETE DIALOG CLOSE
+  function deleteDialogCloseHandler() {
+    setOpenDelete(false);
+    setSelectedPayment(null);
   }
 
   const Skeletion = (
@@ -118,17 +123,17 @@ function Payments() {
         open={openAdd}
         onClose={paymentDialogCloseHandler}
         refetch={refetch}
-        editData={editData}
+        editData={selectedPayment}
       />
       {/* DELETE PAYMENT DIALOG */}
       {openDelete && (
         <DeleteAlertDialog
           open={openDelete}
-          onClose={() => setOpenDelete(false)}
+          onClose={deleteDialogCloseHandler}
           onDelete={deletePaymentHandler}
         >
           <p className="mt-1 rounded-md bg-slate-100 py-2 text-center font-medium text-red-600">
-            Payment Name: {deleteData?.name}
+            Payment Name: {selectedPayment?.name}
           </p>
         </DeleteAlertDialog>
       )}
