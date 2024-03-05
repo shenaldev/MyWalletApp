@@ -1,13 +1,15 @@
+import { toast } from "sonner";
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 //IMPORT TYPES
-import { PaymentResponse } from "@/types/types";
+import { PaymentResponse, Payment } from "@/types/types";
 //IMPORT COMPONENTS
 import PaymentItem from "./PaymentItem";
 import FinanceCard from "../ui/FinanceCard";
 import CategoryCard from "./CategoryCard";
 import ActionDropdown from "../ui/ActionDropdown";
 import PaymentDialog from "@/components/elements/dialogs/PaymentDialog";
+import DeleteAlertDialog from "@/components/elements/dialogs/DeleteAlertDialog";
 import CategoryCardSkeleton from "@/components/ui/skeletons/CategoryCardSkeletion";
 //IMPORT UTILS
 import ApiUrls from "@/lib/ApiUrls";
@@ -16,6 +18,9 @@ import { useMonthYear } from "@/components/providers/MonthYearProvider";
 
 function Payments() {
   const [openAdd, setOpenAdd] = useState(false);
+  const [editData, setEditData] = useState<Payment | null>(null);
+  const [openDelete, setOpenDelete] = useState(false);
+  const [deleteData, setDeleteData] = useState<Payment | null>(null);
   const { selectedMonth, selectedYear } = useMonthYear();
 
   //FETCH PAYMENTS
@@ -30,8 +35,49 @@ function Payments() {
     enabled: true,
   });
 
-  function actionHandler(action: string) {
-    console.log(action);
+  //HANDLE PAYMENTS VIEW EDIT DELETE ACTIONS
+  function actionHandler(action: string, payment: any) {
+    if (action == "edit") {
+      setEditData(payment);
+      setOpenAdd(true);
+    } else if (action == "delete") {
+      setDeleteData(payment);
+      setOpenDelete(true);
+    }
+  }
+
+  //HANDLE PAYMENT DIALOG CLOSE
+  function paymentDialogCloseHandler() {
+    setOpenAdd(false);
+    setEditData(null);
+  }
+
+  //DELETE PAYMENT API CALL
+  const deletePayment = useMutation({
+    mutationFn: async () => {
+      return await axiosCall({
+        method: "POST",
+        urlPath: `${ApiUrls.user.payments}/${deleteData?.id}`,
+        data: { _method: "DELETE" },
+      });
+    },
+    onSuccess: () => {
+      setDeleteData(null);
+      refetch();
+      toast.dismiss();
+      toast.success("Payment Deleted Successfully");
+    },
+    onError: () => {
+      setDeleteData(null);
+      toast.dismiss();
+      toast.error("Failed to delete payment");
+    },
+  });
+
+  //DELETE PAYMENT HANDLER
+  function deletePaymentHandler() {
+    deletePayment.mutateAsync();
+    toast.loading("Deleting Payment");
   }
 
   const Skeletion = (
@@ -58,7 +104,7 @@ function Payments() {
                 {item.payments?.map((payment, index) => (
                   <PaymentItem key={index} payment={payment}>
                     <ActionDropdown
-                      onClick={(action) => actionHandler(action)}
+                      onClick={(action) => actionHandler(action, payment)}
                     />
                   </PaymentItem>
                 ))}
@@ -67,11 +113,25 @@ function Payments() {
           ))}
         </div>
       </FinanceCard>
+      {/* ADD EDIT PAYMENT DIALOG */}
       <PaymentDialog
         open={openAdd}
-        onClose={() => setOpenAdd(false)}
+        onClose={paymentDialogCloseHandler}
         refetch={refetch}
+        editData={editData}
       />
+      {/* DELETE PAYMENT DIALOG */}
+      {openDelete && (
+        <DeleteAlertDialog
+          open={openDelete}
+          onClose={() => setOpenDelete(false)}
+          onDelete={deletePaymentHandler}
+        >
+          <p className="mt-1 rounded-md bg-slate-100 py-2 text-center font-medium text-red-600">
+            Payment Name: {deleteData?.name}
+          </p>
+        </DeleteAlertDialog>
+      )}
     </>
   );
 }

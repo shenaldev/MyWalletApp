@@ -22,7 +22,7 @@ import currencies from "@/data/Currencies";
 //IMPORT ICONS
 import { SendHorizonalIcon } from "lucide-react";
 //IMPORT TYPES
-import { InputSelectOption } from "@/types/types";
+import { InputSelectOption, Payment } from "@/types/types";
 //IMPORT UTILS
 import { axiosCall } from "@/lib/axiosCall";
 import ApiUrls from "@/lib/ApiUrls";
@@ -41,23 +41,32 @@ const schema = zod.object({
 type PropTypes = {
   categories?: InputSelectOption[];
   paymentMethods?: InputSelectOption[];
-  onCreate: (status: boolean) => void;
+  editData: Payment | null;
+  onCreate: (status: boolean, action: "add" | "update") => void;
 };
 
-function PaymentForm({ categories, paymentMethods, onCreate }: PropTypes) {
+function PaymentForm({
+  categories,
+  paymentMethods,
+  editData,
+  onCreate,
+}: PropTypes) {
+  //VARIABLES
   const [showNote, setShowNote] = useState(false);
   const todayDate = new Date();
+  const amount = editData?.amount ? parseFloat(editData.amount) : 0;
+  const date = editData?.date ? new Date(editData.date) : todayDate;
 
   //CREATE FORM INSTANCE
   const form = useForm<zod.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
-      name: "",
-      amount: 0,
-      date: todayDate,
-      currency: "lkr",
-      category_id: "6",
-      payment_method_id: "1",
+      name: editData?.name || "",
+      amount: amount,
+      date: date,
+      currency: editData?.currency.toLowerCase() || "lkr",
+      category_id: editData?.category_id.toString() || "6",
+      payment_method_id: editData?.payment_method_id.toString() || "1",
       note: "",
     },
   });
@@ -73,15 +82,37 @@ function PaymentForm({ categories, paymentMethods, onCreate }: PropTypes) {
     },
     onSuccess: () => {
       form.reset();
-      onCreate(true);
+      onCreate(true, "add");
     },
     onError: () => {
-      onCreate(false);
+      onCreate(false, "add");
+    },
+  });
+
+  //UPDATE PAYMENT REQUEST
+  const updatePayment = useMutation({
+    mutationFn: async (data: zod.infer<typeof schema>) => {
+      return await axiosCall({
+        method: "POST",
+        urlPath: `${ApiUrls.user.payments}/${editData?.id}`,
+        data: { _method: "PUT", ...data },
+      });
+    },
+    onSuccess: () => {
+      form.reset();
+      onCreate(true, "update");
+    },
+    onError: () => {
+      onCreate(false, "update");
     },
   });
 
   function onSubmitHandler(data: zod.infer<typeof schema>) {
-    addPayment.mutateAsync(data);
+    if (editData != null) {
+      updatePayment.mutate(data);
+    } else {
+      addPayment.mutate(data);
+    }
   }
 
   return (
@@ -172,14 +203,19 @@ function PaymentForm({ categories, paymentMethods, onCreate }: PropTypes) {
           )}
         />
         <div className="mt-6 flex justify-center">
-          <Button variant="default" type="submit" disabled={false}>
-            {addPayment.isPending ? (
+          <Button
+            variant="default"
+            type="submit"
+            disabled={addPayment.isPending || updatePayment.isPending}
+          >
+            {addPayment.isPending || updatePayment.isPending ? (
               <>
                 <Spinner color="white" isButton={true} /> Please Wait...
               </>
             ) : (
               <>
-                <SendHorizonalIcon className="mr-3 h-4 w-4" /> Add Payment
+                <SendHorizonalIcon className="mr-3 h-4 w-4" />{" "}
+                {editData ? "Update" : "Add"} Payment
               </>
             )}
           </Button>

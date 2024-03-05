@@ -1,4 +1,10 @@
-import { Category, PaymentMethod, InputSelectOption } from "@/types/types";
+import { toast } from "sonner";
+import {
+  Category,
+  PaymentMethod,
+  InputSelectOption,
+  Payment,
+} from "@/types/types";
 //IMPORT COMPONENTS
 import PaymentForm from "@/components/forms/PaymentForm";
 import {
@@ -9,15 +15,15 @@ import {
 } from "@/components/ui/dialog";
 //IMPORT HOOKS
 import { useCategory, usePaymentMethod } from "@/hooks/api-calls/ApiCalls";
-import { toast } from "sonner";
 
 type PropTypes = {
   open: boolean;
+  editData: Payment | null;
   onClose: () => void;
   refetch: () => void;
 };
 
-function PaymentDialog({ open, onClose, refetch }: PropTypes) {
+function PaymentDialog({ open, editData, onClose, refetch }: PropTypes) {
   //FETCH CATEGORIES
   const { data: categories } = useCategory({
     select(data: Category[]) {
@@ -49,13 +55,14 @@ function PaymentDialog({ open, onClose, refetch }: PropTypes) {
    * Check is payment created successfully
    * @param status boolean
    */
-  function onPaymentCreateHandler(status: boolean) {
+  function onPaymentCreateHandler(status: boolean, action: "add" | "update") {
+    const toastText = action == "add" ? "added" : "updated";
     if (status) {
       refetch();
       onClose();
-      toast.success("Payment added successfully");
+      toast.success(`Payment ${toastText} successfully`);
     } else {
-      toast.error("Failed to add payment");
+      toast.error(`Failed to ${toastText} payment`);
     }
   }
 
@@ -68,12 +75,15 @@ function PaymentDialog({ open, onClose, refetch }: PropTypes) {
         className="overflow-y-auto"
       >
         <DialogHeader>
-          <DialogTitle>Add New Payment</DialogTitle>
+          <DialogTitle>
+            {editData != null ? "Edit Payment" : "Add New Payment"}
+          </DialogTitle>
         </DialogHeader>
         <PaymentForm
           categories={categories as unknown as InputSelectOption[]}
           paymentMethods={paymentMethods as unknown as InputSelectOption[]}
-          onCreate={(status) => onPaymentCreateHandler(status)}
+          editData={editData}
+          onCreate={(status, action) => onPaymentCreateHandler(status, action)}
         />
       </DialogContent>
     </Dialog>
