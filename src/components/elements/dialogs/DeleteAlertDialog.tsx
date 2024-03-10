@@ -13,6 +13,7 @@ import {
 type DeleteDialogProps = {
   open: boolean;
   onClose: () => void;
+  onCancel: () => void;
   onDelete: () => void;
   children?: ReactNode;
 };
@@ -20,6 +21,7 @@ type DeleteDialogProps = {
 function DeleteAlertDialog({
   open,
   onClose,
+  onCancel,
   onDelete,
   children,
 }: DeleteDialogProps) {
@@ -35,7 +37,7 @@ function DeleteAlertDialog({
           </AlertDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={onClose} className="border-gray-400">
+          <AlertDialogCancel onClick={onCancel} className="border-gray-400">
             Cancel
           </AlertDialogCancel>
           <AlertDialogAction

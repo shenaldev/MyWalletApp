@@ -1,5 +1,6 @@
+import { toast } from "sonner";
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 //IMPORT TYPES
 import { Income, IncomeResponse } from "@/types/types";
 //IMPORT COMPONENTS
@@ -11,6 +12,7 @@ import IncomeDialog from "@/components/elements/dialogs/IncomeDialog";
 import ApiUrls from "@/lib/ApiUrls";
 import { axiosCall } from "@/lib/axiosCall";
 import { useMonthYear } from "@/components/providers/MonthYearProvider";
+import DeleteAlertDialog from "@/components/elements/dialogs/DeleteAlertDialog";
 
 function Incomes() {
   const { selectedMonth, selectedYear } = useMonthYear();
@@ -30,6 +32,28 @@ function Incomes() {
     enabled: true,
   });
 
+  //DELETE INCOME
+  const deleteIncome = useMutation({
+    mutationFn: async () => {
+      return await axiosCall({
+        method: "POST",
+        urlPath: `${ApiUrls.user.incomes}/${selectedIncome?.id}`,
+        data: { _method: "DELETE" },
+      });
+    },
+    onSuccess: () => {
+      refetch();
+      toast.success("Payment Deleted Successfully");
+    },
+    onError: () => {
+      toast.error("Failed to delete payment");
+    },
+    onSettled: () => {
+      toast.dismiss();
+      setSelectedIncome(null);
+    },
+  });
+
   function actionHandler(action: string, income: Income) {
     if (action == "view") return;
     setSelectedIncome(income);
@@ -38,6 +62,16 @@ function Incomes() {
     } else if (action == "delete") {
       setOpenDelete(true);
     }
+  }
+
+  function deleteDialogCancelHandler() {
+    setOpenDelete(false);
+    setSelectedIncome(null);
+  }
+
+  function deleteIcomeHandler() {
+    deleteIncome.mutateAsync();
+    toast.success("Deleting Income...");
   }
 
   return (
@@ -56,6 +90,19 @@ function Incomes() {
         onClose={() => setOpenAdd(false)}
         refetch={refetch}
       />
+      {/* DELETE INCOME DIALOG */}
+      {openDelete && (
+        <DeleteAlertDialog
+          open={openDelete}
+          onClose={() => setOpenDelete(false)}
+          onCancel={deleteDialogCancelHandler}
+          onDelete={deleteIcomeHandler}
+        >
+          <p className="mt-1 rounded-md bg-slate-100 py-2 text-center font-medium text-red-600">
+            Income Name: {selectedIncome?.source}
+          </p>
+        </DeleteAlertDialog>
+      )}
     </>
   );
 }

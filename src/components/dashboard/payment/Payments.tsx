@@ -80,7 +80,7 @@ function Payments() {
   }
 
   //HANDLE DELETE DIALOG CLOSE
-  function deleteDialogCloseHandler() {
+  function deleteDialogCancelHandler() {
     setOpenDelete(false);
     setSelectedPayment(null);
   }
@@ -129,7 +129,8 @@ function Payments() {
       {openDelete && (
         <DeleteAlertDialog
           open={openDelete}
-          onClose={deleteDialogCloseHandler}
+          onClose={() => setOpenDelete(false)}
+          onCancel={deleteDialogCancelHandler}
           onDelete={deletePaymentHandler}
         >
           <p className="mt-1 rounded-md bg-slate-100 py-2 text-center font-medium text-red-600">
