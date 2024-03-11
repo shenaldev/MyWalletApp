@@ -7,7 +7,7 @@ function IncomeSkeletion({ items }: { items: number }) {
     skeletons.push(
       <li
         key={index}
-        className="flex justify-between gap-4 bg-slate-100 px-3 py-3 font-medium"
+        className="flex justify-between gap-4 bg-slate-100 px-3 py-3 font-medium dark:bg-slate-900"
       >
         <Skeleton className="h-2 w-4 rounded-full" />
         <Skeleton className="h-2 w-32 rounded-full" />

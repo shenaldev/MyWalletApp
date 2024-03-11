@@ -31,6 +31,7 @@
     --ring: 235 60% 56%;
     --radius: 0.3rem;
     --dashboard-background: 230 37% 97%;
+    --item-hover: 214.29 94.59% 92.75%;
   }
 
   .dark {
@@ -54,6 +55,7 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 224.3 76.3% 48%;
     --dashboard-background: 229 50% 22%;
+    --item-hover: 217.24 32.58% 17.45%;
   }
 }
 

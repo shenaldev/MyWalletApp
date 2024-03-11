@@ -6,7 +6,7 @@ function CategoryCardSkeleton({ items }: { items: number }) {
   Array.from({ length: items }).map((_, index) =>
     skeletons.push(
       <div
-        className="flex h-10 justify-between rounded-md bg-slate-100 p-2 font-semibold"
+        className="flex h-10 justify-between rounded-md bg-slate-100 p-2 font-semibold dark:bg-slate-900"
         key={index}
       >
         <div className="flex items-center gap-2">

@@ -206,6 +206,7 @@ function PaymentForm({
             variant="default"
             type="submit"
             disabled={addPayment.isPending || updatePayment.isPending}
+            className="dark:text-white"
           >
             {addPayment.isPending || updatePayment.isPending ? (
               <>

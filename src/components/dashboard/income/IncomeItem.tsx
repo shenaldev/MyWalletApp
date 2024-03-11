@@ -15,7 +15,7 @@ function IncomeItem({ income, children }: IncomeItemProps) {
 
   return (
     <>
-      <li className="flex justify-between gap-4 px-3 py-3 text-sm font-medium duration-500 animate-in hover:bg-blue-100">
+      <li className="hover:bg-itemHover flex justify-between gap-4 px-3 py-3 text-sm font-medium duration-500 animate-in">
         <span>{date}</span>
         <span className="grow text-start">{income?.source}</span>
         <span>{numberFormat(income?.amount || 0)}</span>
