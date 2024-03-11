@@ -1,6 +1,6 @@
-import { useMonthYear } from "@/components/providers/MonthYearProvider";
-import { Button } from "@/components/ui/button";
 import { DotIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useMonthYear } from "@/components/providers/MonthYearProvider";
 
 const months = [
   "January",
@@ -17,12 +17,18 @@ const months = [
   "December",
 ];
 
-function NavMenu() {
+type NavMenuProps = {
+  onChange: (status: boolean) => void;
+};
+
+function NavMenu({ onChange }: NavMenuProps) {
   const monthYearContext = useMonthYear();
   const { selectedMonth, changeMonth } = monthYearContext;
 
   function monthChangeHandler(month: number) {
     changeMonth(month);
+    console.log("clicked Butti");
+    onChange(false);
   }
 
   return (

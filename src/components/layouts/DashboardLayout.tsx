@@ -1,9 +1,9 @@
-import { Separator } from "@/components/ui/separator";
-import TopBar from "@/components/dashboard/topbar/TopBar";
-import SideBar from "@/components/dashboard/ui/SideBar";
-import MobileHeader from "@/components/dashboard/ui/MobileHeader";
-//IMPORT HOOKS
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+//IMPORT COMPONENTS
+import { Separator } from "@/components/ui/separator";
+import SideBar from "@/components/dashboard/ui/SideBar";
+import TopBar from "@/components/dashboard/topbar/TopBar";
+import MobileHeader from "@/components/dashboard/ui/MobileHeader";
 
 type DashboardLayoutProps = {
   children?: React.ReactNode;
@@ -17,7 +17,7 @@ function DashboardLayout({ children }: DashboardLayoutProps) {
       <div className="h-full w-full bg-dashboardBackground">
         <MobileHeader />
         <Separator />
-        <div className="h-full min-h-[100dvh] px-4 py-4">{children}</div>
+        <div className="h-full min-h-[100dvh] p-2 md:p-4">{children}</div>
       </div>
     );
 
@@ -27,7 +27,7 @@ function DashboardLayout({ children }: DashboardLayoutProps) {
       <div className="w-full bg-dashboardBackground">
         <TopBar />
         <Separator />
-        <div className="container mx-auto px-4 py-4">{children}</div>
+        <div className="container mx-auto p-4">{children}</div>
       </div>
     </div>
   );

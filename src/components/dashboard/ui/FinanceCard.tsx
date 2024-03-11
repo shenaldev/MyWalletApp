@@ -10,7 +10,7 @@ type FinanceCardProps = {
 
 function FinanceCard({ title, children, onAction }: FinanceCardProps) {
   return (
-    <Card className="w-1/2 shadow-sm">
+    <Card className="w-full shadow-sm lg:w-1/2">
       <CardHeader className="flex-row items-center justify-between">
         <CardTitle className="text-xl">{title}</CardTitle>
         <Button

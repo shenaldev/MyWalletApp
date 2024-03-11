@@ -17,7 +17,7 @@ function PaymentItem({ payment, children }: PaymentItemProps) {
 
   return (
     <>
-      <li className="hover:bg-itemHover flex items-center justify-between gap-4 px-3 py-3 duration-500 animate-in">
+      <li className="hover:bg-itemHover flex items-center justify-between gap-4 p-3 duration-500 animate-in">
         <span>{date}</span>
         <span className="grow text-start">{payment?.name}</span>
         <span>{numberFormat(payment?.amount || 0)}</span>

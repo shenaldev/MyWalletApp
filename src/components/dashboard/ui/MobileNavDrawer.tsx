@@ -1,9 +1,9 @@
 import { useState } from "react";
 //IMPORT COMPONENTS
 import NavMenu from "./NavMenu";
-import { Separator } from "@/components/ui/separator";
 import SelectYear from "../topbar/SelectYear";
 import UserDropdown from "../topbar/UserDropdown";
+import { Separator } from "@/components/ui/separator";
 import MobileMenuIcon from "../topbar/MobileMenuButton";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
@@ -12,9 +12,10 @@ function MobileNavDrawer() {
 
   function handleDrawer(status: boolean) {
     setIsOpen(status);
+    console.log(status);
   }
   return (
-    <Sheet onOpenChange={(status) => handleDrawer(status)}>
+    <Sheet onOpenChange={(status) => handleDrawer(status)} open={isOpen}>
       <SheetTrigger>
         <MobileMenuIcon isOpen={isOpen} />
       </SheetTrigger>
@@ -24,7 +25,7 @@ function MobileNavDrawer() {
           <UserDropdown />
         </div>
         <Separator />
-        <NavMenu />
+        <NavMenu onChange={handleDrawer} />
       </SheetContent>
     </Sheet>
   );
