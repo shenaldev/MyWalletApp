@@ -13,3 +13,11 @@ export type IncomeResponse = {
   incomes: Income[];
   total: number;
 };
+
+export type IncomeNote = {
+  id: number;
+  note: string;
+  income_id: number;
+  created_at: null | string;
+  updated_at: null | string;
+};

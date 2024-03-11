@@ -12,12 +12,14 @@ import IncomeDialog from "@/components/elements/dialogs/IncomeDialog";
 import ApiUrls from "@/lib/ApiUrls";
 import { axiosCall } from "@/lib/axiosCall";
 import { useMonthYear } from "@/components/providers/MonthYearProvider";
+import ViewIncomeDialog from "@/components/elements/dialogs/ViewIncomeDialog";
 import DeleteAlertDialog from "@/components/elements/dialogs/DeleteAlertDialog";
 
 function Incomes() {
   const { selectedMonth, selectedYear } = useMonthYear();
   const [openAdd, setOpenAdd] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
+  const [openView, setOpenView] = useState(false);
   const [selectedIncome, setSelectedIncome] = useState<Income | null>(null);
 
   //FETCH INCOMES
@@ -55,9 +57,10 @@ function Incomes() {
   });
 
   function actionHandler(action: string, income: Income) {
-    if (action == "view") return;
     setSelectedIncome(income);
-    if (action == "edit") {
+    if (action == "view") {
+      setOpenView(true);
+    } else if (action == "edit") {
       setOpenAdd(true);
     } else if (action == "delete") {
       setOpenDelete(true);
@@ -102,6 +105,14 @@ function Incomes() {
             Income Name: {selectedIncome?.source}
           </p>
         </DeleteAlertDialog>
+      )}
+      {/* VIEW INCOME DIALOG */}
+      {openView && selectedIncome && (
+        <ViewIncomeDialog
+          open={openView}
+          income={selectedIncome}
+          onClose={() => setOpenView(false)}
+        />
       )}
     </>
   );

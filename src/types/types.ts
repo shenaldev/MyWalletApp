@@ -7,6 +7,7 @@ export type { SinglePaymentResponse } from "./Payment";
 export type { PaymentReponseCategory } from "./Payment";
 export type { Income } from "./Income";
 export type { IncomeResponse } from "./Income";
+export type { IncomeNote } from "./Income";
 
 export type InputSelectOption = {
   name: string;
