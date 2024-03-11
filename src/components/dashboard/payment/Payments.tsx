@@ -10,6 +10,7 @@ import CategoryCard from "./CategoryCard";
 import ActionDropdown from "../ui/ActionDropdown";
 import PaymentDialog from "@/components/elements/dialogs/PaymentDialog";
 import DeleteAlertDialog from "@/components/elements/dialogs/DeleteAlertDialog";
+import ViewPaymentDialog from "@/components/elements/dialogs/ViewPaymentDialog";
 import CategoryCardSkeleton from "@/components/ui/skeletons/CategoryCardSkeletion";
 //IMPORT UTILS
 import ApiUrls from "@/lib/ApiUrls";
@@ -19,6 +20,7 @@ import { useMonthYear } from "@/components/providers/MonthYearProvider";
 function Payments() {
   const [openAdd, setOpenAdd] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
+  const [openView, setOpenView] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState<Payment | null>(null);
   const { selectedMonth, selectedYear } = useMonthYear();
 
@@ -36,9 +38,10 @@ function Payments() {
 
   //HANDLE PAYMENTS VIEW EDIT DELETE ACTIONS
   function actionHandler(action: string, payment: any) {
-    if (action == "view") return;
     setSelectedPayment(payment);
-    if (action == "edit") {
+    if (action == "view") {
+      setOpenView(true);
+    } else if (action == "edit") {
       setOpenAdd(true);
     } else if (action == "delete") {
       setOpenDelete(true);
@@ -137,6 +140,14 @@ function Payments() {
             Payment Name: {selectedPayment?.name}
           </p>
         </DeleteAlertDialog>
+      )}
+      {/* VIEW PAYMENT DIALOG */}
+      {openView && selectedPayment && (
+        <ViewPaymentDialog
+          open={openView}
+          onClose={() => setOpenView(false)}
+          payment={selectedPayment}
+        />
       )}
     </>
   );

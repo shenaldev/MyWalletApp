@@ -24,3 +24,15 @@ export type PaymentResponse = {
   payments: PaymentCategory[];
   total: number | string;
 };
+
+export type SinglePaymentResponse = {
+  id: number;
+  name: string;
+  amount: string;
+  date: string;
+  currency: string;
+  category: string;
+  slug: string;
+  payment_method: string;
+  payment_note: null | string;
+};
