@@ -81,13 +81,13 @@ function ViewPaymentDialog({ open, onClose, payment }: ViewPaymentDialogProps) {
           <div className="mb-[2px] flex items-center gap-2">
             <Label className="w-32">Note</Label>
             <span>:</span>
-            <p className="text-sm font-medium">
-              {isFetching ? (
-                <LoadingTextSeletion />
-              ) : (
-                data?.payment_note || "No note available"
-              )}
-            </p>
+            {isFetching ? (
+              <LoadingTextSeletion />
+            ) : (
+              <p className="text-sm font-medium">
+                {data?.payment_note || "No note available"}
+              </p>
+            )}
           </div>
         </div>
         <DialogFooter>
