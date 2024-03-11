@@ -27,7 +27,6 @@ function NavMenu({ onChange }: NavMenuProps) {
 
   function monthChangeHandler(month: number) {
     changeMonth(month);
-    console.log("clicked Butti");
     onChange(false);
   }
 

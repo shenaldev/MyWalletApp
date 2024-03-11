@@ -12,7 +12,6 @@ function MobileNavDrawer() {
 
   function handleDrawer(status: boolean) {
     setIsOpen(status);
-    console.log(status);
   }
   return (
     <Sheet onOpenChange={(status) => handleDrawer(status)} open={isOpen}>
