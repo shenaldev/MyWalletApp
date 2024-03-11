@@ -77,9 +77,14 @@ function Incomes() {
     toast.success("Deleting Income...");
   }
 
+  function addIncomeButtonHandler() {
+    setSelectedIncome(null);
+    setOpenAdd(true);
+  }
+
   return (
     <>
-      <FinanceCard title="Incomes" onAction={() => setOpenAdd(true)}>
+      <FinanceCard title="Incomes" onAction={addIncomeButtonHandler}>
         <IncomeItems
           data={data?.incomes}
           isLoading={isLoading}

@@ -88,6 +88,11 @@ function Payments() {
     setSelectedPayment(null);
   }
 
+  function addPaymentButtonHandler() {
+    setSelectedPayment(null);
+    setOpenAdd(true);
+  }
+
   const Skeletion = (
     <div className="space-y-3">
       <CategoryCardSkeleton items={5} />
@@ -96,7 +101,7 @@ function Payments() {
 
   return (
     <>
-      <FinanceCard title="Payments" onAction={() => setOpenAdd(true)}>
+      <FinanceCard title="Payments" onAction={addPaymentButtonHandler}>
         {isLoading && Skeletion}
         <div className="space-y-4">
           {data?.payments.map((item, index) => (
