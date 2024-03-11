@@ -29,7 +29,7 @@ function DashboardRoot() {
         urlPath: ApiUrls.auth.checkToken,
       });
     },
-    refetchInterval: 1000 * 10,
+    refetchInterval: 1000 * 30,
     retry(failureCount, error) {
       if (error.status === 401) return false;
       else if (failureCount < 2) return true;
