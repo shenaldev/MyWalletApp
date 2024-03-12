@@ -10,7 +10,7 @@ function SideBar() {
       </div>
       <div className="grow">
         <p className="mb-2 text-sm font-normal text-slate-200">Select Month</p>
-        <NavMenu />
+        <NavMenu onChange={() => {}}/>
       </div>
       <div></div>
     </div>
