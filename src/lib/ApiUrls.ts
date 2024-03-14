@@ -15,6 +15,7 @@ const ApiUrls = {
     categories: "/user/categories",
     payments: "/user/payments",
     incomes: "/user/incomes",
+    year: "/user/record-years",
   },
 };
 
