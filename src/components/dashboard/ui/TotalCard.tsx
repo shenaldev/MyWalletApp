@@ -1,12 +1,11 @@
-import { Separator } from "@/components/ui/separator";
 import { numberFormat } from "@/lib/Numbers";
 
 function TotalCard({ total }: { total: number | string }) {
   return (
-    <div className="flex flex-col items-end pt-8">
-      <p className="text-lg font-semibold">Total: {numberFormat(total)}</p>
-      <Separator className="mb-1 w-40 bg-blue-500" />
-      <Separator className="w-40 bg-blue-500" />
+    <div className="mt-2 flex w-full flex-col items-end justify-center">
+      <p className="rounded-md border border-primary/60  bg-[#e8eaf6] px-4 py-1 text-lg font-semibold tracking-wide shadow-sm dark:border-slate-700 dark:bg-slate-900">
+        Total: {numberFormat(total)}
+      </p>
     </div>
   );
 }

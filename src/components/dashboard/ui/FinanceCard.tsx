@@ -1,17 +1,32 @@
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 type FinanceCardProps = {
   title: string;
   children?: React.ReactNode;
+  className?: string;
   onAction?: () => void;
 };
 
-function FinanceCard({ title, children, onAction }: FinanceCardProps) {
+function FinanceCard({
+  title,
+  children,
+  className,
+  onAction,
+}: FinanceCardProps) {
+  const classes = cn(className, "w-full shadow-sm lg:w-1/2");
+
   return (
-    <Card className="w-full shadow-sm lg:w-1/2">
-      <CardHeader className="flex-row items-center justify-between">
+    <Card className={classes}>
+      <CardHeader className="flex-row items-center justify-between lg:pb-2">
         <CardTitle className="text-xl">{title}</CardTitle>
         <Button
           variant="ghost"
@@ -22,9 +37,9 @@ function FinanceCard({ title, children, onAction }: FinanceCardProps) {
           <Plus color="white" />
         </Button>
       </CardHeader>
-      <CardContent>{children}</CardContent>
+      {children}
     </Card>
   );
 }
 
-export default FinanceCard;
+export { FinanceCard, CardContent, CardFooter };

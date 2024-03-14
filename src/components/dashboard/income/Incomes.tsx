@@ -6,7 +6,7 @@ import { Income, IncomeResponse } from "@/types/types";
 //IMPORT COMPONENTS
 import TotalCard from "../ui/TotalCard";
 import IncomeItems from "./IncomeItems";
-import FinanceCard from "../ui/FinanceCard";
+import { CardContent, CardFooter, FinanceCard } from "../ui/FinanceCard";
 import IncomeDialog from "@/components/elements/dialogs/IncomeDialog";
 //IMPORT UTILS
 import ApiUrls from "@/lib/ApiUrls";
@@ -85,12 +85,16 @@ function Incomes() {
   return (
     <>
       <FinanceCard title="Incomes" onAction={addIncomeButtonHandler}>
-        <IncomeItems
-          data={data?.incomes}
-          isLoading={isLoading}
-          actionHandler={actionHandler}
-        />
-        <TotalCard total={data?.total || 0} />
+        <CardContent className="lg:min-h-[26.4rem]">
+          <IncomeItems
+            data={data?.incomes}
+            isLoading={isLoading}
+            actionHandler={actionHandler}
+          />
+        </CardContent>
+        <CardFooter>
+          <TotalCard total={data?.total || 0} />
+        </CardFooter>
       </FinanceCard>
       <IncomeDialog
         open={openAdd}

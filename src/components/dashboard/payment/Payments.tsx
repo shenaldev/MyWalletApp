@@ -5,8 +5,9 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { PaymentResponse, Payment } from "@/types/types";
 //IMPORT COMPONENTS
 import PaymentItem from "./PaymentItem";
-import FinanceCard from "../ui/FinanceCard";
+import TotalCard from "../ui/TotalCard";
 import CategoryCard from "./CategoryCard";
+import { CardContent, CardFooter, FinanceCard } from "../ui/FinanceCard";
 import ActionDropdown from "../ui/ActionDropdown";
 import PaymentDialog from "@/components/elements/dialogs/PaymentDialog";
 import DeleteAlertDialog from "@/components/elements/dialogs/DeleteAlertDialog";
@@ -102,29 +103,34 @@ function Payments() {
   return (
     <>
       <FinanceCard title="Payments" onAction={addPaymentButtonHandler}>
-        {isLoading && Skeletion}
-        <div className="space-y-4">
-          {data?.payments.map((item, index) => (
-            <CategoryCard
-              key={index}
-              details={{
-                name: item.name,
-                icon: item.icon,
-                total: item.total,
-              }}
-            >
-              <ul className="flex flex-col font-medium">
-                {item.payments?.map((payment, index) => (
-                  <PaymentItem key={index} payment={payment}>
-                    <ActionDropdown
-                      onClick={(action) => actionHandler(action, payment)}
-                    />
-                  </PaymentItem>
-                ))}
-              </ul>
-            </CategoryCard>
-          ))}
-        </div>
+        <CardContent>
+          {isLoading && Skeletion}
+          <div className="space-y-4">
+            {data?.payments.map((item, index) => (
+              <CategoryCard
+                key={index}
+                details={{
+                  name: item.name,
+                  icon: item.icon,
+                  total: item.total,
+                }}
+              >
+                <ul className="flex flex-col font-medium">
+                  {item.payments?.map((payment, index) => (
+                    <PaymentItem key={index} payment={payment}>
+                      <ActionDropdown
+                        onClick={(action) => actionHandler(action, payment)}
+                      />
+                    </PaymentItem>
+                  ))}
+                </ul>
+              </CategoryCard>
+            ))}
+          </div>
+        </CardContent>
+        <CardFooter>
+          <TotalCard total={data?.total || 0} />
+        </CardFooter>
       </FinanceCard>
       {/* ADD EDIT PAYMENT DIALOG */}
       <PaymentDialog
