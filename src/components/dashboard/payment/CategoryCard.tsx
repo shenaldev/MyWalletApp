@@ -1,14 +1,11 @@
 import { ReactNode, useState } from "react";
 //IMPORT COMPONENTS
-import {
-  FolderClosedIcon,
-  LucideChevronDown,
-  LucideChevronUp,
-} from "lucide-react";
+import { LucideChevronDown, LucideChevronUp } from "lucide-react";
 import { ScrollArea, ScrollViewPort } from "@/components/ui/scroll-area";
 //IMPORT UTILS
 import { cn } from "@/lib/utils";
 import { numberFormat } from "@/lib/Numbers";
+import CategoryIcon from "./CategoryIcon";
 
 type CategoryDetails = {
   icon: string | null;
@@ -40,10 +37,7 @@ function CategoryCard({
     <div className={`${className}`}>
       <div className="flex justify-between rounded-md bg-[#FAFAFA] p-2 font-semibold shadow dark:bg-slate-900">
         <div className="flex items-center gap-2">
-          <FolderClosedIcon
-            className="h-4 w-4 opacity-60 dark:stroke-white dark:opacity-100"
-            color="blue"
-          />
+          <CategoryIcon icon={details.icon} className="size-4" />
           <p>{name}</p>
         </div>
         <div className="flex items-center gap-2">
