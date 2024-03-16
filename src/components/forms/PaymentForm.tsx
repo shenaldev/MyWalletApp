@@ -53,8 +53,9 @@ function PaymentForm({
 }: PropTypes) {
   //VARIABLES
   const [showNote, setShowNote] = useState(false);
-  const amount = editData?.amount ? parseFloat(editData.amount) : 0;
+  const amount = editData?.amount ? parseFloat(editData.amount) : undefined;
   const date = editData?.date ? new Date(editData.date) : new Date();
+  const defaultCategory = categories?.find((c) => c.name === "General");
 
   //CREATE FORM INSTANCE
   const form = useForm<zod.infer<typeof schema>>({
@@ -64,7 +65,7 @@ function PaymentForm({
       amount: amount,
       date: date,
       currency: editData?.currency.toLowerCase() || "lkr",
-      category_id: editData?.category_id.toString() || "6",
+      category_id: editData?.category_id.toString() || defaultCategory?.value,
       payment_method_id: editData?.payment_method_id.toString() || "1",
       note: "",
     },
