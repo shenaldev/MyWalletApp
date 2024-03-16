@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils";
+
 type SpinnerProps = {
   color?: "blue" | "red" | "green" | "yellow" | "gray" | "white" | "black";
   size?: "sm" | "md" | "lg";
@@ -27,7 +29,8 @@ function Spinner({
   className,
   isButton = false,
 }: SpinnerProps) {
-  const classes = `${colorClasses[color]} ${sizeClasses[size]} ${isButton ? "mr-2" : ""} ${className}`;
+  const defaultClasses = `${colorClasses[color]} ${sizeClasses[size]} ${isButton ? "mr-2" : ""}`;
+  const classes = cn(defaultClasses, className);
 
   return (
     <div role="status">
