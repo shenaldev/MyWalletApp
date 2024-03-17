@@ -1,5 +1,13 @@
-import { FolderIcon } from "lucide-react";
-import { Suspense, lazy } from "react";
+import { useMemo } from "react";
+import {
+  FolderIcon,
+  SoupIcon,
+  FuelIcon,
+  CarIcon,
+  ReceiptTextIcon,
+  ShoppingCartIcon,
+  HeartIcon,
+} from "lucide-react";
 
 type CategoryIconProps = {
   icon: string | null;
@@ -7,66 +15,28 @@ type CategoryIconProps = {
 };
 
 const CategoryIcon = ({ icon, className }: CategoryIconProps) => {
-  const defaultIcon = <FolderIcon />;
-  let Icon = null;
+  const getIcon = useMemo(() => {
+    switch (icon) {
+      case "dining":
+        return <SoupIcon className={className} />;
+      case "fuel":
+        return <FuelIcon className={className} />;
+      case "transport":
+        return <CarIcon className={className} />;
+      case "utilities":
+        return <ReceiptTextIcon className={className} />;
+      case "groceries":
+        return <ShoppingCartIcon className={className} />;
+      case "health":
+        return <HeartIcon className={className} />;
+      case "general":
+        return <FolderIcon className={className} />;
+      default:
+        return <FolderIcon className={className} />;
+    }
+  }, [icon, className]);
 
-  switch (icon) {
-    case "dining":
-      Icon = lazy(() =>
-        import("lucide-react").then((module) => ({ default: module.SoupIcon })),
-      );
-      break;
-    case "fuel":
-      Icon = lazy(() =>
-        import("lucide-react").then((module) => ({ default: module.FuelIcon })),
-      );
-      break;
-    case "transport":
-      Icon = lazy(() =>
-        import("lucide-react").then((module) => ({ default: module.CarIcon })),
-      );
-      break;
-    case "utilities":
-      Icon = lazy(() =>
-        import("lucide-react").then((module) => ({
-          default: module.ReceiptTextIcon,
-        })),
-      );
-      break;
-    case "groceries":
-      Icon = lazy(() =>
-        import("lucide-react").then((module) => ({
-          default: module.ShoppingCartIcon,
-        })),
-      );
-      break;
-    case "health":
-      Icon = lazy(() =>
-        import("lucide-react").then((module) => ({
-          default: module.HeartIcon,
-        })),
-      );
-      break;
-    case "general":
-      Icon = lazy(() =>
-        import("lucide-react").then((module) => ({
-          default: module.FolderIcon,
-        })),
-      );
-      break;
-    default:
-      Icon = lazy(() =>
-        import("lucide-react").then((module) => ({
-          default: module.FolderIcon,
-        })),
-      );
-  }
-
-  return (
-    <Suspense fallback={defaultIcon}>
-      <Icon className={className} />
-    </Suspense>
-  );
+  return <>{getIcon}</>;
 };
 
 export default CategoryIcon;

@@ -1,11 +1,11 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useMemo, useState } from "react";
 //IMPORT COMPONENTS
+import CategoryIcon from "./CategoryIcon";
 import { LucideChevronDown, LucideChevronUp } from "lucide-react";
 import { ScrollArea, ScrollViewPort } from "@/components/ui/scroll-area";
 //IMPORT UTILS
 import { cn } from "@/lib/utils";
 import { numberFormat } from "@/lib/Numbers";
-import CategoryIcon from "./CategoryIcon";
 
 type CategoryDetails = {
   icon: string | null;
@@ -28,8 +28,12 @@ function CategoryCard({
   divClass,
 }: CategoryCardProps) {
   const [expand, setExpand] = useState(false);
-  const { name, total } = details;
+  const { name, total, icon } = details;
   const wrapperClass = cn(divClass, "min-h-10 text-sm border");
+
+  const getIcon = useMemo(() => {
+    return <CategoryIcon icon={icon} className="size-4" />;
+  }, [icon]);
 
   if (!name) return <div></div>;
 
@@ -37,7 +41,7 @@ function CategoryCard({
     <div className={`${className}`}>
       <div className="flex justify-between rounded-md bg-[#FAFAFA] p-2 font-semibold shadow dark:bg-slate-900">
         <div className="flex items-center gap-2">
-          <CategoryIcon icon={details.icon} className="size-4" />
+          {getIcon}
           <p>{name}</p>
         </div>
         <div className="flex items-center gap-2">
