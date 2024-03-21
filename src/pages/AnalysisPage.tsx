@@ -38,7 +38,7 @@ function AnalysisPage() {
   }, [data]);
 
   return (
-    <div className="min-h-[100dvh] bg-[#f0f0f0] 2xl:container">
+    <div className="min-h-[100dvh] bg-[#f0f0f0] 2xl:container dark:bg-slate-800">
       <TopBar title="Income and Expense Analysis" />
       <BackButton className="mb-6 lg:mb-2" />
       {/* PAYMENTS SLIDER */}
@@ -91,8 +91,13 @@ const PaymentCard = ({ expense }: PaymentCardProps) => {
     <Card className="border-none shadow">
       <CardContent className="p-4">
         <div className="mb-3 flex items-center gap-4">
-          <CategoryIcon icon={expense?.icon || "general"} className="size-5" />
-          <h3 className="font-semibold text-secondary">{expense.name}</h3>
+          <CategoryIcon
+            icon={expense?.icon || "general"}
+            className="size-5 dark:stroke-slate-300"
+          />
+          <h3 className="font-semibold text-secondary dark:text-slate-300">
+            {expense.name}
+          </h3>
         </div>
         <p className="text-lg font-semibold ">
           {numberFormat(expense.total)} LKR
