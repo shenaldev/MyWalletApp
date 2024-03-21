@@ -14,7 +14,7 @@ export type TotalByMonth = {
 export type ReportResponse = {
   payment_by_category: PaymentTotalByCategory[];
   payment_by_month: TotalByMonth[];
-  total_payments: string;
+  total_payment: string;
   total_income: string;
   income_by_month: TotalByMonth[];
 };
