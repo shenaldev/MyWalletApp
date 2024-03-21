@@ -1,5 +1,10 @@
-import { Separator } from "@/components/ui/separator";
+import { Link } from "react-router-dom";
+//IMPORT COMPONENTS
 import NavMenu from "./NavMenu";
+import { BarChart4Icon } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+//IMPORT UTILS
+import getRoute from "@/lib/RouteLinks";
 
 function SideBar() {
   return (
@@ -10,9 +15,13 @@ function SideBar() {
       </div>
       <div className="grow">
         <p className="mb-2 text-sm font-normal text-slate-200">Select Month</p>
-        <NavMenu onChange={() => {}}/>
+        <NavMenu onChange={() => {}} />
+        <Separator className="my-4" />
+        <div className="flex items-center gap-2 px-3 text-sm">
+          <BarChart4Icon className="size-4" />
+          <Link to={getRoute("analysis")}>Analysis</Link>
+        </div>
       </div>
-      <div></div>
     </div>
   );
 }

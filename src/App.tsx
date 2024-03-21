@@ -14,6 +14,7 @@ const RegisterPage = lazy(() => import("./pages/auth/RegisterPage"));
 const ForgotPasswordPage = lazy(
   () => import("./pages/auth/ForgotPasswordPage"),
 );
+const AnalysisPage = lazy(() => import("./pages/AnalysisPage"));
 
 //CREATE ROUTER
 const router = createBrowserRouter([
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <AppPage /> },
       { path: "profile", element: <ProfilePage /> },
+      { path: "analysis", element: <AnalysisPage /> },
     ],
   },
   {

@@ -34,4 +34,8 @@ const routes = [
     name: "forgot-password",
     path: "/auth/forgot-password",
   },
+  {
+    name: "analysis",
+    path: "/analysis",
+  },
 ];

@@ -3,4 +3,5 @@ export type RouteNames =
   | "home"
   | "login"
   | "register"
-  | "forgot-password";
+  | "forgot-password"
+  | "analysis";
