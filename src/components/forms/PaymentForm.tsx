@@ -77,7 +77,7 @@ function PaymentForm({
       return await axiosCall({
         method: "POST",
         urlPath: ApiUrls.user.payments,
-        data,
+        data: { ...data, date: data.date.toLocaleDateString() },
       });
     },
     onSuccess: () => {
@@ -95,7 +95,7 @@ function PaymentForm({
       return await axiosCall({
         method: "POST",
         urlPath: `${ApiUrls.user.payments}/${editData?.id}`,
-        data: { _method: "PUT", ...data },
+        data: { _method: "PUT", ...data, date: data.date.toLocaleDateString() },
       });
     },
     onSuccess: () => {
@@ -132,7 +132,7 @@ function PaymentForm({
             />
           )}
         />
-        <FormGroup className="items-end justify-between md:grid-cols-[8fr_4fr]">
+        <FormGroup className="grid-cols-[9fr_3fr] items-end justify-between">
           <FormField
             control={form.control}
             name="amount"
