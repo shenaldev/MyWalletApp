@@ -76,9 +76,9 @@ function IncomeForm({ editData, onCreate }: IncomeProps) {
   const updateIncome = useMutation({
     mutationFn: async (data: zod.infer<typeof schema>) => {
       return await axiosCall({
-        method: "PUT",
+        method: "POST",
         urlPath: `${ApiUrls.user.incomes}/${editData?.id}`,
-        data,
+        data: { _method: "PUT", ...data },
       });
     },
     onSuccess: () => {
@@ -167,7 +167,7 @@ function IncomeForm({ editData, onCreate }: IncomeProps) {
             ) : (
               <>
                 <SendHorizonalIcon className="mr-3 h-4 w-4" />{" "}
-                {editData ? "Update" : "Add"} Payment
+                {editData ? "Update" : "Add"} Income
               </>
             )}
           </Button>
