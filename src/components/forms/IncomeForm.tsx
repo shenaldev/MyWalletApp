@@ -40,7 +40,7 @@ type IncomeProps = {
 function IncomeForm({ editData, onCreate }: IncomeProps) {
   //VARIABLES
   const [showNote, setShowNote] = useState(false);
-  const amount = editData?.amount ? parseFloat(editData.amount) : 0;
+  const amount = editData?.amount ? parseFloat(editData.amount) : undefined;
   const date = editData?.date ? new Date(editData.date) : new Date();
 
   const form = useForm<zod.infer<typeof schema>>({
@@ -60,7 +60,7 @@ function IncomeForm({ editData, onCreate }: IncomeProps) {
       return await axiosCall({
         method: "POST",
         urlPath: ApiUrls.user.incomes,
-        data,
+        data: { ...data, date: data.date.toLocaleDateString() },
       });
     },
     onSuccess: () => {
@@ -78,7 +78,7 @@ function IncomeForm({ editData, onCreate }: IncomeProps) {
       return await axiosCall({
         method: "POST",
         urlPath: `${ApiUrls.user.incomes}/${editData?.id}`,
-        data: { _method: "PUT", ...data },
+        data: { _method: "PUT",...data, date: data.date.toLocaleDateString() },
       });
     },
     onSuccess: () => {

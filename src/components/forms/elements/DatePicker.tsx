@@ -41,7 +41,7 @@ function DatePicker({ field, label }: DatePickerProps) {
           <Calendar
             mode="single"
             selected={field.value}
-            onSelect={field.onChange}
+            onSelect={(date) => field.onChange(date)}
             disabled={(date) =>
               date > new Date() || date < new Date("1900-01-01")
             }
