@@ -14,7 +14,7 @@ function DashboardLayout({ children }: DashboardLayoutProps) {
 
   if (!isDesktop)
     return (
-      <div className="h-full w-full bg-dashboardBackground">
+      <div className="h-full w-full bg-background">
         <MobileHeader />
         <Separator />
         <div className="h-full min-h-[100dvh] p-2 md:p-4">{children}</div>
@@ -24,7 +24,7 @@ function DashboardLayout({ children }: DashboardLayoutProps) {
   return (
     <div className="flex h-full flex-col lg:flex-row">
       <SideBar />
-      <div className="w-full bg-dashboardBackground">
+      <div className="w-full bg-background">
         <TopBar />
         <Separator />
         <div className="container mx-auto p-4">{children}</div>

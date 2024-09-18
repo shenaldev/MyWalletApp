@@ -39,7 +39,7 @@ function CategoryCard({
 
   return (
     <div className={`${className}`}>
-      <div className="flex justify-between rounded-md bg-[#FAFAFA] p-2 font-semibold shadow dark:bg-slate-900">
+      <div className="flex justify-between rounded-lg bg-[#FAFAFA] p-2 font-semibold shadow dark:bg-slate-900">
         <div className="flex items-center gap-2">
           {getIcon}
           <p>{name}</p>

@@ -30,18 +30,17 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 235 60% 56%;
     --radius: 0.3rem;
-    --dashboard-background: 230 37% 97%;
     --item-hover: 214.29 94.59% 92.75%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 225 94% 5%;
     --foreground: 210 40% 98%;
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
+    --primary: 235 60% 56%;
     --primary-foreground: 222.2 47.4% 11.2%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -54,7 +53,6 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 224.3 76.3% 48%;
-    --dashboard-background: 229 50% 22%;
     --item-hover: 217.24 32.58% 17.45%;
   }
 }

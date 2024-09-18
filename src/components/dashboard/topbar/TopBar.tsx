@@ -17,7 +17,7 @@ function TopBar({ title, className }: TopBarProps) {
   );
   const monthName = date.toLocaleString("default", { month: "long" });
   const classes = cn(
-    "h-20 w-full bg-violet-100 dark:bg-slate-900 dark:text-white",
+    "h-20 w-full shadow dark:background dark:text-white",
     className,
   );
 

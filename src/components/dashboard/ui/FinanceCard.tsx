@@ -22,7 +22,10 @@ function FinanceCard({
   className,
   onAction,
 }: FinanceCardProps) {
-  const classes = cn(className, "w-full shadow-sm lg:w-1/2");
+  const classes = cn(
+    className,
+    "w-full shadow-sm lg:w-1/2 bg-slate-50 dark:bg-[#0a1120]",
+  );
 
   return (
     <Card className={classes}>

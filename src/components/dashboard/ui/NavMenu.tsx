@@ -36,11 +36,11 @@ function NavMenu({ onChange }: NavMenuProps) {
         <Button
           key={index}
           size="sm"
-          className={`justify-start ${selectedMonth != index ? "text-white" : ""}`}
-          variant={selectedMonth == index ? "sidebar" : "ghost"}
+          className={`justify-start ${selectedMonth != index ? "text-foreground/80" : "bg-primary text-white hover:bg-primary/90 hover:text-white"}`}
+          variant="ghost"
           onClick={() => monthChangeHandler(index)}
         >
-          <DotIcon color={selectedMonth == index ? "#4b57d2" : "#FFFF"} />
+          <DotIcon color={selectedMonth == index ? "#ffff" : "#e6e6e6"} />
           {month}
         </Button>
       ))}

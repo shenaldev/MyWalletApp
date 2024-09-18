@@ -38,7 +38,7 @@ function AnalysisPage() {
   }, [data]);
 
   return (
-    <div className="min-h-[100dvh] bg-[#f0f0f0] 2xl:container dark:bg-slate-800">
+    <div className="min-h-[100dvh] 2xl:container">
       <TopBar title="Income and Expense Analysis" />
       <BackButton className="mb-6 lg:mb-2" />
       {/* PAYMENTS SLIDER */}
