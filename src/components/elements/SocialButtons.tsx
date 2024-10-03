@@ -14,7 +14,7 @@ function SocialButtons({ action = "Login", wrapperClass }: propTypes) {
         <Mail className="mr-2 h-4 w-4" />
         {action} with Google
       </Button>
-      <Button className="bg-[#2374f2] hover:bg-[#2372f2ea]">
+      <Button className="bg-[#2374f2] hover:bg-[#2372f2ea] dark:text-white">
         <Facebook className="mr-2 h-4 w-4" />
         {action} with Facebook
       </Button>
