@@ -15,3 +15,11 @@ export type InputSelectOption = {
 };
 
 export type ActionType = "view" | "edit" | "delete";
+
+export type AuthErrorResponse = {
+  data: {
+    message: string;
+  };
+  status: number;
+  statusText: string;
+};

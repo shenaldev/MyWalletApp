@@ -1,15 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 //IMPORT COMPONENTS
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import RegisterForm from "@/components/forms/RegisterForm";
-import SocialButtons from "@/components/elements/SocialButtons";
 import EmailVerificationDialog from "@/components/elements/dialogs/EmailVerificationDialog";
 //IMPORT UTILS
 import getRoute from "@/lib/RouteLinks";
@@ -33,32 +25,21 @@ function RegisterPage() {
 
   return (
     <>
-      <div className="container mt-8 flex justify-center pb-8">
-        <Card className="min-w-[320px] md:w-[350px]">
-          <CardHeader>
-            <CardTitle className="text-center">Create an Account</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <RegisterForm
-              isMailVerified={isMailVerified}
-              onSubmit={onFormSubmitHandler}
-            />
-            {/* Social Media Login Buttons */}
-            <SocialButtons action="Signup" />
-          </CardContent>
-          <CardFooter>
-            <p className="text-sm">
-              Already have an account?{" "}
-              <Link
-                to={getRoute("login")}
-                className="font-semibold text-primary hover:underline"
-              >
-                Login
-              </Link>
-            </p>
-          </CardFooter>
-        </Card>
-      </div>
+      <RegisterForm
+        isMailVerified={isMailVerified}
+        onSubmit={onFormSubmitHandler}
+      />
+      {/* Page Footer */}
+      <p className="text-center text-sm text-gray-600 dark:text-gray-200">
+        Do you have an account?{" "}
+        <Link
+          to={getRoute("login")}
+          className="font-medium text-primary hover:underline"
+        >
+          Sign in
+        </Link>
+      </p>
+
       <EmailVerificationDialog
         open={open}
         setOpen={setOpen}

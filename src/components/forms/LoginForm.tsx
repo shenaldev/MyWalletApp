@@ -1,18 +1,21 @@
 import * as zod from "zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 //IMPORT COMPONENTS
-import { Mail } from "lucide-react";
 import { Button } from "../ui/button";
 import { Form, FormField } from "../ui/form";
 import { InputField } from "./elements/form-elements";
+import SocialButtons from "../elements/SocialButtons";
+import TextSeperator from "../elements/text-seperator";
 import ServerErrorAlert from "../elements/ServerErrorAlert";
 //IMPORT HOOKS LIBS
 import ApiUrls from "@/lib/ApiUrls";
-import { useAuth } from "../providers/AuthProvider";
 import { axiosCall } from "@/lib/axiosCall";
+import { AuthErrorResponse } from "@/types/types";
+import { useAuth } from "../providers/AuthProvider";
 
 const loginSchema = zod.object({
   email: zod.string().email(),
@@ -27,9 +30,10 @@ type loginDataType = {
 //LOGIN FORM COMPONENT
 function LoginForm() {
   const auth = useAuth();
+  const [serverError, setServerError] = useState<string[] | null>(null);
   const navigate = useNavigate();
 
-  const { isPending, error, status, mutateAsync } = useMutation({
+  const { isPending, status, mutateAsync } = useMutation({
     mutationFn: async (data: loginDataType) => {
       return axiosCall({
         method: "POST",
@@ -37,8 +41,12 @@ function LoginForm() {
         data: data,
       });
     },
-    onError: (error) => {
-      console.log("err", error);
+    onError(error: AuthErrorResponse) {
+      if (error?.data?.message) {
+        setServerError([error.data.message]);
+      } else {
+        setServerError(["Something went wrong. Please try again later."]);
+      }
     },
     onSuccess: (data) => {
       if (data?.user != null) {
@@ -62,9 +70,18 @@ function LoginForm() {
 
   return (
     <>
-      {status === "error" && <ServerErrorAlert errors={error} />}
+      {status === "error" && (
+        <ServerErrorAlert className="mb-4" errors={serverError} />
+      )}
       <Form {...loginForm}>
-        <form onSubmit={loginForm.handleSubmit(onSubmitHandler)}>
+        <form
+          onSubmit={loginForm.handleSubmit(onSubmitHandler)}
+          className="space-y-6 rounded-lg border bg-white p-8 shadow-md dark:bg-card"
+        >
+          <h2 className="text-center text-2xl font-bold text-gray-800 dark:text-white">
+            Login to your account
+          </h2>
+
           <FormField
             control={loginForm.control}
             name="email"
@@ -84,17 +101,12 @@ function LoginForm() {
               <InputField type="password" label="Password" field={field} />
             )}
           />
-          <div className="mb-2 mt-6">
-            <Button
-              type="submit"
-              className="w-full"
-              variant="secondary"
-              disabled={isPending}
-            >
-              <Mail className="mr-2 h-4 w-4" />
-              {isPending ? "Authenticating..." : "Login with Email"}
-            </Button>
-          </div>
+          <Button className="w-full" type="submit" disabled={isPending}>
+            {isPending ? "Authenticating..." : "Sign in"}
+          </Button>
+
+          <TextSeperator text="or continue with" />
+          <SocialButtons />
         </form>
       </Form>
     </>

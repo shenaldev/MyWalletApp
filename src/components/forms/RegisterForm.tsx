@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 //IMPORT COMPONENTS
-import { Mail } from "lucide-react";
 import { Button } from "../ui/button";
 import { Form, FormField } from "../ui/form";
 import { InputField } from "./elements/form-elements";
@@ -15,6 +14,8 @@ import ServerErrorAlert from "../elements/ServerErrorAlert";
 import ApiUrls from "@/lib/ApiUrls";
 import { useAuth } from "../providers/AuthProvider";
 import { axiosCall } from "@/lib/axiosCall";
+import TextSeperator from "../elements/text-seperator";
+import SocialButtons from "../elements/SocialButtons";
 
 const registerSchema = zod
   .object({
@@ -98,13 +99,20 @@ function RegisterForm({ isMailVerified, onSubmit }: RegisterFormProps) {
     if (isMailVerified) {
       registerForm.handleSubmit(onSubmitHandler)();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMailVerified]);
 
   return (
     <>
       {status === "error" && <ServerErrorAlert errors={error} />}
       <Form {...registerForm}>
-        <form onSubmit={registerForm.handleSubmit(onSubmitHandler)}>
+        <form
+          onSubmit={registerForm.handleSubmit(onSubmitHandler)}
+          className="space-y-6 rounded-lg border bg-white p-8 shadow-md dark:bg-card"
+        >
+          <h2 className="text-center text-2xl font-bold text-gray-800 dark:text-white">
+            Create an account
+          </h2>
           <FormField
             control={registerForm.control}
             name="full_name"
@@ -146,17 +154,13 @@ function RegisterForm({ isMailVerified, onSubmit }: RegisterFormProps) {
               />
             )}
           />
-          <div className="mb-2 mt-6">
-            <Button
-              type="submit"
-              className="w-full"
-              variant="secondary"
-              disabled={isPending}
-            >
-              <Mail className="mr-2 h-4 w-4" />
-              {!isPending ? "Signup with Email" : "Signing up..."}
-            </Button>
-          </div>
+
+          <Button className="w-full" type="submit" disabled={isPending}>
+            {isPending ? "Signing up..." : "Sign up"}
+          </Button>
+
+          <TextSeperator text="or continue with" />
+          <SocialButtons />
         </form>
       </Form>
     </>

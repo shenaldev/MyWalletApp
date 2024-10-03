@@ -1,22 +1,22 @@
 import { Facebook, Mail } from "lucide-react";
 import { Button } from "../ui/button";
 
-type propTypes = {
-  action?: "Login" | "Signup";
-  wrapperClass?: string;
-};
-function SocialButtons({ action = "Login", wrapperClass }: propTypes) {
+function SocialButtons() {
   return (
-    <div
-      className={`flex flex-col gap-2 ${wrapperClass != undefined ? wrapperClass : ""}`}
-    >
-      <Button className="border border-slate-600 bg-white text-black hover:bg-gray-100">
-        <Mail className="mr-2 h-4 w-4" />
-        {action} with Google
-      </Button>
-      <Button className="bg-[#2374f2] hover:bg-[#2372f2ea] dark:text-white">
+    <div className="flex space-x-4">
+      <Button
+        variant="outline"
+        className="w-full dark:bg-card dark:hover:bg-slate-700"
+      >
         <Facebook className="mr-2 h-4 w-4" />
-        {action} with Facebook
+        Facebook
+      </Button>
+      <Button
+        variant="outline"
+        className="w-full dark:bg-card dark:hover:bg-slate-700"
+      >
+        <Mail className="mr-2 h-4 w-4" />
+        Google
       </Button>
     </div>
   );

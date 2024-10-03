@@ -9,12 +9,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import TopBar from "@/components/dashboard/topbar/TopBar";
 import BackButton from "@/components/dashboard/ui/BackButton";
 import CategoryIcon from "@/components/dashboard/payment/CategoryIcon";
-import MonthlyChart from "@/components/dashboard/analysis/MonthlyChart";
 import PaymentTotalCarousel from "@/components/dashboard/analysis/PaymentTotalCarousel";
 //IMPORT LIBS
 import ApiUrls from "@/lib/ApiUrls";
 import { numberFormat } from "@/lib/Numbers";
 import { axiosCall } from "@/lib/axiosCall";
+import IncomeExpenseChart from "@/components/dashboard/analysis/income-expense-chat";
 
 function AnalysisPage() {
   const selectedYear = useMonthYear().selectedYear;
@@ -59,16 +59,12 @@ function AnalysisPage() {
         <BalanceCard title="Balance" amount={balance} />
       </div>
       {/* CHARTS */}
-      <div className="container mt-8 flex w-full gap-4">
+      <div className="container mt-8 flex w-full gap-4 pb-12">
         {data && (
           <>
-            <MonthlyChart
-              data={data?.payment_by_month}
-              title="Monthly Expenses"
-            />
-            <MonthlyChart
-              data={data?.income_by_month}
-              title="Monthly Incomes"
+            <IncomeExpenseChart
+              payments={data.payment_by_month}
+              incomes={data.income_by_month}
             />
           </>
         )}
@@ -88,7 +84,7 @@ type PaymentCardProps = {
 
 const PaymentCard = ({ expense }: PaymentCardProps) => {
   return (
-    <Card className="border-none shadow">
+    <Card className="shadow">
       <CardContent className="p-4">
         <div className="mb-3 flex items-center gap-4">
           <CategoryIcon
