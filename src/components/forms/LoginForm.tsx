@@ -14,8 +14,10 @@ import ServerErrorAlert from "../elements/ServerErrorAlert";
 //IMPORT HOOKS LIBS
 import ApiUrls from "@/lib/ApiUrls";
 import { axiosCall } from "@/lib/axiosCall";
-import { AuthErrorResponse } from "@/types/types";
 import { useAuth } from "../providers/AuthProvider";
+import getServerErrorsArray from "@/lib/server-errors-handler";
+//IMPORT TYPES
+import { ApiErrorRes } from "@/types/axios";
 
 const loginSchema = zod.object({
   email: zod.string().email(),
@@ -41,12 +43,9 @@ function LoginForm() {
         data: data,
       });
     },
-    onError(error: AuthErrorResponse) {
-      if (error?.data?.message) {
-        setServerError([error.data.message]);
-      } else {
-        setServerError(["Something went wrong. Please try again later."]);
-      }
+    onError(error: ApiErrorRes) {
+      const er = getServerErrorsArray(error);
+      setServerError(er);
     },
     onSuccess: (data) => {
       if (data?.user != null) {

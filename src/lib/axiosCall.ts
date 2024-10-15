@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
@@ -32,21 +32,8 @@ export const axiosCall = async ({
     .then((response) => {
       return response.data;
     })
-    .catch((err) => {
-      if (err.code == "ERR_NETWORK") {
-        throw ["Something went wrong, please try again later."];
-      } else if (err?.response?.status == 422) {
-        const errorArray: string[] = [];
-        Object.keys(err.response.data.errors).forEach((key) => {
-          const error = err.response.data.errors[key][0];
-          errorArray.push(error);
-        });
-        throw errorArray;
-      } else if (err?.response?.status == 401) {
-        throw err?.response;
-      } else {
-        throw ["Something went wrong, please try again later."];
-      }
+    .catch((err: AxiosError) => {
+      throw err;
     });
 
   return response;
