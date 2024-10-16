@@ -9,6 +9,7 @@ type axiosProps = {
   urlPath: string;
   data?: any;
   isBase?: boolean;
+  isAuthRoute?: boolean;
 };
 
 export const axiosCall = async ({
@@ -16,6 +17,7 @@ export const axiosCall = async ({
   urlPath,
   data,
   isBase = false,
+  isAuthRoute = false,
 }: axiosProps) => {
   const url = `${isBase ? baseUrl : apiUrl}${apiVersion}${urlPath}`;
 
@@ -33,6 +35,18 @@ export const axiosCall = async ({
       return response.data;
     })
     .catch((err: AxiosError) => {
+      /**********************************
+       * Handle Server Errors With Status Code Of 401
+       * @returns Redirects To Login Page
+       ************************************/
+      if (err?.response?.status == 401) {
+        if (!isAuthRoute) {
+          localStorage.removeItem("user");
+          window.location.href = "/auth/login?error=unauthorized";
+          return;
+        }
+      }
+
       throw err;
     });
 

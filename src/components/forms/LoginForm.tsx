@@ -41,11 +41,12 @@ function LoginForm() {
         method: "POST",
         urlPath: ApiUrls.auth.login,
         data: data,
+        isAuthRoute: true,
       });
     },
     onError(error: ApiErrorRes) {
-      const er = getServerErrorsArray(error);
-      setServerError(er);
+      const er = getServerErrorsArray(error, true);
+      setServerError(er || []);
     },
     onSuccess: (data) => {
       if (data?.user != null) {

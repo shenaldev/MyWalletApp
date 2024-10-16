@@ -21,7 +21,11 @@ function DashboardRoot() {
    * CHECK USER TOKEN IS VALID IF USER LOGGED IN
    * ELSE REDIRECT TO LOGIN PAGE
    */
-  const { error, isError }: { error: any; isError: boolean } = useQuery({
+  const {
+    error,
+    isError,
+    refetch,
+  }: { error: any; isError: boolean; refetch: () => void } = useQuery({
     queryKey: ["checkToken"],
     queryFn: async () => {
       return await axiosCall({
@@ -29,7 +33,6 @@ function DashboardRoot() {
         urlPath: ApiUrls.auth.checkToken,
       });
     },
-    refetchInterval: 1000 * 30,
     retry(failureCount, error) {
       if (error.status === 401) return false;
       else if (failureCount < 2) return true;
@@ -37,13 +40,18 @@ function DashboardRoot() {
     },
   });
 
+  useEffect(() => {
+    refetch();
+  }, [navigate, refetch]);
+
   // RETURN EMPTY PAGE IF USER IS NULL
   if (user == null) return "";
 
   if (isError) {
     if (error?.status === 401) {
       logout();
-      navigate("/auth/login?error=unauthorized", { replace: true });
+      window.location.replace("/auth/login?error=unauthorized");
+      return;
     }
   }
 

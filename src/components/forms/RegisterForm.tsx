@@ -1,6 +1,5 @@
 import * as zod from "zod";
-import { toast } from "sonner";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
@@ -16,6 +15,8 @@ import { useAuth } from "../providers/AuthProvider";
 import { axiosCall } from "@/lib/axiosCall";
 import TextSeperator from "../elements/text-seperator";
 import SocialButtons from "../elements/SocialButtons";
+import getServerErrorsArray from "@/lib/server-errors-handler";
+import { ApiErrorRes } from "@/types/axios";
 
 const registerSchema = zod
   .object({
@@ -43,6 +44,7 @@ type RegisterFormProps = {
 function RegisterForm({ isMailVerified, onSubmit }: RegisterFormProps) {
   const auth = useAuth();
   const navigate = useNavigate();
+  const [serverError, setServerError] = useState<string[] | null>(null);
 
   const registerForm = useForm<zod.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
@@ -55,17 +57,18 @@ function RegisterForm({ isMailVerified, onSubmit }: RegisterFormProps) {
   });
 
   //USER REGISTRATION MUTATION
-  const { isPending, error, status, mutateAsync } = useMutation({
+  const { isPending, status, mutateAsync } = useMutation({
     mutationFn: async (data: any) => {
       return axiosCall({
         method: "POST",
         urlPath: ApiUrls.auth.register,
         data: data,
+        isAuthRoute: true,
       });
     },
-    onError: (error) => {
-      console.log("err", error);
-      toast.error("Something went wrong!");
+    onError: (error: ApiErrorRes) => {
+      const err = getServerErrorsArray(error);
+      setServerError(err || []);
     },
     onSuccess: (data) => {
       if (data?.user != null) {
@@ -104,7 +107,7 @@ function RegisterForm({ isMailVerified, onSubmit }: RegisterFormProps) {
 
   return (
     <>
-      {status === "error" && <ServerErrorAlert errors={error} />}
+      {status === "error" && <ServerErrorAlert errors={serverError} />}
       <Form {...registerForm}>
         <form
           onSubmit={registerForm.handleSubmit(onSubmitHandler)}
