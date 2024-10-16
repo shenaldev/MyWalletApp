@@ -1,14 +1,12 @@
 import { useEffect } from "react";
 
-//IMPORT COMPONENTS
 import { AlertCircle } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
 
-import LoginForm from "@/components/forms/LoginForm";
+import LoginForm from "@/components/forms/login-form";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
-//IMPORT UITLS
 import getRoute from "@/lib/route-links";
 
 function LoginPage() {

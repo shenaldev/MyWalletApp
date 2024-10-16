@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import LoadingTextSeletion from "@/components/ui/skeletons/LoadingTextSkeletion";
+import LoadingTextSeletion from "@/components/ui/skeletons/loading-text-skeletion";
 
 //IMPORT UTILS
 import ApiUrls from "@/lib/api-urls";

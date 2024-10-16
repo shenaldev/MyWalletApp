@@ -1,6 +1,6 @@
 import { toast } from "sonner";
 
-import IncomeForm from "@/components/forms/IncomeForm";
+import IncomeForm from "@/components/forms/income-form";
 import {
   Dialog,
   DialogContent,

@@ -1,4 +1,4 @@
-import ThemeToggle from "../dashboard/topbar/ThemeToggle";
+import ThemeToggle from "../dashboard/topbar/theme-toggle";
 
 type PropTypes = {
   children?: React.ReactNode;

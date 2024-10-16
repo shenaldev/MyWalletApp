@@ -1,11 +1,8 @@
-//IMPORT COMPONENTS
+import { useMediaQuery } from "@/hooks/use-media-query";
 
-//IMPORT UTILS
-import { useMediaQuery } from "@/hooks/useMediaQuery";
-
-import Incomes from "@/components/dashboard/income/Incomes";
-import Payments from "@/components/dashboard/payment/Payments";
-import DashboardLayout from "@/components/layouts/DashboardLayout";
+import Incomes from "@/components/dashboard/income/incomes";
+import Payments from "@/components/dashboard/payment/payments";
+import DashboardLayout from "@/components/layouts/dashboard-layout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 function AppPage() {

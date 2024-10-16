@@ -3,12 +3,11 @@ import { useMemo } from "react";
 import { Income } from "@/types/types";
 
 import { ScrollArea, ScrollViewPort } from "@/components/ui/scroll-area";
-import IncomeSkeletion from "@/components/ui/skeletons/IncomeSkeletion";
+import IncomeSkeletion from "@/components/ui/skeletons/income-skeletion";
 
-import ActionDropdown from "../ui/ActionDropdown";
+import ActionDropdown from "../ui/action-dropdown";
 
-//IMPORT COMPONENTS
-import IncomeItem from "./IncomeItem";
+import IncomeItem from "./income-item";
 
 type IncomeItemsProps = {
   data: Income[] | undefined;

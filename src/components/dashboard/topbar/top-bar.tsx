@@ -1,10 +1,10 @@
-import { useMonthYear } from "@/components/providers/MonthYearProvider";
+import { useMonthYear } from "@/components/providers/month-year-provider";
 
 import { cn } from "@/lib/utils";
 
-import SelectYear from "./SelectYear";
-import ThemeToggle from "./ThemeToggle";
-import UserDropdown from "./UserDropdown";
+import SelectYear from "./select-year";
+import ThemeToggle from "./theme-toggle";
+import UserDropdown from "./user-dropdown";
 
 type TopBarProps = {
   title?: string;

@@ -4,7 +4,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { Toaster } from "sonner";
 
 //IMPORT LAYOUTS AND PROVIDERS
-import AuthLayout from "../layouts/AuthLayout";
+import AuthLayout from "../layouts/auth-layout";
 import { useAuthProvider } from "../providers/auth-provider";
 
 function AuthRoot() {

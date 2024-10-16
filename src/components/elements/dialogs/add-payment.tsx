@@ -1,4 +1,3 @@
-//IMPORT HOOKS
 import { useCategory, usePaymentMethod } from "@/hooks/api-calls";
 import {
   Category,
@@ -8,8 +7,7 @@ import {
 } from "@/types/types";
 import { toast } from "sonner";
 
-//IMPORT COMPONENTS
-import PaymentForm from "@/components/forms/PaymentForm";
+import PaymentForm from "@/components/forms/payment-form";
 import {
   Dialog,
   DialogContent,

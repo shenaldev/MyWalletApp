@@ -7,7 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import getRoute from "@/lib/route-links";
 
 //IMPORT COMPONENTS
-import NavMenu from "./NavMenu";
+import NavMenu from "./nav-menu";
 
 function SideBar() {
   return (

@@ -4,17 +4,14 @@ import { PaymentTotalByCategory, ReportResponse } from "@/types/ReportResponse";
 import { useQuery } from "@tanstack/react-query";
 
 import IncomeExpenseChart from "@/components/dashboard/analysis/income-expense-chat";
-import PaymentTotalCarousel from "@/components/dashboard/analysis/PaymentTotalCarousel";
-import CategoryIcon from "@/components/dashboard/payment/CategoryIcon";
-import TopBar from "@/components/dashboard/topbar/TopBar";
-import BackButton from "@/components/dashboard/ui/BackButton";
-//IMPORT PROVIDERS AND TYPES
-import { useMonthYear } from "@/components/providers/MonthYearProvider";
+import PaymentTotalCarousel from "@/components/dashboard/analysis/payment-totals-carousel";
+import CategoryIcon from "@/components/dashboard/payment/category-icon";
+import TopBar from "@/components/dashboard/topbar/top-bar";
+import BackButton from "@/components/dashboard/ui/back-button";
+import { useMonthYear } from "@/components/providers/month-year-provider";
 import { Card, CardContent } from "@/components/ui/card";
-//IMPORT COMPONENTS
 import { CarouselItem } from "@/components/ui/carousel";
 
-//IMPORT LIBS
 import ApiUrls from "@/lib/api-urls";
 import { axiosCall } from "@/lib/axios-call";
 import { numberFormat } from "@/lib/numbers";

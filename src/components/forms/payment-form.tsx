@@ -1,68 +1,86 @@
 import { useState } from "react";
 
+//IMPORT DATA
 import currencies from "@/data/Currencies";
-import { Income } from "@/types/types";
+//IMPORT TYPES
+import { InputSelectOption, Payment } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
+//IMPORT ICONS
 import { SendHorizonalIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as zod from "zod";
 
-import { Button } from "../ui/button";
-//IMPORT COMPONENTS
-import { Form, FormField } from "../ui/form";
-import { Label } from "../ui/label";
-import Spinner from "../ui/spinner";
-import { Switch } from "../ui/switch";
-import ServerErrorAlert from "../elements/ServerErrorAlert";
+import DatePicker from "@/components/forms/elements/date-picker";
 import {
-  DatePicker,
   FormGroup,
   InputField,
   InputSelect,
   InputTextArea,
-} from "./elements/form-elements";
+} from "@/components/forms/elements/form-elements";
+import { Button } from "@/components/ui/button";
+import { Form, FormField } from "@/components/ui/form";
+//IMPORT COMPONENTS
+import { Label } from "@/components/ui/label";
+import Spinner from "@/components/ui/spinner";
+import { Switch } from "@/components/ui/switch";
 
-//IMPORT UTILS
+import ServerErrorAlert from "../elements/server-error-alert";
+
 import ApiUrls from "@/lib/api-urls";
+//IMPORT UTILS
 import { axiosCall } from "@/lib/axios-call";
 
+//ZOD VALIDATION SCHEMA
 const schema = zod.object({
-  source: zod.string(),
+  name: zod.string(),
   amount: zod.coerce.number().min(1, "Amount must be greater than 0"),
   date: zod.date(),
   currency: zod.string(),
+  category_id: zod.string(),
+  payment_method_id: zod.string(),
   note: zod.string().optional(),
 });
 
-type IncomeProps = {
-  editData: Income | null;
+type PropTypes = {
+  categories?: InputSelectOption[];
+  paymentMethods?: InputSelectOption[];
+  editData: Payment | null;
   onCreate: (status: boolean, action: "add" | "update") => void;
 };
 
-function IncomeForm({ editData, onCreate }: IncomeProps) {
+function PaymentForm({
+  categories,
+  paymentMethods,
+  editData,
+  onCreate,
+}: PropTypes) {
   //VARIABLES
   const [showNote, setShowNote] = useState(false);
   const amount = editData?.amount ? parseFloat(editData.amount) : undefined;
   const date = editData?.date ? new Date(editData.date) : new Date();
+  const defaultCategory = categories?.find((c) => c.name === "General");
 
+  //CREATE FORM INSTANCE
   const form = useForm<zod.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
-      source: editData?.source || "",
+      name: editData?.name || "",
       amount: amount,
       date: date,
       currency: editData?.currency.toLowerCase() || "lkr",
+      category_id: editData?.category_id.toString() || defaultCategory?.value,
+      payment_method_id: editData?.payment_method_id.toString() || "1",
       note: "",
     },
   });
 
-  //ADD NEW INCOME MUTATION
-  const addIncome = useMutation({
+  //CREATE NEW PAYMENT REQUEST
+  const addPayment = useMutation({
     mutationFn: async (data: zod.infer<typeof schema>) => {
       return await axiosCall({
         method: "POST",
-        urlPath: ApiUrls.user.incomes,
+        urlPath: ApiUrls.user.payments,
         data: { ...data, date: data.date.toLocaleDateString() },
       });
     },
@@ -75,12 +93,12 @@ function IncomeForm({ editData, onCreate }: IncomeProps) {
     },
   });
 
-  //UPDATE INCOME MUTATION
-  const updateIncome = useMutation({
+  //UPDATE PAYMENT REQUEST
+  const updatePayment = useMutation({
     mutationFn: async (data: zod.infer<typeof schema>) => {
       return await axiosCall({
         method: "POST",
-        urlPath: `${ApiUrls.user.incomes}/${editData?.id}`,
+        urlPath: `${ApiUrls.user.payments}/${editData?.id}`,
         data: { _method: "PUT", ...data, date: data.date.toLocaleDateString() },
       });
     },
@@ -94,27 +112,31 @@ function IncomeForm({ editData, onCreate }: IncomeProps) {
   });
 
   function onSubmitHandler(data: zod.infer<typeof schema>) {
-    if (editData !== null) {
-      updateIncome.mutateAsync(data);
+    if (editData != null) {
+      updatePayment.mutate(data);
     } else {
-      addIncome.mutateAsync(data);
+      addPayment.mutate(data);
     }
   }
 
   return (
     <Form {...form}>
-      {addIncome.status === "error" && (
-        <ServerErrorAlert errors={addIncome.error} />
+      {addPayment.status === "error" && (
+        <ServerErrorAlert errors={addPayment.error} />
       )}
       <form onSubmit={form.handleSubmit(onSubmitHandler)}>
         <FormField
           control={form.control}
-          name="source"
+          name="name"
           render={({ field }) => (
-            <InputField label="Source" placeholder="Salary" field={field} />
+            <InputField
+              label="Payment For"
+              field={field}
+              placeholder="Electricty Bill"
+            />
           )}
         />
-        <FormGroup className="items-end justify-between md:grid-cols-[8fr_4fr]">
+        <FormGroup className="grid-cols-[9fr_3fr] items-end justify-between">
           <FormField
             control={form.control}
             name="amount"
@@ -132,6 +154,33 @@ function IncomeForm({ editData, onCreate }: IncomeProps) {
             name="currency"
             render={({ field }) => (
               <InputSelect field={field} items={currencies} />
+            )}
+          />
+        </FormGroup>
+        <FormGroup>
+          <FormField
+            control={form.control}
+            name="category_id"
+            render={({ field }) => (
+              <InputSelect
+                field={field}
+                items={categories ? categories : []}
+                className=""
+                label="Category"
+                placeholder="Select Category"
+              />
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="payment_method_id"
+            render={({ field }) => (
+              <InputSelect
+                field={field}
+                items={paymentMethods ? paymentMethods : []}
+                label="Payment Method"
+                placeholder="Select Payment Method"
+              />
             )}
           />
         </FormGroup>
@@ -161,16 +210,17 @@ function IncomeForm({ editData, onCreate }: IncomeProps) {
           <Button
             variant="default"
             type="submit"
-            disabled={addIncome.isPending || updateIncome.isPending}
+            disabled={addPayment.isPending || updatePayment.isPending}
+            className="dark:text-white"
           >
-            {addIncome.isPending || updateIncome.isPending ? (
+            {addPayment.isPending || updatePayment.isPending ? (
               <>
                 <Spinner color="white" isButton={true} /> Please Wait...
               </>
             ) : (
               <>
                 <SendHorizonalIcon className="mr-3 h-4 w-4" />{" "}
-                {editData ? "Update" : "Add"} Income
+                {editData ? "Update" : "Add"} Payment
               </>
             )}
           </Button>
@@ -180,4 +230,4 @@ function IncomeForm({ editData, onCreate }: IncomeProps) {
   );
 }
 
-export default IncomeForm;
+export default PaymentForm;

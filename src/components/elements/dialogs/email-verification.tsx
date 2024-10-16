@@ -1,15 +1,14 @@
 import { useEffect } from "react";
 
-import useTimer from "@/hooks/useTimmer";
+import useTimer from "@/hooks/use-timmer";
 import { zodResolver } from "@hookform/resolvers/zod";
-//IMPORT COMPONENTS
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { InfoIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as zod from "zod";
 
-import InputField from "@/components/forms/elements/InputField";
+import InputField from "@/components/forms/elements/input-field";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -22,11 +21,10 @@ import {
 import { Form, FormField } from "@/components/ui/form";
 import Spinner from "@/components/ui/spinner";
 
-//IMPORT UTILS
 import ApiUrls from "@/lib/api-urls";
 import { axiosCall } from "@/lib/axios-call";
 
-import ServerErrorAlert from "../ServerErrorAlert";
+import ServerErrorAlert from "../server-error-alert";
 
 const schema = zod
   .object({
@@ -47,8 +45,6 @@ function EmailVerificationDialog({
   setOpen,
   onVerify,
 }: PropTypes) {
-  if ((!open && email == "") || undefined || null) return;
-
   const { timmer, setTimmer } = useTimer();
 
   //CREATE FORM INSTANCE
@@ -73,6 +69,7 @@ function EmailVerificationDialog({
       });
       return response;
     },
+    enabled: false,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
@@ -92,7 +89,7 @@ function EmailVerificationDialog({
     return () => {
       toast.dismiss();
     };
-  }, [sendVerificationCode.isError]);
+  }, [sendVerificationCode.isError, setTimmer]);
 
   /**
    * Send Email Verification Code Request To the Server
@@ -118,6 +115,8 @@ function EmailVerificationDialog({
   async function onSubmitHandler(data: zod.infer<typeof schema>) {
     validateCode.mutateAsync(data.code);
   }
+
+  if ((!open && email == "") || undefined || null) return;
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

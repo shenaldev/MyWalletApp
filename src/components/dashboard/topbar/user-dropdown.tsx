@@ -15,7 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import LoadingDialog from "../../elements/dialogs/LoadingDialog";
+import LoadingDialog from "../../elements/dialogs/loading";
 
 function UserDropdown() {
   const { logout } = useAuth();

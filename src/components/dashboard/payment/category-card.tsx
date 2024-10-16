@@ -9,7 +9,7 @@ import { numberFormat } from "@/lib/numbers";
 import { cn } from "@/lib/utils";
 
 //IMPORT COMPONENTS
-import CategoryIcon from "./CategoryIcon";
+import CategoryIcon from "./category-icon";
 
 type CategoryDetails = {
   icon: string | null;

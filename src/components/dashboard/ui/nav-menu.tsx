@@ -1,6 +1,6 @@
 import { DotIcon } from "lucide-react";
 
-import { useMonthYear } from "@/components/providers/MonthYearProvider";
+import { useMonthYear } from "@/components/providers/month-year-provider";
 import { Button } from "@/components/ui/button";
 
 const months = [

@@ -2,11 +2,9 @@ import { useState } from "react";
 
 import { Link } from "react-router-dom";
 
-import EmailVerificationDialog from "@/components/elements/dialogs/EmailVerificationDialog";
-//IMPORT COMPONENTS
-import RegisterForm from "@/components/forms/RegisterForm";
+import EmailVerificationDialog from "@/components/elements/dialogs/email-verification";
+import RegisterForm from "@/components/forms/register-form";
 
-//IMPORT UTILS
 import getRoute from "@/lib/route-links";
 
 function RegisterPage() {

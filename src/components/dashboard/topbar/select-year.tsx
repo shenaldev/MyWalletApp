@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import { useAuthProvider } from "@/components/providers/auth-provider";
-import { useMonthYear } from "@/components/providers/MonthYearProvider";
+import { useMonthYear } from "@/components/providers/month-year-provider";
 import {
   Select,
   SelectContent,

@@ -3,11 +3,10 @@ import { useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
-import MobileMenuIcon from "../topbar/MobileMenuButton";
-import SelectYear from "../topbar/SelectYear";
-import UserDropdown from "../topbar/UserDropdown";
-//IMPORT COMPONENTS
-import NavMenu from "./NavMenu";
+import MobileMenuIcon from "../topbar/mobile-menu-button";
+import SelectYear from "../topbar/select-year";
+import UserDropdown from "../topbar/user-dropdown";
+import NavMenu from "./nav-menu";
 
 function MobileNavDrawer() {
   const [isOpen, setIsOpen] = useState(false);

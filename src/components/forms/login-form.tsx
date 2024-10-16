@@ -9,8 +9,8 @@ import * as zod from "zod";
 
 import { Button } from "../ui/button";
 import { Form, FormField } from "../ui/form";
-import ServerErrorAlert from "../elements/ServerErrorAlert";
-import SocialButtons from "../elements/SocialButtons";
+import ServerErrorAlert from "../elements/server-error-alert";
+import SocialButtons from "../elements/social-buttons";
 import TextSeperator from "../elements/text-seperator";
 import { InputField } from "./elements/form-elements";
 

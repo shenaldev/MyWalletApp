@@ -9,7 +9,7 @@ import "./App.css";
 // IMPORT PROVIDERS
 import App from "./App";
 import AuthProvider from "./components/providers/auth-provider";
-import { ThemeProvider } from "./components/providers/ThemeProvider";
+import { ThemeProvider } from "./components/providers/theme-provider";
 
 const queryClient = new QueryClient();
 
