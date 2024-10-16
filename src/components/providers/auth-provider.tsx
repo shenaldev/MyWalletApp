@@ -4,15 +4,15 @@ import { User } from "../../types/User";
 
 type AuthContextProps = {
   user: User | null;
-  login: (user: User) => void;
-  logout: () => void;
+  logUser?: (user: User) => void;
+  removeUser?: () => void;
 };
 
 //CREATE CONTEXT
 const AuthContext = createContext<AuthContextProps>({
   user: null,
-  login: () => {},
-  logout: () => {},
+  logUser: () => {},
+  removeUser: () => {},
 });
 
 export default function AuthProvider({ children }: PropsWithChildren) {
@@ -24,26 +24,27 @@ export default function AuthProvider({ children }: PropsWithChildren) {
     if (localUser) setUser(JSON.parse(localUser));
   }
 
-  const login = (user: User) => {
+  const logUser = (user: User) => {
     setUser(user);
     localStorage.setItem("user", JSON.stringify(user));
   };
 
-  const logout = () => {
+  const removeUser = () => {
     setUser(null);
     localStorage.removeItem("user");
   };
 
   const value = {
     user,
-    login,
-    logout,
+    logUser,
+    removeUser,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-export const useAuth = () => {
+// eslint-disable-next-line react-refresh/only-export-components
+export const useAuthProvider = () => {
   const context = useContext(AuthContext);
 
   if (context === undefined)

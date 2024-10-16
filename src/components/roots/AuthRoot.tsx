@@ -5,18 +5,18 @@ import { Toaster } from "sonner";
 
 //IMPORT LAYOUTS AND PROVIDERS
 import AuthLayout from "../layouts/AuthLayout";
-import { useAuth } from "../providers/AuthProvider";
+import { useAuthProvider } from "../providers/auth-provider";
 
 function AuthRoot() {
-  const auth = useAuth();
+  const { user } = useAuthProvider();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (auth.user != null) {
+    if (user != null) {
       navigate("/", { replace: true });
       return;
     }
-  }, [auth]);
+  }, [navigate, user]);
 
   return (
     <>

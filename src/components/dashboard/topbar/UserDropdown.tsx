@@ -1,13 +1,10 @@
-import { useRemoveCookies } from "@/hooks/api-calls/ApiCalls";
+import useAuth from "@/hooks/use-auth";
 import { useMutation } from "@tanstack/react-query";
 import { LogOutIcon, User2Icon } from "lucide-react";
 import { Link } from "react-router-dom";
-import { toast } from "sonner";
 
-//IMPORT PROVIDERS
-import { useAuth } from "@/components/providers/AuthProvider";
+import { useAuthProvider } from "@/components/providers/auth-provider";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-//IMPORT COMPONENTS
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -18,38 +15,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-//IMPORT UTILS
-import ApiUrls from "@/lib/ApiUrls";
-import { axiosCall } from "@/lib/axiosCall";
-
 import LoadingDialog from "../../elements/dialogs/LoadingDialog";
 
 function UserDropdown() {
-  const user = useAuth();
+  const { logout } = useAuth();
+  const user = useAuthProvider();
 
-  /**
-   * Lougout Mutation
-   * if logout not successfull then remove cookies and logout
-   * redirect to home page
-   */
   const { isPending, mutateAsync } = useMutation({
     mutationFn: async () => {
-      return axiosCall({ method: "POST", urlPath: ApiUrls.auth.logout });
-    },
-    onError: (error) => {
-      console.log("err", error);
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      const cookies = useRemoveCookies();
-      if (cookies.isSuccess) {
-        user.logout();
-        window.location.replace("/");
-      } else {
-        toast.error("Something went wrong");
-      }
-    },
-    onSuccess: () => {
-      user.logout();
-      window.location.replace("/");
+      return logout("api/v1/logout");
     },
   });
 

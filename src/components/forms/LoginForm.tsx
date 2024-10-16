@@ -1,14 +1,12 @@
 import { useState } from "react";
 
-//IMPORT TYPES
+import useAuth from "@/hooks/use-auth";
 import { ApiErrorRes } from "@/types/axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import * as zod from "zod";
 
-//IMPORT COMPONENTS
 import { Button } from "../ui/button";
 import { Form, FormField } from "../ui/form";
 import ServerErrorAlert from "../elements/ServerErrorAlert";
@@ -16,12 +14,7 @@ import SocialButtons from "../elements/SocialButtons";
 import TextSeperator from "../elements/text-seperator";
 import { InputField } from "./elements/form-elements";
 
-//IMPORT HOOKS LIBS
-import ApiUrls from "@/lib/ApiUrls";
-import { axiosCall } from "@/lib/axiosCall";
 import getServerErrorsArray from "@/lib/server-errors-handler";
-
-import { useAuth } from "../providers/AuthProvider";
 
 const loginSchema = zod.object({
   email: zod.string().email(),
@@ -37,26 +30,14 @@ type loginDataType = {
 function LoginForm() {
   const auth = useAuth();
   const [serverError, setServerError] = useState<string[] | null>(null);
-  const navigate = useNavigate();
 
   const { isPending, status, mutateAsync } = useMutation({
     mutationFn: async (data: loginDataType) => {
-      return axiosCall({
-        method: "POST",
-        urlPath: ApiUrls.auth.login,
-        data: data,
-        isAuthRoute: true,
-      });
+      return auth.login(data, `api/v1/login`);
     },
     onError(error: ApiErrorRes) {
       const er = getServerErrorsArray(error, true);
       setServerError(er || []);
-    },
-    onSuccess: (data) => {
-      if (data?.user != null) {
-        auth.login(data?.user);
-        navigate("/");
-      }
     },
   });
 

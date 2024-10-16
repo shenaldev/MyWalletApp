@@ -8,7 +8,7 @@ import "./App.css";
 
 // IMPORT PROVIDERS
 import App from "./App";
-import AuthProvider from "./components/providers/AuthProvider";
+import AuthProvider from "./components/providers/auth-provider";
 import { ThemeProvider } from "./components/providers/ThemeProvider";
 
 const queryClient = new QueryClient();

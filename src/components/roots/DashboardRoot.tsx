@@ -7,11 +7,10 @@ import { Toaster } from "sonner";
 import ApiUrls from "@/lib/ApiUrls";
 import { axiosCall } from "@/lib/axiosCall";
 
-//IMPORT PROVIDERS
-import { useAuth } from "../providers/AuthProvider";
+import { useAuthProvider } from "../providers/auth-provider";
 
 function DashboardRoot() {
-  const { user, logout } = useAuth();
+  const { user } = useAuthProvider();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -52,7 +51,6 @@ function DashboardRoot() {
 
   if (isError) {
     if (error?.status === 401) {
-      logout();
       window.location.replace("/auth/login?error=unauthorized");
       return;
     }

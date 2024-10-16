@@ -2,10 +2,8 @@ import { useMemo } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 
-//IMPORT CONTEXT
-import { useAuth } from "@/components/providers/AuthProvider";
+import { useAuthProvider } from "@/components/providers/auth-provider";
 import { useMonthYear } from "@/components/providers/MonthYearProvider";
-//IMPORT COMPONENTS
 import {
   Select,
   SelectContent,
@@ -15,13 +13,11 @@ import {
 } from "@/components/ui/select";
 
 import ApiUrls from "@/lib/ApiUrls";
-//IMPORT UTILS
 import { axiosCall } from "@/lib/axiosCall";
 
 const currentYear = new Date().getFullYear();
 function SelectYear() {
-  const auth = useAuth();
-  const { user } = auth;
+  const { user } = useAuthProvider();
   const monthYearContext = useMonthYear();
 
   const { data: oldestYear, isLoading } = useQuery({

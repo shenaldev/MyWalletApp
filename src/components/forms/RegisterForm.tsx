@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 
+import useAuth from "@/hooks/use-auth";
 import { ApiErrorRes } from "@/types/axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import * as zod from "zod";
 
-//IMPORT COMPONENTS
 import { Button } from "../ui/button";
 import { Form, FormField } from "../ui/form";
 import ServerErrorAlert from "../elements/ServerErrorAlert";
@@ -15,12 +14,7 @@ import SocialButtons from "../elements/SocialButtons";
 import TextSeperator from "../elements/text-seperator";
 import { InputField } from "./elements/form-elements";
 
-//IMPORT UTILS
-import ApiUrls from "@/lib/ApiUrls";
-import { axiosCall } from "@/lib/axiosCall";
 import getServerErrorsArray from "@/lib/server-errors-handler";
-
-import { useAuth } from "../providers/AuthProvider";
 
 const registerSchema = zod
   .object({
@@ -47,7 +41,6 @@ type RegisterFormProps = {
 //REGISTER FORM COMPONENT
 function RegisterForm({ isMailVerified, onSubmit }: RegisterFormProps) {
   const auth = useAuth();
-  const navigate = useNavigate();
   const [serverError, setServerError] = useState<string[] | null>(null);
 
   const registerForm = useForm<zod.infer<typeof registerSchema>>({
@@ -63,22 +56,11 @@ function RegisterForm({ isMailVerified, onSubmit }: RegisterFormProps) {
   //USER REGISTRATION MUTATION
   const { isPending, status, mutateAsync } = useMutation({
     mutationFn: async (data: any) => {
-      return axiosCall({
-        method: "POST",
-        urlPath: ApiUrls.auth.register,
-        data: data,
-        isAuthRoute: true,
-      });
+      return auth.register(data, `api/v1/register`);
     },
     onError: (error: ApiErrorRes) => {
       const err = getServerErrorsArray(error);
       setServerError(err || []);
-    },
-    onSuccess: (data) => {
-      if (data?.user != null) {
-        auth.login(data?.user);
-        navigate("/");
-      }
     },
   });
 

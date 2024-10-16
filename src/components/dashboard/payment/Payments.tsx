@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-//IMPORT TYPES
 import { Payment, PaymentResponse } from "@/types/types";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -15,12 +14,10 @@ import ActionDropdown from "../ui/ActionDropdown";
 import { CardContent, CardFooter, FinanceCard } from "../ui/FinanceCard";
 import TotalCard from "../ui/TotalCard";
 
-//IMPORT UTILS
 import ApiUrls from "@/lib/ApiUrls";
 import { axiosCall } from "@/lib/axiosCall";
 
 import CategoryCard from "./CategoryCard";
-//IMPORT COMPONENTS
 import PaymentItem from "./PaymentItem";
 
 function Payments() {
