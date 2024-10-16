@@ -1,22 +1,27 @@
-import { toast } from "sonner";
 import { useState } from "react";
-import { useMutation, useQuery } from "@tanstack/react-query";
+
 //IMPORT TYPES
-import { PaymentResponse, Payment } from "@/types/types";
-//IMPORT COMPONENTS
-import PaymentItem from "./PaymentItem";
-import TotalCard from "../ui/TotalCard";
-import CategoryCard from "./CategoryCard";
-import { CardContent, CardFooter, FinanceCard } from "../ui/FinanceCard";
-import ActionDropdown from "../ui/ActionDropdown";
-import PaymentDialog from "@/components/elements/dialogs/PaymentDialog";
+import { Payment, PaymentResponse } from "@/types/types";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { toast } from "sonner";
+
 import DeleteAlertDialog from "@/components/elements/dialogs/DeleteAlertDialog";
+import PaymentDialog from "@/components/elements/dialogs/PaymentDialog";
 import ViewPaymentDialog from "@/components/elements/dialogs/ViewPaymentDialog";
+import { useMonthYear } from "@/components/providers/MonthYearProvider";
 import CategoryCardSkeleton from "@/components/ui/skeletons/CategoryCardSkeletion";
+
+import ActionDropdown from "../ui/ActionDropdown";
+import { CardContent, CardFooter, FinanceCard } from "../ui/FinanceCard";
+import TotalCard from "../ui/TotalCard";
+
 //IMPORT UTILS
 import ApiUrls from "@/lib/ApiUrls";
 import { axiosCall } from "@/lib/axiosCall";
-import { useMonthYear } from "@/components/providers/MonthYearProvider";
+
+import CategoryCard from "./CategoryCard";
+//IMPORT COMPONENTS
+import PaymentItem from "./PaymentItem";
 
 function Payments() {
   const [openAdd, setOpenAdd] = useState(false);

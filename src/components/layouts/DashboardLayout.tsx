@@ -1,9 +1,10 @@
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-//IMPORT COMPONENTS
-import { Separator } from "@/components/ui/separator";
-import SideBar from "@/components/dashboard/ui/SideBar";
+
 import TopBar from "@/components/dashboard/topbar/TopBar";
 import MobileHeader from "@/components/dashboard/ui/MobileHeader";
+import SideBar from "@/components/dashboard/ui/SideBar";
+//IMPORT COMPONENTS
+import { Separator } from "@/components/ui/separator";
 
 type DashboardLayoutProps = {
   children?: React.ReactNode;

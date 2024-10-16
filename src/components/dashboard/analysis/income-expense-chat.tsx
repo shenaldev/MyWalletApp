@@ -1,4 +1,6 @@
+import { Months } from "@/data/months";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
+
 import {
   Card,
   CardContent,
@@ -12,7 +14,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { Months } from "@/data/months";
 
 const chartConfig = {
   incomes: {

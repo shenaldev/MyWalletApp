@@ -1,3 +1,5 @@
+import React from "react";
+
 import {
   FormControl,
   FormItem,
@@ -5,7 +7,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import React from "react";
 
 type InputTypes = {
   label?: string | null;

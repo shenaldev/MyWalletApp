@@ -1,7 +1,7 @@
 import { useMemo } from "react";
+
 //IMPORT COMPONENTS
 import { TotalByMonth } from "@/types/ReportResponse";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Area,
   AreaChart,
@@ -10,6 +10,8 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 type MonthlyChartProps = {
   data: TotalByMonth[];

@@ -1,6 +1,8 @@
-import ApiUrls from "@/lib/ApiUrls";
-import useAxios from "./useAxios";
 import { useEffect } from "react";
+
+import ApiUrls from "@/lib/ApiUrls";
+
+import useAxios from "./useAxios";
 
 export default function useUnauthorizedHandler(statusCode: number) {
   if (statusCode == 401) {

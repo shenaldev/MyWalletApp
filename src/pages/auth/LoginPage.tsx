@@ -1,10 +1,13 @@
-import { toast } from "sonner";
 import { useEffect } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+
 //IMPORT COMPONENTS
 import { AlertCircle } from "lucide-react";
+import { Link, useSearchParams } from "react-router-dom";
+import { toast } from "sonner";
+
 import LoginForm from "@/components/forms/LoginForm";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+
 //IMPORT UITLS
 import getRoute from "@/lib/RouteLinks";
 

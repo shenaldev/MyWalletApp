@@ -17,10 +17,10 @@ export default function getServerErrorsArray(
     }
     return errorList;
   } else if (error.response.status == 401) {
-  /**********************************
-   * Handle Server Errors With Status Code Of 401
-   * @returns Redirects To Login Page
-   ************************************/
+    /**********************************
+     * Handle Server Errors With Status Code Of 401
+     * @returns Redirects To Login Page
+     ************************************/
     if (!isAuthPage) {
       localStorage.removeItem("user");
       window.location.href = "/auth/login?error=unauthorized";

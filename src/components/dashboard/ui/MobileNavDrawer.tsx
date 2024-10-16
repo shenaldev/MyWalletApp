@@ -1,11 +1,13 @@
 import { useState } from "react";
-//IMPORT COMPONENTS
-import NavMenu from "./NavMenu";
+
+import { Separator } from "@/components/ui/separator";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+
+import MobileMenuIcon from "../topbar/MobileMenuButton";
 import SelectYear from "../topbar/SelectYear";
 import UserDropdown from "../topbar/UserDropdown";
-import { Separator } from "@/components/ui/separator";
-import MobileMenuIcon from "../topbar/MobileMenuButton";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+//IMPORT COMPONENTS
+import NavMenu from "./NavMenu";
 
 function MobileNavDrawer() {
   const [isOpen, setIsOpen] = useState(false);

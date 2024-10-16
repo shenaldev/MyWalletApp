@@ -1,10 +1,13 @@
-import { toast } from "sonner";
+//IMPORT HOOKS
+import { useCategory, usePaymentMethod } from "@/hooks/api-calls/ApiCalls";
 import {
   Category,
-  PaymentMethod,
   InputSelectOption,
   Payment,
+  PaymentMethod,
 } from "@/types/types";
+import { toast } from "sonner";
+
 //IMPORT COMPONENTS
 import PaymentForm from "@/components/forms/PaymentForm";
 import {
@@ -13,8 +16,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-//IMPORT HOOKS
-import { useCategory, usePaymentMethod } from "@/hooks/api-calls/ApiCalls";
 
 type PropTypes = {
   open: boolean;

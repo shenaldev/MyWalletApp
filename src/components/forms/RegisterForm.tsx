@@ -1,22 +1,26 @@
-import * as zod from "zod";
 import { useEffect, useState } from "react";
+
+import { ApiErrorRes } from "@/types/axios";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
-import { zodResolver } from "@hookform/resolvers/zod";
+import * as zod from "zod";
+
 //IMPORT COMPONENTS
 import { Button } from "../ui/button";
 import { Form, FormField } from "../ui/form";
-import { InputField } from "./elements/form-elements";
 import ServerErrorAlert from "../elements/ServerErrorAlert";
+import SocialButtons from "../elements/SocialButtons";
+import TextSeperator from "../elements/text-seperator";
+import { InputField } from "./elements/form-elements";
+
 //IMPORT UTILS
 import ApiUrls from "@/lib/ApiUrls";
-import { useAuth } from "../providers/AuthProvider";
 import { axiosCall } from "@/lib/axiosCall";
-import TextSeperator from "../elements/text-seperator";
-import SocialButtons from "../elements/SocialButtons";
 import getServerErrorsArray from "@/lib/server-errors-handler";
-import { ApiErrorRes } from "@/types/axios";
+
+import { useAuth } from "../providers/AuthProvider";
 
 const registerSchema = zod
   .object({

@@ -1,9 +1,12 @@
-import { Suspense, lazy } from "react";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { lazy, Suspense } from "react";
+
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 //IMPORT PROVIDERS
 import MonthYearProvider from "./components/providers/MonthYearProvider";
 //IMPORT COMPONENTS
 import Spinner from "./components/ui/spinner";
+
 const AuthRoot = lazy(() => import("./components/roots/AuthRoot"));
 const DashboardRoot = lazy(() => import("./components/roots/DashboardRoot"));
 //IMPORT PAGES

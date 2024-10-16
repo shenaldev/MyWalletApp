@@ -1,9 +1,12 @@
 import { ReactNode } from "react";
-import dayjs from "dayjs";
+
 //IMPORT TYPES
 import type { Payment } from "@/types/types";
+import dayjs from "dayjs";
+
 //IMPORT COMPONENTS
 import { Separator } from "@/components/ui/separator";
+
 //IMPORT UTILS
 import { numberFormat } from "@/lib/Numbers";
 

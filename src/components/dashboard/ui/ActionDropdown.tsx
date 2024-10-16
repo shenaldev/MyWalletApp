@@ -1,11 +1,12 @@
+import { ActionType } from "@/types/types";
+import { EyeIcon, MoreVerticalIcon, Pencil, TrashIcon } from "lucide-react";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ActionType } from "@/types/types";
-import { EyeIcon, MoreVerticalIcon, Pencil, TrashIcon } from "lucide-react";
 
 const buttonClasses = "flex items-center font-medium w-full";
 const iconClasses = "size-4 mr-3";

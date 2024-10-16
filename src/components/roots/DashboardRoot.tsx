@@ -1,11 +1,14 @@
-import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+
+import { useQuery } from "@tanstack/react-query";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Toaster } from "sonner";
+
+import ApiUrls from "@/lib/ApiUrls";
+import { axiosCall } from "@/lib/axiosCall";
+
 //IMPORT PROVIDERS
 import { useAuth } from "../providers/AuthProvider";
-import { useQuery } from "@tanstack/react-query";
-import { axiosCall } from "@/lib/axiosCall";
-import ApiUrls from "@/lib/ApiUrls";
 
 function DashboardRoot() {
   const { user, logout } = useAuth();

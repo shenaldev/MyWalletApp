@@ -1,6 +1,7 @@
-import { toast } from "sonner";
-import { useQuery } from "@tanstack/react-query";
 import { Payment, SinglePaymentResponse } from "@/types/types";
+import { useQuery } from "@tanstack/react-query";
+import { toast } from "sonner";
+
 //IMPORT COMPONENTS
 import { Button } from "@/components/ui/button";
 import {
@@ -13,6 +14,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import LoadingTextSeletion from "@/components/ui/skeletons/LoadingTextSkeletion";
+
 //IMPORT UTILS
 import ApiUrls from "@/lib/ApiUrls";
 import { axiosCall } from "@/lib/axiosCall";

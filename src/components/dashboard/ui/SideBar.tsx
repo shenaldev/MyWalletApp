@@ -1,10 +1,13 @@
-import { Link } from "react-router-dom";
-//IMPORT COMPONENTS
-import NavMenu from "./NavMenu";
 import { BarChart4Icon } from "lucide-react";
+import { Link } from "react-router-dom";
+
 import { Separator } from "@/components/ui/separator";
+
 //IMPORT UTILS
 import getRoute from "@/lib/RouteLinks";
+
+//IMPORT COMPONENTS
+import NavMenu from "./NavMenu";
 
 function SideBar() {
   return (

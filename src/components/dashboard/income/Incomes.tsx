@@ -1,19 +1,24 @@
-import { toast } from "sonner";
 import { useState } from "react";
-import { useMutation, useQuery } from "@tanstack/react-query";
+
 //IMPORT TYPES
 import { Income, IncomeResponse } from "@/types/types";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { toast } from "sonner";
+
+import DeleteAlertDialog from "@/components/elements/dialogs/DeleteAlertDialog";
+import IncomeDialog from "@/components/elements/dialogs/IncomeDialog";
+import ViewIncomeDialog from "@/components/elements/dialogs/ViewIncomeDialog";
+import { useMonthYear } from "@/components/providers/MonthYearProvider";
+
+import { CardContent, CardFooter, FinanceCard } from "../ui/FinanceCard";
 //IMPORT COMPONENTS
 import TotalCard from "../ui/TotalCard";
-import IncomeItems from "./IncomeItems";
-import { CardContent, CardFooter, FinanceCard } from "../ui/FinanceCard";
-import IncomeDialog from "@/components/elements/dialogs/IncomeDialog";
+
 //IMPORT UTILS
 import ApiUrls from "@/lib/ApiUrls";
 import { axiosCall } from "@/lib/axiosCall";
-import { useMonthYear } from "@/components/providers/MonthYearProvider";
-import ViewIncomeDialog from "@/components/elements/dialogs/ViewIncomeDialog";
-import DeleteAlertDialog from "@/components/elements/dialogs/DeleteAlertDialog";
+
+import IncomeItems from "./IncomeItems";
 
 function Incomes() {
   const { selectedMonth, selectedYear } = useMonthYear();

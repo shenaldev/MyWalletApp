@@ -1,12 +1,13 @@
-import ApiUrls from "@/lib/ApiUrls";
-import { axiosCall } from "@/lib/axiosCall";
 import { Category } from "@/types/Categories";
 import {
   QueryFunction,
   QueryKey,
-  UseQueryOptions,
   useQuery,
+  UseQueryOptions,
 } from "@tanstack/react-query";
+
+import ApiUrls from "@/lib/ApiUrls";
+import { axiosCall } from "@/lib/axiosCall";
 
 export default function useCategory(
   options?: Omit<UseQueryOptions<QueryKey, QueryFunction>, string>,

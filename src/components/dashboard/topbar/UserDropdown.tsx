@@ -1,9 +1,14 @@
-import { toast } from "sonner";
-import { Link } from "react-router-dom";
+import { useRemoveCookies } from "@/hooks/api-calls/ApiCalls";
 import { useMutation } from "@tanstack/react-query";
+import { LogOutIcon, User2Icon } from "lucide-react";
+import { Link } from "react-router-dom";
+import { toast } from "sonner";
+
+//IMPORT PROVIDERS
+import { useAuth } from "@/components/providers/AuthProvider";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 //IMPORT COMPONENTS
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,14 +17,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogOutIcon, User2Icon } from "lucide-react";
-import LoadingDialog from "../../elements/dialogs/LoadingDialog";
-//IMPORT PROVIDERS
-import { useAuth } from "@/components/providers/AuthProvider";
+
 //IMPORT UTILS
 import ApiUrls from "@/lib/ApiUrls";
 import { axiosCall } from "@/lib/axiosCall";
-import { useRemoveCookies } from "@/hooks/api-calls/ApiCalls";
+
+import LoadingDialog from "../../elements/dialogs/LoadingDialog";
 
 function UserDropdown() {
   const user = useAuth();

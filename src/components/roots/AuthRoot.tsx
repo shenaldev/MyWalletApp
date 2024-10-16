@@ -1,6 +1,8 @@
-import { Toaster } from "sonner";
 import { useEffect } from "react";
+
 import { Outlet, useNavigate } from "react-router-dom";
+import { Toaster } from "sonner";
+
 //IMPORT LAYOUTS AND PROVIDERS
 import AuthLayout from "../layouts/AuthLayout";
 import { useAuth } from "../providers/AuthProvider";

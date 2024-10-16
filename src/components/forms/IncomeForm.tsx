@@ -1,11 +1,20 @@
-import * as zod from "zod";
 import { useState } from "react";
+
+import currencies from "@/data/Currencies";
 import { Income } from "@/types/types";
-import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { SendHorizonalIcon } from "lucide-react";
+import { useForm } from "react-hook-form";
+import * as zod from "zod";
+
+import { Button } from "../ui/button";
 //IMPORT COMPONENTS
 import { Form, FormField } from "../ui/form";
+import { Label } from "../ui/label";
+import Spinner from "../ui/spinner";
+import { Switch } from "../ui/switch";
+import ServerErrorAlert from "../elements/ServerErrorAlert";
 import {
   DatePicker,
   FormGroup,
@@ -13,15 +22,9 @@ import {
   InputSelect,
   InputTextArea,
 } from "./elements/form-elements";
-import Spinner from "../ui/spinner";
-import { Label } from "../ui/label";
-import { Switch } from "../ui/switch";
-import { Button } from "../ui/button";
-import { SendHorizonalIcon } from "lucide-react";
-import ServerErrorAlert from "../elements/ServerErrorAlert";
+
 //IMPORT UTILS
 import ApiUrls from "@/lib/ApiUrls";
-import currencies from "@/data/Currencies";
 import { axiosCall } from "@/lib/axiosCall";
 
 const schema = zod.object({
@@ -78,7 +81,7 @@ function IncomeForm({ editData, onCreate }: IncomeProps) {
       return await axiosCall({
         method: "POST",
         urlPath: `${ApiUrls.user.incomes}/${editData?.id}`,
-        data: { _method: "PUT",...data, date: data.date.toLocaleDateString() },
+        data: { _method: "PUT", ...data, date: data.date.toLocaleDateString() },
       });
     },
     onSuccess: () => {

@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
 import { ArrowLeftIcon } from "lucide-react";
+import { Link } from "react-router-dom";
+
 import { cn } from "@/lib/utils";
 
 type BackButtonProps = {

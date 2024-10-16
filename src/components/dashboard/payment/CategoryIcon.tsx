@@ -1,12 +1,13 @@
 import { useMemo } from "react";
+
 import {
-  FolderIcon,
-  SoupIcon,
-  FuelIcon,
   CarIcon,
+  FolderIcon,
+  FuelIcon,
+  HeartIcon,
   ReceiptTextIcon,
   ShoppingCartIcon,
-  HeartIcon,
+  SoupIcon,
 } from "lucide-react";
 
 type CategoryIconProps = {

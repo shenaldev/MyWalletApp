@@ -1,20 +1,23 @@
 import { useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
-//IMPORT PROVIDERS AND TYPES
-import { useMonthYear } from "@/components/providers/MonthYearProvider";
+
 import { PaymentTotalByCategory, ReportResponse } from "@/types/ReportResponse";
-//IMPORT COMPONENTS
-import { CarouselItem } from "@/components/ui/carousel";
-import { Card, CardContent } from "@/components/ui/card";
+import { useQuery } from "@tanstack/react-query";
+
+import IncomeExpenseChart from "@/components/dashboard/analysis/income-expense-chat";
+import PaymentTotalCarousel from "@/components/dashboard/analysis/PaymentTotalCarousel";
+import CategoryIcon from "@/components/dashboard/payment/CategoryIcon";
 import TopBar from "@/components/dashboard/topbar/TopBar";
 import BackButton from "@/components/dashboard/ui/BackButton";
-import CategoryIcon from "@/components/dashboard/payment/CategoryIcon";
-import PaymentTotalCarousel from "@/components/dashboard/analysis/PaymentTotalCarousel";
+//IMPORT PROVIDERS AND TYPES
+import { useMonthYear } from "@/components/providers/MonthYearProvider";
+import { Card, CardContent } from "@/components/ui/card";
+//IMPORT COMPONENTS
+import { CarouselItem } from "@/components/ui/carousel";
+
 //IMPORT LIBS
 import ApiUrls from "@/lib/ApiUrls";
-import { numberFormat } from "@/lib/Numbers";
 import { axiosCall } from "@/lib/axiosCall";
-import IncomeExpenseChart from "@/components/dashboard/analysis/income-expense-chat";
+import { numberFormat } from "@/lib/Numbers";
 
 function AnalysisPage() {
   const selectedYear = useMonthYear().selectedYear;

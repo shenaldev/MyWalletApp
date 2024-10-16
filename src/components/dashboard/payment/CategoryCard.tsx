@@ -1,11 +1,15 @@
 import { ReactNode, useMemo, useState } from "react";
-//IMPORT COMPONENTS
-import CategoryIcon from "./CategoryIcon";
+
 import { LucideChevronDown, LucideChevronUp } from "lucide-react";
+
 import { ScrollArea, ScrollViewPort } from "@/components/ui/scroll-area";
+
+import { numberFormat } from "@/lib/Numbers";
 //IMPORT UTILS
 import { cn } from "@/lib/utils";
-import { numberFormat } from "@/lib/Numbers";
+
+//IMPORT COMPONENTS
+import CategoryIcon from "./CategoryIcon";
 
 type CategoryDetails = {
   icon: string | null;
