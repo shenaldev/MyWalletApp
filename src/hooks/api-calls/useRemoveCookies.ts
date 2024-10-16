@@ -5,8 +5,8 @@ import {
   UseQueryOptions,
 } from "@tanstack/react-query";
 
-import ApiUrls from "@/lib/ApiUrls";
-import { axiosCall } from "@/lib/axiosCall";
+import ApiUrls from "@/lib/api-urls";
+import { axiosCall } from "@/lib/axios-call";
 
 export default function useRemoveCookies(
   options?: Omit<UseQueryOptions<QueryKey, QueryFunction>, string>,

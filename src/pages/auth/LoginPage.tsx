@@ -9,7 +9,7 @@ import LoginForm from "@/components/forms/LoginForm";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
 //IMPORT UITLS
-import getRoute from "@/lib/RouteLinks";
+import getRoute from "@/lib/route-links";
 
 function LoginPage() {
   const [searchParams] = useSearchParams({ error: "" });

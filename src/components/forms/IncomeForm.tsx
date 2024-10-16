@@ -24,8 +24,8 @@ import {
 } from "./elements/form-elements";
 
 //IMPORT UTILS
-import ApiUrls from "@/lib/ApiUrls";
-import { axiosCall } from "@/lib/axiosCall";
+import ApiUrls from "@/lib/api-urls";
+import { axiosCall } from "@/lib/axios-call";
 
 const schema = zod.object({
   source: zod.string(),

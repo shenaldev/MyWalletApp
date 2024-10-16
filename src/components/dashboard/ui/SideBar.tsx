@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Separator } from "@/components/ui/separator";
 
 //IMPORT UTILS
-import getRoute from "@/lib/RouteLinks";
+import getRoute from "@/lib/route-links";
 
 //IMPORT COMPONENTS
 import NavMenu from "./NavMenu";

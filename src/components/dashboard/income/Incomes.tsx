@@ -15,8 +15,8 @@ import { CardContent, CardFooter, FinanceCard } from "../ui/FinanceCard";
 import TotalCard from "../ui/TotalCard";
 
 //IMPORT UTILS
-import ApiUrls from "@/lib/ApiUrls";
-import { axiosCall } from "@/lib/axiosCall";
+import ApiUrls from "@/lib/api-urls";
+import { axiosCall } from "@/lib/axios-call";
 
 import IncomeItems from "./IncomeItems";
 

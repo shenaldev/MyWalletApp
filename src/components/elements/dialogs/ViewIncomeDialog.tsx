@@ -16,8 +16,8 @@ import { Separator } from "@/components/ui/separator";
 import LoadingTextSeletion from "@/components/ui/skeletons/LoadingTextSkeletion";
 
 //IMPORT UTILS
-import ApiUrls from "@/lib/ApiUrls";
-import { axiosCall } from "@/lib/axiosCall";
+import ApiUrls from "@/lib/api-urls";
+import { axiosCall } from "@/lib/axios-call";
 
 type ViewIncomeDialogProps = {
   open: boolean;

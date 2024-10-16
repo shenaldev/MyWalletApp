@@ -27,9 +27,9 @@ import { Switch } from "@/components/ui/switch";
 
 import ServerErrorAlert from "../elements/ServerErrorAlert";
 
-import ApiUrls from "@/lib/ApiUrls";
+import ApiUrls from "@/lib/api-urls";
 //IMPORT UTILS
-import { axiosCall } from "@/lib/axiosCall";
+import { axiosCall } from "@/lib/axios-call";
 
 //ZOD VALIDATION SCHEMA
 const schema = zod.object({

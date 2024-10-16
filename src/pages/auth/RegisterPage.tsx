@@ -7,7 +7,7 @@ import EmailVerificationDialog from "@/components/elements/dialogs/EmailVerifica
 import RegisterForm from "@/components/forms/RegisterForm";
 
 //IMPORT UTILS
-import getRoute from "@/lib/RouteLinks";
+import getRoute from "@/lib/route-links";
 
 function RegisterPage() {
   const [isMailVerified, setIsMailVerified] = useState(false);

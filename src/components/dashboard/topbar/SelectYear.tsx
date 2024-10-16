@@ -12,8 +12,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import ApiUrls from "@/lib/ApiUrls";
-import { axiosCall } from "@/lib/axiosCall";
+import ApiUrls from "@/lib/api-urls";
+import { axiosCall } from "@/lib/axios-call";
 
 const currentYear = new Date().getFullYear();
 function SelectYear() {

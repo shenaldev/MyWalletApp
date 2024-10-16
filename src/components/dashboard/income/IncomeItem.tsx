@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 import { Separator } from "@/components/ui/separator";
 
 //IMPORT UTILS
-import { numberFormat } from "@/lib/Numbers";
+import { numberFormat } from "@/lib/numbers";
 
 type IncomeItemProps = {
   income: Income;

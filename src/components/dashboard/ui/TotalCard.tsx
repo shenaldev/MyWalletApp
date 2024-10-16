@@ -1,4 +1,4 @@
-import { numberFormat } from "@/lib/Numbers";
+import { numberFormat } from "@/lib/numbers";
 
 function TotalCard({ total }: { total: number | string }) {
   return (

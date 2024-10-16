@@ -14,8 +14,8 @@ import ActionDropdown from "../ui/ActionDropdown";
 import { CardContent, CardFooter, FinanceCard } from "../ui/FinanceCard";
 import TotalCard from "../ui/TotalCard";
 
-import ApiUrls from "@/lib/ApiUrls";
-import { axiosCall } from "@/lib/axiosCall";
+import ApiUrls from "@/lib/api-urls";
+import { axiosCall } from "@/lib/axios-call";
 
 import CategoryCard from "./CategoryCard";
 import PaymentItem from "./PaymentItem";

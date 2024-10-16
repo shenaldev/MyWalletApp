@@ -4,7 +4,7 @@ import { LucideChevronDown, LucideChevronUp } from "lucide-react";
 
 import { ScrollArea, ScrollViewPort } from "@/components/ui/scroll-area";
 
-import { numberFormat } from "@/lib/Numbers";
+import { numberFormat } from "@/lib/numbers";
 //IMPORT UTILS
 import { cn } from "@/lib/utils";
 

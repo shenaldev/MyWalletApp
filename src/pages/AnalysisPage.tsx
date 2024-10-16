@@ -15,9 +15,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { CarouselItem } from "@/components/ui/carousel";
 
 //IMPORT LIBS
-import ApiUrls from "@/lib/ApiUrls";
-import { axiosCall } from "@/lib/axiosCall";
-import { numberFormat } from "@/lib/Numbers";
+import ApiUrls from "@/lib/api-urls";
+import { axiosCall } from "@/lib/axios-call";
+import { numberFormat } from "@/lib/numbers";
 
 function AnalysisPage() {
   const selectedYear = useMonthYear().selectedYear;

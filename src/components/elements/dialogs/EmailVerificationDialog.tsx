@@ -23,8 +23,8 @@ import { Form, FormField } from "@/components/ui/form";
 import Spinner from "@/components/ui/spinner";
 
 //IMPORT UTILS
-import ApiUrls from "@/lib/ApiUrls";
-import { axiosCall } from "@/lib/axiosCall";
+import ApiUrls from "@/lib/api-urls";
+import { axiosCall } from "@/lib/axios-call";
 
 import ServerErrorAlert from "../ServerErrorAlert";
 
