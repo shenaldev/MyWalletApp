@@ -10,14 +10,14 @@ import Spinner from "./components/ui/spinner";
 const AuthRoot = lazy(() => import("./components/roots/AuthRoot"));
 const DashboardRoot = lazy(() => import("./components/roots/DashboardRoot"));
 //IMPORT PAGES
-const AppPage = lazy(() => import("./pages/AppPage"));
-const ProfilePage = lazy(() => import("./pages/ProfilePage"));
-const LoginPage = lazy(() => import("./pages/auth/LoginPage"));
-const RegisterPage = lazy(() => import("./pages/auth/RegisterPage"));
+const AppPage = lazy(() => import("./pages/app-page"));
+const ProfilePage = lazy(() => import("./pages/profile-page"));
+const LoginPage = lazy(() => import("./pages/auth/login-page"));
+const RegisterPage = lazy(() => import("./pages/auth/register-page"));
 const ForgotPasswordPage = lazy(
-  () => import("./pages/auth/ForgotPasswordPage"),
+  () => import("./pages/auth/forgot-password-page"),
 );
-const AnalysisPage = lazy(() => import("./pages/AnalysisPage"));
+const AnalysisPage = lazy(() => import("./pages/analysis-page"));
 
 //CREATE ROUTER
 const router = createBrowserRouter([
