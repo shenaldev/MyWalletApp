@@ -1,5 +1,5 @@
 //IMPORT HOOKS
-import { useCategory, usePaymentMethod } from "@/hooks/api-calls/ApiCalls";
+import { useCategory, usePaymentMethod } from "@/hooks/api-calls";
 import {
   Category,
   InputSelectOption,
