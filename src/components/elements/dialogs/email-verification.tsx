@@ -1,8 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import useTimer from "@/hooks/use-timmer";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { InfoIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -45,7 +45,8 @@ function EmailVerificationDialog({
   setOpen,
   onVerify,
 }: PropTypes) {
-  const { timmer, setTimmer } = useTimer();
+  const { timer, setTimer, reset } = useTimer();
+  const previousEmailRef = useRef<string | null>(null);
 
   //CREATE FORM INSTANCE
   const form = useForm<zod.infer<typeof schema>>({
@@ -59,9 +60,9 @@ function EmailVerificationDialog({
    * Send Email Verification Code Request To the Server
    * with the email address
    */
-  const sendVerificationCode = useQuery({
-    queryKey: ["sendEmailVerificationCode", email],
-    queryFn: async () => {
+  const sendCode = useMutation({
+    mutationKey: ["sendEmailVerificationCode", email],
+    mutationFn: async () => {
       const response = await axiosCall({
         method: "POST",
         urlPath: ApiUrls.auth.sendVerificationEmail,
@@ -69,27 +70,13 @@ function EmailVerificationDialog({
       });
       return response;
     },
-    enabled: false,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-  });
-
-  /**
-   * Show Toast Notification If Error
-   * On Send Verification Code
-   */
-  useEffect(() => {
-    if (sendVerificationCode.isError) {
+    onError: () => {
       toast.error("Failed to send verification email. Please try again!", {
         icon: <InfoIcon className="h-4 w-4" />,
       });
-      setTimmer(0);
-    }
-
-    return () => {
-      toast.dismiss();
-    };
-  }, [sendVerificationCode.isError, setTimmer]);
+      setTimer(0);
+    },
+  });
 
   /**
    * Send Email Verification Code Request To the Server
@@ -111,6 +98,18 @@ function EmailVerificationDialog({
       }
     },
   });
+
+  // Effect to trigger sending the code when dialog opens or email changes
+  useEffect(() => {
+    if (!open || !email || email == "") return;
+
+    if (previousEmailRef.current !== email) {
+      reset();
+      sendCode.mutate();
+      previousEmailRef.current = email;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, email]);
 
   async function onSubmitHandler(data: zod.infer<typeof schema>) {
     validateCode.mutateAsync(data.code);
@@ -166,13 +165,13 @@ function EmailVerificationDialog({
               <Button
                 type="button"
                 variant="secondary"
-                disabled={timmer != 0}
+                disabled={timer != 0}
                 onClick={() => {
-                  setTimmer(60);
-                  sendVerificationCode.refetch();
+                  setTimer(60);
+                  sendCode.mutate();
                 }}
               >
-                Resend Email {timmer ? `in ${timmer}s` : ""}
+                Resend Email {timer ? `in ${timer}s` : ""}
               </Button>
             </DialogFooter>
           </form>
