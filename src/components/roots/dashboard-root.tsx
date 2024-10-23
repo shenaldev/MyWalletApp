@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Toaster } from "sonner";
 
-import { useAuthProvider } from "../providers/auth-provider";
+import { useAuthProvider } from "@/providers/auth-provider";
 
 function DashboardRoot() {
   const { checkToken } = useAuth();

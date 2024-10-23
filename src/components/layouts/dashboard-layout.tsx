@@ -1,8 +1,8 @@
 import { useMediaQuery } from "@/hooks/use-media-query";
 
+import SideBar from "@/components/dashboard/sidebar/sidebar";
+import MobileHeader from "@/components/dashboard/topbar-mobile/mobile-header";
 import TopBar from "@/components/dashboard/topbar/top-bar";
-import MobileHeader from "@/components/dashboard/ui/mobile-header";
-import SideBar from "@/components/dashboard/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 
 type DashboardLayoutProps = {

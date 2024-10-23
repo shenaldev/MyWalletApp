@@ -1,7 +1,7 @@
 import { UserResponse } from "@/types/auth-types";
 import axios, { AxiosResponse } from "axios";
 
-import { useAuthProvider } from "@/components/providers/auth-provider";
+import { useAuthProvider } from "@/providers/auth-provider";
 
 const baseURL = import.meta.env.VITE_API_BASE_URL;
 const axiosOptions = {

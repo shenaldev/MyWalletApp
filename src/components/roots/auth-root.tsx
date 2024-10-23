@@ -3,9 +3,9 @@ import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Toaster } from "sonner";
 
-//IMPORT LAYOUTS AND PROVIDERS
+import { useAuthProvider } from "@/providers/auth-provider";
+
 import AuthLayout from "../layouts/auth-layout";
-import { useAuthProvider } from "../providers/auth-provider";
 
 function AuthRoot() {
   const { user } = useAuthProvider();

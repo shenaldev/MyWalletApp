@@ -1,4 +1,4 @@
-import { useMonthYear } from "@/components/providers/month-year-provider";
+import { useMonthYear } from "@/providers/month-year-provider";
 
 import { cn } from "@/lib/utils";
 

@@ -3,13 +3,12 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ReactDOM from "react-dom/client";
 
-// IMPORT STYLES
 import "./App.css";
 
-// IMPORT PROVIDERS
+import AuthProvider from "@/providers/auth-provider";
+import { ThemeProvider } from "@/providers/theme-provider";
+
 import App from "./App";
-import AuthProvider from "./components/providers/auth-provider";
-import { ThemeProvider } from "./components/providers/theme-provider";
 
 const queryClient = new QueryClient();
 

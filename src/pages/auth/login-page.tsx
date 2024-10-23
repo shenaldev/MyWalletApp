@@ -4,8 +4,8 @@ import { AlertCircle } from "lucide-react";
 import { Link, useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
 
-import LoginForm from "@/components/forms/login-form";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import LoginForm from "@/features/login/login-form";
 
 import getRoute from "@/lib/route-links";
 

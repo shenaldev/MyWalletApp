@@ -3,7 +3,6 @@ import { useMutation } from "@tanstack/react-query";
 import { LogOutIcon, User2Icon } from "lucide-react";
 import { Link } from "react-router-dom";
 
-import { useAuthProvider } from "@/components/providers/auth-provider";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,7 +14,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import LoadingDialog from "../../elements/dialogs/loading";
+import { useAuthProvider } from "@/providers/auth-provider";
+
+import LoadingDialog from "../../dialogs/loading";
 
 function UserDropdown() {
   const { logout } = useAuth();

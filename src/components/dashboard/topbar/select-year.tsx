@@ -2,8 +2,6 @@ import { useMemo } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 
-import { useAuthProvider } from "@/components/providers/auth-provider";
-import { useMonthYear } from "@/components/providers/month-year-provider";
 import {
   Select,
   SelectContent,
@@ -11,6 +9,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
+import { useAuthProvider } from "@/providers/auth-provider";
+import { useMonthYear } from "@/providers/month-year-provider";
 
 import ApiUrls from "@/lib/api-urls";
 import { axiosCall } from "@/lib/axios-call";

@@ -3,14 +3,15 @@ import { useMemo } from "react";
 import { PaymentTotalByCategory, ReportResponse } from "@/types/ReportResponse";
 import { useQuery } from "@tanstack/react-query";
 
-import IncomeExpenseChart from "@/components/dashboard/analysis/income-expense-chat";
-import PaymentTotalCarousel from "@/components/dashboard/analysis/payment-totals-carousel";
-import CategoryIcon from "@/components/dashboard/payment/category-icon";
+import BackButton from "@/components/dashboard/back-button";
 import TopBar from "@/components/dashboard/topbar/top-bar";
-import BackButton from "@/components/dashboard/ui/back-button";
-import { useMonthYear } from "@/components/providers/month-year-provider";
 import { Card, CardContent } from "@/components/ui/card";
 import { CarouselItem } from "@/components/ui/carousel";
+import IncomeExpenseChart from "@/features/analytics/income-expense-chat";
+import PaymentTotalCarousel from "@/features/analytics/payment-totals-carousel";
+import CategoryIcon from "@/features/payments/components/category-icon";
+
+import { useMonthYear } from "@/providers/month-year-provider";
 
 import ApiUrls from "@/lib/api-urls";
 import { axiosCall } from "@/lib/axios-call";

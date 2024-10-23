@@ -2,8 +2,8 @@ import { useState } from "react";
 
 import { Link } from "react-router-dom";
 
-import EmailVerificationDialog from "@/components/elements/dialogs/email-verification";
-import RegisterForm from "@/components/forms/register-form";
+import EmailVerificationDialog from "@/features/register/email-verification-dialog";
+import RegisterForm from "@/features/register/register-form";
 
 import getRoute from "@/lib/route-links";
 

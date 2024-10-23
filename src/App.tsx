@@ -2,14 +2,12 @@ import { lazy, Suspense } from "react";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-//IMPORT PROVIDERS
-import MonthYearProvider from "./components/providers/month-year-provider";
-//IMPORT COMPONENTS
+import MonthYearProvider from "@/providers/month-year-provider";
+
 import Spinner from "./components/ui/spinner";
 
 const AuthRoot = lazy(() => import("./components/roots/auth-root"));
 const DashboardRoot = lazy(() => import("./components/roots/dashboard-root"));
-//IMPORT PAGES
 const AppPage = lazy(() => import("./pages/app-page"));
 const ProfilePage = lazy(() => import("./pages/profile-page"));
 const LoginPage = lazy(() => import("./pages/auth/login-page"));

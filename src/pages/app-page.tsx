@@ -1,9 +1,9 @@
 import { useMediaQuery } from "@/hooks/use-media-query";
 
-import Incomes from "@/components/dashboard/income/incomes";
-import Payments from "@/components/dashboard/payment/payments";
 import DashboardLayout from "@/components/layouts/dashboard-layout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Incomes from "@/features/incomes/incomes";
+import Payments from "@/features/payments/payments";
 
 function AppPage() {
   const isDesktop = useMediaQuery("(min-width: 1024px)");
