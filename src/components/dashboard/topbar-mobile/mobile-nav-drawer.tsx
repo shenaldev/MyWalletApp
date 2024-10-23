@@ -19,7 +19,7 @@ function MobileNavDrawer() {
       <SheetTrigger>
         <MobileMenuIcon isOpen={isOpen} />
       </SheetTrigger>
-      <SheetContent side="left" className="bg-primary dark:bg-slate-950">
+      <SheetContent side="left" className="dark:bg-slate-950">
         <div className="mt-6 flex gap-4 pb-4">
           <SelectYear />
           <UserDropdown />

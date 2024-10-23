@@ -1,9 +1,4 @@
-import { BarChart4Icon } from "lucide-react";
-import { Link } from "react-router-dom";
-
 import { Separator } from "@/components/ui/separator";
-
-import getRoute from "@/lib/route-links";
 
 import NavMenu from "../nav-menu";
 
@@ -21,11 +16,6 @@ function SideBar() {
           Select Month
         </p>
         <NavMenu onChange={() => {}} />
-        <Separator className="my-4" />
-        <div className="flex items-center gap-2 px-3 text-sm">
-          <BarChart4Icon className="size-4" />
-          <Link to={getRoute("analysis")}>Analysis</Link>
-        </div>
       </div>
     </div>
   );

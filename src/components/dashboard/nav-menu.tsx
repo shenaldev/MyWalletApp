@@ -1,8 +1,12 @@
-import { DotIcon } from "lucide-react";
+import { BarChart4Icon, DotIcon } from "lucide-react";
+import { Link } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 
+import { Separator } from "../ui/separator";
 import { useMonthYear } from "@/providers/month-year-provider";
+
+import getRoute from "@/lib/route-links";
 
 const months = [
   "January",
@@ -46,6 +50,11 @@ function NavMenu({ onChange }: NavMenuProps) {
           {month}
         </Button>
       ))}
+      <Separator className="my-4" />
+      <div className="flex items-center gap-2 px-3 text-sm">
+        <BarChart4Icon className="size-4" />
+        <Link to={getRoute("analysis")}>Analysis</Link>
+      </div>
     </nav>
   );
 }

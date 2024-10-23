@@ -36,7 +36,7 @@ function FinanceCard({
         <Button
           variant="ghost"
           size="iconsm"
-          className="rounded-full bg-ternary hover:bg-ternary/80"
+          className="rounded-full bg-secondary hover:bg-secondary/80"
           onClick={onAction}
         >
           <Plus color="white" />

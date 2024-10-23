@@ -10,7 +10,7 @@ type BackButtonProps = {
 
 function BackButton({ className, onClick }: BackButtonProps) {
   const classes = cn(
-    "flex w-28 items-center gap-2 rounded border bg-primary-foreground px-4 py-1 hover:bg-primary hover:text-white",
+    "flex w-28 items-center gap-2 rounded border px-4 py-1 hover:bg-primary hover:text-white",
     className,
   );
 

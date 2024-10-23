@@ -92,7 +92,7 @@ const PaymentCard = ({ expense }: PaymentCardProps) => {
             icon={expense?.icon || "general"}
             className="size-5 dark:stroke-slate-300"
           />
-          <h3 className="font-semibold text-secondary dark:text-slate-300">
+          <h3 className="font-semibold text-slate-600 dark:text-slate-300">
             {expense.name}
           </h3>
         </div>
