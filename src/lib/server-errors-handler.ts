@@ -18,6 +18,13 @@ export default function getServerErrorsArray(
     return errorList;
   } else if (error.response.status == 401) {
     /**********************************
+     * Return Error Message If It's An Auth Page
+     ************************************/
+    if (isAuthPage) {
+      return [error?.response?.data?.message || "An error occurred."];
+    }
+
+    /**********************************
      * Handle Server Errors With Status Code Of 401
      * @returns Redirects To Login Page
      ************************************/
