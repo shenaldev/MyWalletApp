@@ -18,6 +18,11 @@ const ApiUrls = {
     year: "/user/record-years",
     report: "/user/report",
   },
+  password: {
+    forgot: "/forgot-password",
+    verify: "/forget-password-verify",
+    reset: "/reset-password",
+  },
 };
 
 export default ApiUrls;

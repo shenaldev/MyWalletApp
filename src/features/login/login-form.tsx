@@ -5,6 +5,7 @@ import { ApiErrorRes } from "@/types/axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import * as zod from "zod";
 
 import { InputField } from "@/components/form-elements";
@@ -14,6 +15,7 @@ import TextSeperator from "@/components/ui-elements/text-seperator";
 import { Button } from "@/components/ui/button";
 import { Form, FormField } from "@/components/ui/form";
 
+import getRoute from "@/lib/route-links";
 import getServerErrorsArray from "@/lib/server-errors-handler";
 
 const loginSchema = zod.object({
@@ -79,13 +81,21 @@ function LoginForm() {
               />
             )}
           />
-          <FormField
-            control={loginForm.control}
-            name="password"
-            render={({ field }) => (
-              <InputField type="password" label="Password" field={field} />
-            )}
-          />
+          <div>
+            <FormField
+              control={loginForm.control}
+              name="password"
+              render={({ field }) => (
+                <InputField type="password" label="Password" field={field} />
+              )}
+            />
+            <Link
+              to={getRoute("forgot-password")}
+              className="text-sm text-blue-500 block text-right hover:underline"
+            >
+              Forgot password?
+            </Link>
+          </div>
           <Button className="w-full" type="submit" disabled={isPending}>
             {isPending ? "Authenticating..." : "Sign in"}
           </Button>
