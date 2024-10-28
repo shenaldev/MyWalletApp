@@ -35,12 +35,7 @@ export default function useAuth() {
     return axios
       .post(`${baseURL}/${path}`, user, axiosOptions)
       .then((response: AxiosResponse<UserResponse>) => {
-        if (response.status == 201) {
-          if (response.data.user != null) {
-            handleSuccessAuth(response.data);
-            authProvider.logUser && authProvider.logUser(response.data.user);
-          }
-        }
+        handleSuccessResponse(response);
       })
       .catch((error) => {
         throw error;
@@ -57,12 +52,7 @@ export default function useAuth() {
     return axios
       .post(`${baseURL}/${path}`, user, axiosOptions)
       .then((response: AxiosResponse<UserResponse>) => {
-        if (response.status == 201) {
-          if (response.data.user != null) {
-            handleSuccessAuth(response.data);
-            authProvider.logUser && authProvider.logUser(response.data.user);
-          }
-        }
+        handleSuccessResponse(response);
       })
       .catch((error) => {
         throw error;
@@ -101,7 +91,43 @@ export default function useAuth() {
       });
   };
 
-  return { login, register, logout, checkToken };
+  /************************************************************
+   * oAuth login and set user data in local storage
+   * @param path url to oAuth route
+   * @param token oAuth token
+   * @returns axios data | error
+   ************************************************************/
+  const oAuth = async (path: string, token: string) => {
+    return axios
+      .post(
+        `${baseURL}/${path}`,
+        {
+          token: token,
+        },
+        axiosOptions,
+      )
+      .then((response: AxiosResponse<UserResponse>) => {
+        handleSuccessResponse(response);
+      })
+      .catch((error) => {
+        throw error;
+      });
+  };
+
+  /************************************************************
+   * Handle success response from login, register and oAuth
+   * @param response axios response
+   ************************************************************/
+  function handleSuccessResponse(response: AxiosResponse<UserResponse>) {
+    if (response.status == 201) {
+      if (response.data.user != null) {
+        handleSuccessAuth(response.data);
+        authProvider.logUser && authProvider.logUser(response.data.user);
+      }
+    }
+  }
+
+  return { login, register, logout, checkToken, oAuth };
 }
 
 /**
