@@ -27,7 +27,7 @@ import { axiosCall } from "@/lib/axios-call";
 
 const schema = zod.object({
   source: zod.string(),
-  amount: zod.coerce.number().min(1, "Amount must be greater than 0"),
+  amount: zod.coerce.number().min(0.01, "Amount must be greater than 0"),
   date: zod.date(),
   currency: zod.string(),
   note: zod.string().optional(),
@@ -122,6 +122,7 @@ function IncomeForm({ editData, onCreate }: IncomeProps) {
                 field={field}
                 placeholder="1000.99"
                 type="number"
+                attributes={{ step: "0.01" }}
               />
             )}
           />

@@ -17,6 +17,7 @@ type InputTypes = {
   inputClassName?: string;
   wrapperClassName?: string;
   required?: boolean;
+  attributes?: React.InputHTMLAttributes<HTMLInputElement>;
 };
 
 function InputField({
@@ -28,6 +29,7 @@ function InputField({
   inputClassName,
   wrapperClassName,
   required = true,
+  attributes,
 }: InputTypes) {
   return (
     <FormItem
@@ -42,6 +44,7 @@ function InputField({
           type={type}
           className={`${inputClassName != undefined ? inputClassName : ""}`}
           required={required}
+          {...attributes}
         />
       </FormControl>
       <FormMessage />
